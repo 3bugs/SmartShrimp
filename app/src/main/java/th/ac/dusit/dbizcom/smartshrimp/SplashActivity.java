@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 
+import th.ac.dusit.dbizcom.smartshrimp.etc.MyPrefs;
+import th.ac.dusit.dbizcom.smartshrimp.model.User;
+
 public class SplashActivity extends AppCompatActivity {
 
     @Override
@@ -15,7 +18,10 @@ public class SplashActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
+                User user = MyPrefs.getUserPref(SplashActivity.this);
+                Intent intent = user == null ?
+                        (new Intent(SplashActivity.this, LoginActivity.class)) :
+                        (new Intent(SplashActivity.this, MainActivity.class));
                 startActivity(intent);
                 finish();
             }
