@@ -2,6 +2,7 @@ package th.ac.dusit.dbizcom.smartshrimp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -17,6 +18,9 @@ import th.ac.dusit.dbizcom.smartshrimp.net.MyRetrofitCallback;
 import th.ac.dusit.dbizcom.smartshrimp.net.WebServices;
 
 public class LoginActivity extends AppCompatActivity {
+
+    private static final int REQUEST_REGISTER = 10001;
+    static final String KEY_USERNAME = "username";
 
     private EditText mUsernameEditText, mPasswordEditText;
     private View mProgressView;
@@ -35,7 +39,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, REQUEST_REGISTER);
             }
         });
 
@@ -43,7 +47,7 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (validateForm()) {
+                if (isFormValid()) {
                     Utils.hideKeyboard(LoginActivity.this);
                     doLogin();
                 } else {
@@ -53,7 +57,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private boolean validateForm() {
+    private boolean isFormValid() {
         boolean valid = true;
 
         if (mPasswordEditText.getText().toString().trim().length() == 0) {
@@ -80,7 +84,7 @@ public class LoginActivity extends AppCompatActivity {
         WebServices services = retrofit.create(WebServices.class);
 
         Call<LoginResponse> call = services.login(username, password);
-        call.enqueue(new MyRetrofitCallback<LoginResponse>(
+        call.enqueue(new MyRetrofitCallback<>(
                 LoginActivity.this,
                 null,
                 mProgressView,
@@ -108,5 +112,20 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 }
         ));
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_REGISTER) {
+            if (resultCode == RESULT_OK) {
+                if (data != null) {
+                    String username = data.getStringExtra(KEY_USERNAME);
+                    mUsernameEditText.setText(username);
+                    mPasswordEditText.requestFocus();
+                }
+            }
+        }
     }
 }
