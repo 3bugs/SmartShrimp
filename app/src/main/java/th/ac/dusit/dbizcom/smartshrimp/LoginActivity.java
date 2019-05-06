@@ -23,6 +23,7 @@ public class LoginActivity extends AppCompatActivity {
     static final String KEY_USERNAME = "username";
 
     private EditText mUsernameEditText, mPasswordEditText;
+    private Button mLoginButton;
     private View mProgressView;
 
     @Override
@@ -43,8 +44,8 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        Button loginButton = findViewById(R.id.login_button);
-        loginButton.setOnClickListener(new View.OnClickListener() {
+        mLoginButton = findViewById(R.id.login_button);
+        mLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (isFormValid()) {
@@ -79,6 +80,7 @@ public class LoginActivity extends AppCompatActivity {
         String password = mPasswordEditText.getText().toString().trim();
 
         mProgressView.setVisibility(View.VISIBLE);
+        mLoginButton.setEnabled(false);
 
         Retrofit retrofit = ApiClient.getClient();
         WebServices services = retrofit.create(WebServices.class);
@@ -97,18 +99,20 @@ public class LoginActivity extends AppCompatActivity {
                             // แสดง toast
                             Utils.showShortToast(LoginActivity.this, "เข้าสู่ระบบสำเร็จ");
                             // ไปหน้าหลัก
-                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            Intent intent = new Intent(LoginActivity.this, MenuActivity.class);
                             startActivity(intent);
                             // ปิดหน้า login
                             finish();
                         } else { // login ไม่สำเร็จ
                             Utils.showOkDialog(LoginActivity.this, "เข้าสู่ระบบไม่สำเร็จ", "ชื่อผู้ใช้ หรือรหัสผ่าน ไม่ถูกต้อง");
+                            mLoginButton.setEnabled(true);
                         }
                     }
 
                     @Override
                     public void onError(String errorMessage) { // เกิดข้อผิดพลาด (เช่น ไม่มีเน็ต, server ล่ม)
                         Utils.showOkDialog(LoginActivity.this, "ผิดพลาด", errorMessage);
+                        mLoginButton.setEnabled(true);
                     }
                 }
         ));

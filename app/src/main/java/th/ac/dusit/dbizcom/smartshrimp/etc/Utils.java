@@ -2,22 +2,63 @@ package th.ac.dusit.dbizcom.smartshrimp.etc;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Patterns;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class Utils {
 
     public static void showOkDialog(Context context, String title, String msg) {
-        new AlertDialog.Builder(context)
+        AlertDialog alertDialog = new AlertDialog.Builder(context)
                 .setTitle(title)
                 .setMessage(msg)
                 .setPositiveButton("OK", null)
-                .show();
+                .create();
+        alertDialog.show();
+
+        TextView titleTextView = new TextView(context);
+        Typeface typeface = Typeface.createFromAsset(
+                context.getAssets(),
+                "fonts/arabica.ttf"
+        );
+        titleTextView.setLayoutParams(
+                new ViewGroup.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT
+                )
+        );
+        titleTextView.setTextColor(Color.RED);
+        titleTextView.setGravity(Gravity.START);
+        titleTextView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 24);
+        titleTextView.setTypeface(typeface);
+        //titleTextView.setBackgroundColor(Color.YELLOW);
+        //titleTextView.setPadding(15, 25, 15, 15);
+        titleTextView.setText(title);
+        titleTextView.setTextColor(Color.BLACK);
+        alertDialog.setCustomTitle(titleTextView);
+
+        /*Window alertDialogWindow = alertDialog.getWindow();
+        if (alertDialogWindow != null) {
+            TextView textView = alertDialogWindow.findViewById(android.R.id.message);
+            TextView alertTitle = alertDialogWindow.findViewById(R.id.alertTitle);
+            Button button1 = alertDialogWindow.findViewById(android.R.id.button1);
+            Button button2 = alertDialogWindow.findViewById(android.R.id.button2);
+
+            textView.setTypeface(FontHelper.getFont(Fonts.MULI_REGULAR));
+            alertTitle.setTypeface(FontHelper.getFont(Fonts.MULI_REGULAR));
+            button1.setTypeface(FontHelper.getFont(Fonts.MULI_BOLD));
+            button2.setTypeface(FontHelper.getFont(Fonts.MULI_BOLD));
+        }*/
     }
 
     public static void showShortToast(Context context, String msg) {

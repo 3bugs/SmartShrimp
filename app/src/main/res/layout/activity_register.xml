@@ -117,16 +117,12 @@
 
     <Button
         android:id="@+id/register_button"
+        style="@style/Button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="64dp"
         android:layout_marginTop="32dp"
-        android:background="@drawable/bg_button"
-        android:foreground="?attr/selectableItemBackground"
         android:text="สมัครสมาชิก"
-        android:textColor="@android:color/white"
-        android:textSize="22sp"
-        app:fontFamily="@font/arabica"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/email_edit_text"
         app:layout_constraintHorizontal_bias="0.5"
@@ -148,7 +144,7 @@
 
         <ProgressBar
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"/>
 
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

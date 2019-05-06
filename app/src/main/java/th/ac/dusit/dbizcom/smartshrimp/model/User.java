@@ -19,4 +19,9 @@ public class User {
         this.email = email;
         this.createdAt = createdAt;
     }
+
+    @Override
+    public String toString() {
+        return this.username;
+    }
 }

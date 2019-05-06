@@ -22,6 +22,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private EditText mEmailEditText, mUsernameEditText;
     private EditText mPasswordEditText, mConfirmPasswordEditText;
+    private Button mRegisterButton;
     private View mProgressView;
 
     @Override
@@ -35,8 +36,8 @@ public class RegisterActivity extends AppCompatActivity {
         mConfirmPasswordEditText = findViewById(R.id.confirm_password_edit_text);
         mProgressView = findViewById(R.id.progress_view);
 
-        Button registerButton = findViewById(R.id.register_button);
-        registerButton.setOnClickListener(new View.OnClickListener() {
+        mRegisterButton = findViewById(R.id.register_button);
+        mRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (isFormValid()) {
@@ -94,6 +95,7 @@ public class RegisterActivity extends AppCompatActivity {
         String email = mEmailEditText.getText().toString().trim();
 
         mProgressView.setVisibility(View.VISIBLE);
+        mRegisterButton.setEnabled(false);
 
         Retrofit retrofit = ApiClient.getClient();
         WebServices services = retrofit.create(WebServices.class);
@@ -117,6 +119,7 @@ public class RegisterActivity extends AppCompatActivity {
                     @Override
                     public void onError(String errorMessage) { // register ไม่สำเร็จ หรือเกิดข้อผิดพลาดอื่นๆ (เช่น ไม่มีเน็ต, server ล่ม)
                         Utils.showOkDialog(RegisterActivity.this, "ผิดพลาด", errorMessage);
+                        mRegisterButton.setEnabled(true);
                     }
                 }
         ));

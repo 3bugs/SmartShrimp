@@ -1,44 +1,76 @@
 package th.ac.dusit.dbizcom.smartshrimp;
 
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.TextView;
 
-import th.ac.dusit.dbizcom.smartshrimp.etc.MyPrefs;
+import th.ac.dusit.dbizcom.smartshrimp.fragment.FarmInfoFragment;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements
+        FarmInfoFragment.FarmInfoFragmentListener {
+
+    static final String KEY_FRAGMENT = "fragment";
+    static final String TAG_FRAGMENT_FARM_INFO = "farm_info_fragment";
+    static final String TAG_FRAGMENT_FEEDING_RECORD = "feeding_record_fragment";
+    static final String TAG_FRAGMENT_WATER_QUALITY = "water_quality_fragment";
+    static final String TAG_FRAGMENT_BREED_SOURCE = "breed_source_fragment";
+    static final String TAG_FRAGMENT_FORMULA = "formula_fragment";
+    static final String TAG_FRAGMENT_SUMMARY = "summary_fragment";
+    static final String TAG_FRAGMENT_REPORT = "report_fragment";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ViewGroup logoutLayout = findViewById(R.id.logout_layout);
-        logoutLayout.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.home_image_view).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new AlertDialog.Builder(MainActivity.this)
-                        .setTitle("ออกจากระบบ")
-                        .setMessage("ยืนยันออกจากระบบ?")
-                        .setPositiveButton("ตกลง", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                // ลบ user ที่จำไว้
-                                MyPrefs.setUserPref(MainActivity.this, null);
-                                // ไปหน้า login
-                                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                                startActivity(intent);
-                                // ปิดหน้าปัจจุบัน
-                                finish();
-                            }
-                        })
-                        .setNegativeButton("ยกเลิก", null)
-                        .show();
+                finish();
             }
         });
+
+        TextView titleTextView = findViewById(R.id.title_text_view);
+
+        String fragmentTag = getIntent().getStringExtra(KEY_FRAGMENT);
+        Fragment fragment = null;
+        switch (fragmentTag) {
+            case TAG_FRAGMENT_FARM_INFO:
+                fragment = new FarmInfoFragment();
+                titleTextView.setText("ข้อมูลฟาร์ม");
+                break;
+            case TAG_FRAGMENT_FEEDING_RECORD:
+                //fragment = new FeedingRecordFragment();
+                titleTextView.setText("บันทึกการให้อาหารกุ้ง");
+                break;
+            case TAG_FRAGMENT_WATER_QUALITY:
+                //fragment = new WaterQualityFragment();
+                titleTextView.setText("คุณภาพน้ำในบ่อเลี้ยง");
+                break;
+            case TAG_FRAGMENT_BREED_SOURCE:
+                //fragment = new BreedSourceFragment();
+                titleTextView.setText("แหล่งพันธุ์ลูกกุ้ง");
+                break;
+            case TAG_FRAGMENT_FORMULA:
+                //fragment = new FormulaMainFragment();
+                titleTextView.setText("สูตรคำนวณ");
+                break;
+            case TAG_FRAGMENT_SUMMARY:
+                //fragment = new SummaryFragment();
+                titleTextView.setText("สรุปผลการเลี้ยง");
+                break;
+            case TAG_FRAGMENT_REPORT:
+                //fragment = new ReportFragment();
+                titleTextView.setText("รายงานข้อมูล");
+                break;
+        }
+
+        if (fragment != null) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, fragment)
+                    .commit();
+        }
     }
 }

@@ -21,7 +21,7 @@ public class SplashActivity extends AppCompatActivity {
                 User user = MyPrefs.getUserPref(SplashActivity.this);
                 Intent intent = user == null ?
                         (new Intent(SplashActivity.this, LoginActivity.class)) :
-                        (new Intent(SplashActivity.this, MainActivity.class));
+                        (new Intent(SplashActivity.this, MenuActivity.class));
                 startActivity(intent);
                 finish();
             }
