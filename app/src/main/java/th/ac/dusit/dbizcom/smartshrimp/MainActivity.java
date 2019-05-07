@@ -7,9 +7,11 @@ import android.view.View;
 import android.widget.TextView;
 
 import th.ac.dusit.dbizcom.smartshrimp.fragment.FarmInfoFragment;
+import th.ac.dusit.dbizcom.smartshrimp.fragment.FeedingRecordFragment;
 
 public class MainActivity extends AppCompatActivity implements
-        FarmInfoFragment.FarmInfoFragmentListener {
+        FarmInfoFragment.FarmInfoFragmentListener,
+        FeedingRecordFragment.FeedingRecordFragmentListener {
 
     static final String KEY_FRAGMENT = "fragment";
     static final String TAG_FRAGMENT_FARM_INFO = "farm_info_fragment";

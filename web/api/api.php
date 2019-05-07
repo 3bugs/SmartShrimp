@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once 'global.php';
 
 error_reporting(E_ERROR | E_PARSE);
@@ -27,11 +28,14 @@ if ($db->connect_errno) {
 }
 $db->set_charset("utf8");
 
-sleep(1); //todo:
+//sleep(1); //todo:
 
 switch ($action) {
     case 'login':
         doLogin();
+        break;
+    case 'logout':
+        doLogout();
         break;
     case 'register':
         doRegister();
@@ -63,10 +67,15 @@ function doLogin()
             $response[KEY_ERROR_MESSAGE] = '';
             $response[KEY_ERROR_MESSAGE_MORE] = '';
             $response[KEY_LOGIN_SUCCESS] = TRUE;
-            $response['user'] = fetchUser($selectUserResult);
+            $user = fetchUser($selectUserResult);
+            $response['user'] = $user;
+
+            $_SESSION[KEY_SESSION_USER_ID] = $user['id'];
+            $_SESSION[KEY_SESSION_USER_USERNAME] = $user['username'];
+            $_SESSION[KEY_SESSION_USER_EMAIL] = $user['email'];
         } else {
             $response[KEY_ERROR_CODE] = ERROR_CODE_SUCCESS;
-            $response[KEY_ERROR_MESSAGE] = '';
+            $response[KEY_ERROR_MESSAGE] = 'ชื่อผู้ใช้ หรือรหัสผ่าน ไม่ถูกต้อง';
             $response[KEY_ERROR_MESSAGE_MORE] = '';
             $response[KEY_LOGIN_SUCCESS] = FALSE;
         }
@@ -77,6 +86,15 @@ function doLogin()
         $errMessage = $db->error;
         $response[KEY_ERROR_MESSAGE_MORE] = "$errMessage\nSQL: $selectUserSql";
     }
+}
+
+function doLogout() {
+    global $response;
+
+    session_destroy();
+    $response[KEY_ERROR_CODE] = ERROR_CODE_SUCCESS;
+    $response[KEY_ERROR_MESSAGE] = 'ออกจากระบบสำเร็จ';
+    $response[KEY_ERROR_MESSAGE_MORE] = '';
 }
 
 function fetchUser($selectUserResult)
