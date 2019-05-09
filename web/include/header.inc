@@ -50,7 +50,9 @@
                                     <a class="btn btn-default btn-flat" href="#">Profile</a>
                                 </div>-->
                                 <div class="pull-right">
-                                    <a id="logoutButton" class="btn btn-default btn-flat" href="#">ออกจากระบบ</a>
+                                    <a id="logoutButton" class="btn btn-default btn-flat" href="#">
+                                        <i class="fa fa-sign-out"></i> ออกจากระบบ
+                                    </a>
                                 </div>
                             </li>
                         </ul>

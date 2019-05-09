@@ -102,7 +102,7 @@ if (isset($_SESSION[KEY_SESSION_USER_ID])) {
     </div>
     <!-- /.content-wrapper -->
 
-    <?php //require_once('include/footer.inc'); ?>
+    <?php require_once('include/footer.inc'); ?>
 </div>
 <!-- ./wrapper -->
 
