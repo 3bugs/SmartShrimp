@@ -16,14 +16,7 @@ session_start();
 <head>
     <?php require_once('include/head.inc'); ?>
     <style>
-        body.modal-open .modal {
-            display: flex !important;
-            height: 100%;
-        }
 
-        body.modal-open .modal .modal-dialog {
-            margin: auto;
-        }
     </style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -72,7 +65,6 @@ session_start();
                     <!-- Modal -->
                     <div class="modal fade" id="loginModal" role="dialog">
                         <div class="modal-dialog modal-md">
-
                             <!-- Modal content-->
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -127,7 +119,6 @@ session_start();
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                 </div>-->
                             </div>
-
                         </div>
                     </div>
                 </div>

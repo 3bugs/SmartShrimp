@@ -40,6 +40,12 @@ switch ($action) {
     case 'register':
         doRegister();
         break;
+    case 'save_farm_info':
+        doSaveFarmInfo();
+        break;
+    case 'add_pond':
+        doAddPond();
+        break;
     default:
         $response[KEY_ERROR_CODE] = ERROR_CODE_ERROR;
         $response[KEY_ERROR_MESSAGE] = 'No action specified or invalid action.';
@@ -88,7 +94,8 @@ function doLogin()
     }
 }
 
-function doLogout() {
+function doLogout()
+{
     global $response;
 
     session_destroy();
@@ -147,6 +154,76 @@ function doRegister()
         $response[KEY_ERROR_MESSAGE] = 'เกิดข้อผิดพลาดในการบันทึกข้อมูล';
         $errMessage = $db->error;
         $response[KEY_ERROR_MESSAGE_MORE] = "$errMessage\nSQL: $insertUserSql";
+    }
+}
+
+function doSaveFarmInfo()
+{
+    global $db, $response;
+
+    $farmName = $db->real_escape_string($_POST['farmName']);
+    $address = $db->real_escape_string($_POST['address']);
+    $subDistrict = $db->real_escape_string($_POST['subDistrict']);
+    $district = $db->real_escape_string($_POST['district']);
+    $province = $db->real_escape_string($_POST['province']);
+    $postalCode = $db->real_escape_string($_POST['postalCode']);
+    $farmRegId = $db->real_escape_string($_POST['farmRegId']);
+
+    $selectExistingFarmSQL = "SELECT * FROM `farm`";
+    $selectExistingFarmResult = $db->query($selectExistingFarmSQL);
+    $count = $selectExistingFarmResult->num_rows;
+    $selectExistingFarmResult->close();
+    if ($count > 0) {
+        $sql = "UPDATE `farm` SET name='$farmName', address='$address', sub_district='$subDistrict', district='$district', province='$province', postal_code='$postalCode', farm_reg_id='$farmRegId'";
+    } else {
+        $sql = "INSERT INTO `farm` (name, address, sub_district, district, province, postal_code, farm_reg_id) VALUES ('$farmName', '$address', '$subDistrict', '$district', '$province', '$postalCode', '$farmRegId')";
+    }
+    if ($db->query($sql)) {
+        $response[KEY_ERROR_CODE] = ERROR_CODE_SUCCESS;
+        $response[KEY_ERROR_MESSAGE] = 'บันทึกข้อมูลฟาร์มสำเร็จ';
+        $response[KEY_ERROR_MESSAGE_MORE] = '';
+    } else {
+        $response[KEY_ERROR_CODE] = ERROR_CODE_ERROR;
+        $response[KEY_ERROR_MESSAGE] = 'เกิดข้อผิดพลาดในการบันทึกข้อมูลฟาร์ม';
+        $errMessage = $db->error;
+        $response[KEY_ERROR_MESSAGE_MORE] = "$errMessage\nSQL: $sql";
+    }
+}
+
+function doAddPond()
+{
+    global $db, $response;
+
+    $pondNumber = $db->real_escape_string($_POST['pondNumber']);
+    $pondArea = $db->real_escape_string($_POST['pondArea']);
+
+    if ($pondNumber <= 0) {
+        $response[KEY_ERROR_CODE] = ERROR_CODE_ERROR;
+        $response[KEY_ERROR_MESSAGE] = 'หมายเลขบ่อต้องเป็นเลขบวก (1, 2, 3, ...)';
+        $response[KEY_ERROR_MESSAGE_MORE] = '';
+        return;
+    }
+
+    $selectExistingPondNumberSQL = "SELECT * FROM `pond` WHERE `number`=$pondNumber";
+    $selectExistingPondNumberResult = $db->query($selectExistingPondNumberSQL);
+    $count = $selectExistingPondNumberResult->num_rows;
+    $selectExistingPondNumberResult->close();
+    if ($count > 0) {
+        $response[KEY_ERROR_CODE] = ERROR_CODE_ERROR;
+        $response[KEY_ERROR_MESSAGE] = 'ไม่สามารถเพิ่มข้อมูลบ่อได้ เนื่องจากมีหมายเลขบ่อที่ระบุแล้ว (หมายเลขบ่อห้ามซ้ำ)';
+        $response[KEY_ERROR_MESSAGE_MORE] = '';
+    } else {
+        $sql = "INSERT INTO `pond` (number, area) VALUES ($pondNumber, $pondArea)";
+        if ($db->query($sql)) {
+            $response[KEY_ERROR_CODE] = ERROR_CODE_SUCCESS;
+            $response[KEY_ERROR_MESSAGE] = 'เพิ่มข้อมูลบ่อเลี้ยงสำเร็จ';
+            $response[KEY_ERROR_MESSAGE_MORE] = '';
+        } else {
+            $response[KEY_ERROR_CODE] = ERROR_CODE_ERROR;
+            $response[KEY_ERROR_MESSAGE] = 'เกิดข้อผิดพลาดในการบันทึกข้อมูลบ่อเลี้ยง';
+            $errMessage = $db->error;
+            $response[KEY_ERROR_MESSAGE_MORE] = "$errMessage\nSQL: $sql";
+        }
     }
 }
 

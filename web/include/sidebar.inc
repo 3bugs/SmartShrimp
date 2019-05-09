@@ -4,11 +4,19 @@
     <section class="sidebar">
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu" data-widget="tree">
-            <li>
+            <li class="treeview">
                 <a href="#">
                     <i class="fa fa-info-circle"></i> <span>ข้อมูลฟาร์ม</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
                 </a>
+                <ul class="treeview-menu">
+                    <li style="margin-left: 20px"><a href="farm_info.php"><i class="fa fa-circle-o"></i> ข้อมูลฟาร์ม</a></li>
+                    <li style="margin-left: 20px"><a href="pond_info.php"><i class="fa fa-circle-o"></i> ข้อมูลบ่อเลี้ยง</a></li>
+                </ul>
             </li>
+
             <li>
                 <a href="#">
                     <i class="fa fa-bug"></i> <span>แหล่งพันธุ์ลูกกุ้ง</span>
@@ -93,7 +101,7 @@
         // Sets active link in Bootstrap menu
         // Add this code in a central place used\shared by all pages
         // like your _Layout.cshtml in ASP.NET MVC for example
-        const url = (location.pathname+location.search).substr(1);
+        const url = (location.pathname + location.search).substr(1);
         $('a[href="' + url + '"]').parents('li,ul').addClass('active');
         //alert(url);
     });

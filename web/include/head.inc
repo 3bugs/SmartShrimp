@@ -48,3 +48,15 @@
 <script>
     $.widget.bridge('uibutton', $.ui.button);
 </script>
+<style>
+    body.modal-open .modal {
+        display: flex !important;
+        height: 100%;
+    }
+    body.modal-open .modal .modal-dialog {
+        margin: auto;
+    }
+    .box-body {
+       padding: 20px;
+    }
+</style>

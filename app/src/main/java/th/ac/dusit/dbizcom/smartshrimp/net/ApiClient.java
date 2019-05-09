@@ -11,7 +11,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
 
-    private static final String BASE_URL = "http://192.168.1.9/smart_shrimp/api/api.php/";
+    private static final String BASE_URL = "http://5911011802008.msci.dusit.ac.th/smart_shrimp/api/api.php/";
 
     private static Retrofit retrofit = null;
 
