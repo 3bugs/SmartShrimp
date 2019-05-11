@@ -146,9 +146,9 @@ if ($result = $db->query($sql)) {
                                 <table id="example1" class="table table-bordered table-striped">
                                     <thead>
                                     <tr>
-                                        <th style="text-align: center">บ่อที่</th>
-                                        <th style="text-align: center">พื้นที่บ่อ (ไร่)</th>
-                                        <th style="width: 10px; text-align: center">จัดการ</th>
+                                        <th style="width: 50%; text-align: center">บ่อที่</th>
+                                        <th style="width: 50%; text-align: center">พื้นที่บ่อ (ไร่)</th>
+                                        <th style="text-align: center" nowrap>จัดการ</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -168,9 +168,16 @@ if ($result = $db->query($sql)) {
                                             <tr style="">
                                                 <td style="vertical-align: middle; text-align: center"><?php echo $pondNumber; ?></td>
                                                 <td style="vertical-align: middle; text-align: center"><?php echo $pondArea; ?></td>
-                                                <td style="width: 10px; text-align: center">
+                                                <td style="text-align: center" nowrap>
+                                                    <button type="button" class="btn btn-warning"
+                                                            style="margin-left: 6px; margin-right: 3px;"
+                                                            onclick="onClickEdit(this, <?php echo $pondId; ?>)">
+                                                        <span class="fa fa-edit"></span>&nbsp;
+                                                        แก้ไข
+                                                    </button>
                                                     <button type="button" class="btn btn-danger"
-                                                            onclick="onClickDetails(this, <?php echo $pondId; ?>)">
+                                                            style="margin-left: 3px; margin-right: 6px;"
+                                                            onclick="onClickDelete(this, <?php echo $pondId; ?>)">
                                                         <span class="fa fa-remove"></span>&nbsp;
                                                         ลบ
                                                     </button>

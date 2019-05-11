@@ -2,9 +2,9 @@
     <!-- Logo -->
     <a class="logo" href="index.php">
         <!-- mini logo for sidebar mini 50x50 pixels -->
-        <span class="logo-mini"><b>SS</b></span>
+        <span class="logo-mini"><b>SSF</b></span>
         <!-- logo for regular state and mobile devices -->
-        <span class="logo-lg"><b>S</b>MART <b>S</b>HRIMP</span>
+        <span class="logo-lg"><b>S</b>mart <b>S</b>hrimp <b>F</b>arm</span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">

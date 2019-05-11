@@ -3,20 +3,12 @@
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
         <!-- sidebar menu: : style can be found in sidebar.less -->
-        <ul class="sidebar-menu" data-widget="tree">
-            <li class="treeview">
-                <a href="#">
-                    <i class="fa fa-info-circle"></i> <span>ข้อมูลฟาร์ม</span>
-                    <span class="pull-right-container">
-                        <i class="fa fa-angle-left pull-right"></i>
-                    </span>
+        <ul class="sidebar-menu" data-widget="tree" style="margin-top: 10px">
+            <li>
+                <a href="farm_info.php">
+                    <i class="fa fa-info-circle"></i> <span>ข้อมูลฟาร์ม/บ่อเลี้ยง</span>
                 </a>
-                <ul class="treeview-menu">
-                    <li style="margin-left: 20px"><a href="farm_info.php"><i class="fa fa-circle-o"></i> ข้อมูลฟาร์ม</a></li>
-                    <li style="margin-left: 20px"><a href="pond_info.php"><i class="fa fa-circle-o"></i> ข้อมูลบ่อเลี้ยง</a></li>
-                </ul>
             </li>
-
             <li>
                 <a href="#">
                     <i class="fa fa-bug"></i> <span>แหล่งพันธุ์ลูกกุ้ง</span>

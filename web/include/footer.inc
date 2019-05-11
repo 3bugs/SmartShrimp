@@ -2,5 +2,5 @@
     <div class="pull-right hidden-xs">
         <b>Version</b> 1.0
     </div>
-    <strong>สงวนลิขสิทธิ์ 2562 <a href="javascript:void(0);" target="_blank">SMART SHRIMP</a></strong>
+    <strong>สงวนลิขสิทธิ์ 2562 <a href="http://www.smartshrimpfarm.com/" target="_blank">SMART SHRIMP FARM</a></strong>
 </footer>

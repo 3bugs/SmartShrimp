@@ -3,6 +3,7 @@ package th.ac.dusit.dbizcom.smartshrimp.net;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 public interface WebServices {
@@ -20,5 +21,9 @@ public interface WebServices {
             @Field("username") String username,
             @Field("password") String password,
             @Field("email") String email
+    );
+
+    @GET("get_farm_info")
+    Call<GetFarmInfoResponse> getFarmInfo(
     );
 }

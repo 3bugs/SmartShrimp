@@ -40,11 +40,20 @@ switch ($action) {
     case 'register':
         doRegister();
         break;
+    case 'get_farm_info':
+        doGetFarmInfo();
+        break;
     case 'save_farm_info':
         doSaveFarmInfo();
         break;
     case 'add_pond':
         doAddPond();
+        break;
+    case 'update_pond':
+        doUpdatePond();
+        break;
+    case 'delete_pond':
+        doDeletePond();
         break;
     default:
         $response[KEY_ERROR_CODE] = ERROR_CODE_ERROR;
@@ -157,6 +166,37 @@ function doRegister()
     }
 }
 
+function doGetFarmInfo()
+{
+    global $db, $response;
+
+    $sql = "SELECT * FROM `farm`";
+    if ($result = $db->query($sql)) {
+        $response[KEY_ERROR_CODE] = ERROR_CODE_SUCCESS;
+        $response[KEY_ERROR_MESSAGE] = 'อ่านข้อมูลฟาร์มสำเร็จ';
+        $response[KEY_ERROR_MESSAGE_MORE] = '';
+
+        $farmList = array();
+        while ($row = $result->fetch_assoc()) {
+            $farm = array();
+            $farm['name'] = $row['name'];
+            $farm['address'] = $row['address'];
+            $farm['sub_district'] = $row['sub_district'];
+            $farm['district'] = $row['district'];
+            $farm['province'] = $row['province'];
+            $farm['postal_code'] = $row['postal_code'];
+            $farm['farm_reg_id'] = $row['farm_reg_id'];
+            array_push($farmList, $farm);
+        }
+        $response[KEY_DATA_LIST] = $farmList;
+    } else {
+        $response[KEY_ERROR_CODE] = ERROR_CODE_ERROR;
+        $response[KEY_ERROR_MESSAGE] = 'เกิดข้อผิดพลาดในการอ่านข้อมูลฟาร์ม';
+        $errMessage = $db->error;
+        $response[KEY_ERROR_MESSAGE_MORE] = "$errMessage\nSQL: $sql";
+    }
+}
+
 function doSaveFarmInfo()
 {
     global $db, $response;
@@ -224,6 +264,60 @@ function doAddPond()
             $errMessage = $db->error;
             $response[KEY_ERROR_MESSAGE_MORE] = "$errMessage\nSQL: $sql";
         }
+    }
+}
+
+function doUpdatePond()
+{
+    global $db, $response;
+
+    $pondId = (int)$db->real_escape_string($_POST['pondId']);
+    $pondNumber = $db->real_escape_string($_POST['pondNumber']);
+    $pondArea = $db->real_escape_string($_POST['pondArea']);
+
+    $selectExistingPondNumberSQL = "SELECT * FROM `pond` WHERE `number`=$pondNumber";
+    $selectExistingPondNumberResult = $db->query($selectExistingPondNumberSQL);
+    if ($selectExistingPondNumberResult->num_rows > 0) {
+        $row = $selectExistingPondNumberResult->fetch_assoc();
+        if ($pondId !== (int)$row['id']) {
+            $response[KEY_ERROR_CODE] = ERROR_CODE_ERROR;
+            $response[KEY_ERROR_MESSAGE] = 'ไม่สามารถบันทึกข้อมูลบ่อได้ เนื่องจากมีหมายเลขบ่อที่ระบุแล้ว (หมายเลขบ่อห้ามซ้ำ)';
+            $response[KEY_ERROR_MESSAGE_MORE] = '';
+            $selectExistingPondNumberResult->close();
+            return;
+        }
+    }
+    $selectExistingPondNumberResult->close();
+
+    $sql = "UPDATE `pond` SET number=$pondNumber, area=$pondArea WHERE id=$pondId";
+    if ($db->query($sql)) {
+        $response[KEY_ERROR_CODE] = ERROR_CODE_SUCCESS;
+        $response[KEY_ERROR_MESSAGE] = 'แก้ไขข้อมูลบ่อเลี้ยงสำเร็จ';
+        $response[KEY_ERROR_MESSAGE_MORE] = '';
+    } else {
+        $response[KEY_ERROR_CODE] = ERROR_CODE_ERROR;
+        $response[KEY_ERROR_MESSAGE] = 'เกิดข้อผิดพลาดในการบันทึกข้อมูลบ่อเลี้ยง';
+        $errMessage = $db->error;
+        $response[KEY_ERROR_MESSAGE_MORE] = "$errMessage\nSQL: $sql";
+    }
+}
+
+function doDeletePond()
+{
+    global $db, $response;
+
+    $pondId = $db->real_escape_string($_POST['pondId']);
+
+    $sql = "DELETE FROM `pond` WHERE id=$pondId";
+    if ($db->query($sql)) {
+        $response[KEY_ERROR_CODE] = ERROR_CODE_SUCCESS;
+        $response[KEY_ERROR_MESSAGE] = 'ลบข้อมูลบ่อเลี้ยงสำเร็จ';
+        $response[KEY_ERROR_MESSAGE_MORE] = '';
+    } else {
+        $response[KEY_ERROR_CODE] = ERROR_CODE_ERROR;
+        $response[KEY_ERROR_MESSAGE] = 'เกิดข้อผิดพลาดในการลบข้อมูลบ่อเลี้ยง';
+        $errMessage = $db->error;
+        $response[KEY_ERROR_MESSAGE_MORE] = "$errMessage\nSQL: $sql";
     }
 }
 

@@ -41,7 +41,6 @@ public class MainActivity extends AppCompatActivity implements
         switch (fragmentTag) {
             case TAG_FRAGMENT_FARM_INFO:
                 fragment = new FarmInfoFragment();
-                titleTextView.setText("ข้อมูลฟาร์ม");
                 break;
             case TAG_FRAGMENT_FEEDING_RECORD:
                 //fragment = new FeedingRecordFragment();
@@ -74,5 +73,11 @@ public class MainActivity extends AppCompatActivity implements
                     .replace(R.id.fragment_container, fragment)
                     .commit();
         }
+    }
+
+    @Override
+    public void setTitle(String title) {
+        TextView titleTextView = findViewById(R.id.title_text_view);
+        titleTextView.setText(title);
     }
 }
