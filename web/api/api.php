@@ -46,6 +46,9 @@ switch ($action) {
     case 'save_farm_info':
         doSaveFarmInfo();
         break;
+    case 'get_pond':
+        doGetPond();
+        break;
     case 'add_pond':
         doAddPond();
         break;
@@ -230,12 +233,41 @@ function doSaveFarmInfo()
     }
 }
 
+function doGetPond()
+{
+    global $db, $response;
+
+    $sql = "SELECT * FROM `pond` ORDER BY `number`";
+    if ($result = $db->query($sql)) {
+        $response[KEY_ERROR_CODE] = ERROR_CODE_SUCCESS;
+        $response[KEY_ERROR_MESSAGE] = 'อ่านข้อมูลบ่อเลี้ยงสำเร็จ';
+        $response[KEY_ERROR_MESSAGE_MORE] = '';
+
+        $pondList = array();
+        while ($row = $result->fetch_assoc()) {
+            $pond = array();
+            $pond['id'] = (int)$row['id'];
+            $pond['number'] = (int)$row['number'];
+            $pond['area'] = (int)$row['area'];
+            $pond['initial_shrimp_count'] = (int)$row['initial_shrimp_count'];
+            array_push($pondList, $pond);
+        }
+        $response[KEY_DATA_LIST] = $pondList;
+    } else {
+        $response[KEY_ERROR_CODE] = ERROR_CODE_ERROR;
+        $response[KEY_ERROR_MESSAGE] = 'เกิดข้อผิดพลาดในการอ่านข้อมูลบ่อเลี้ยง';
+        $errMessage = $db->error;
+        $response[KEY_ERROR_MESSAGE_MORE] = "$errMessage\nSQL: $sql";
+    }
+}
+
 function doAddPond()
 {
     global $db, $response;
 
     $pondNumber = $db->real_escape_string($_POST['pondNumber']);
     $pondArea = $db->real_escape_string($_POST['pondArea']);
+    $initialShrimpCount = $db->real_escape_string($_POST['initialShrimpCount']);
 
     if ($pondNumber <= 0) {
         $response[KEY_ERROR_CODE] = ERROR_CODE_ERROR;
@@ -253,7 +285,7 @@ function doAddPond()
         $response[KEY_ERROR_MESSAGE] = 'ไม่สามารถเพิ่มข้อมูลบ่อได้ เนื่องจากมีหมายเลขบ่อที่ระบุแล้ว (หมายเลขบ่อห้ามซ้ำ)';
         $response[KEY_ERROR_MESSAGE_MORE] = '';
     } else {
-        $sql = "INSERT INTO `pond` (number, area) VALUES ($pondNumber, $pondArea)";
+        $sql = "INSERT INTO `pond` (number, area, initial_shrimp_count) VALUES ($pondNumber, $pondArea, $initialShrimpCount)";
         if ($db->query($sql)) {
             $response[KEY_ERROR_CODE] = ERROR_CODE_SUCCESS;
             $response[KEY_ERROR_MESSAGE] = 'เพิ่มข้อมูลบ่อเลี้ยงสำเร็จ';
@@ -274,6 +306,7 @@ function doUpdatePond()
     $pondId = (int)$db->real_escape_string($_POST['pondId']);
     $pondNumber = $db->real_escape_string($_POST['pondNumber']);
     $pondArea = $db->real_escape_string($_POST['pondArea']);
+    $initialShrimpCount = $db->real_escape_string($_POST['initialShrimpCount']);
 
     $selectExistingPondNumberSQL = "SELECT * FROM `pond` WHERE `number`=$pondNumber";
     $selectExistingPondNumberResult = $db->query($selectExistingPondNumberSQL);
@@ -289,7 +322,7 @@ function doUpdatePond()
     }
     $selectExistingPondNumberResult->close();
 
-    $sql = "UPDATE `pond` SET number=$pondNumber, area=$pondArea WHERE id=$pondId";
+    $sql = "UPDATE `pond` SET number=$pondNumber, area=$pondArea, initial_shrimp_count=$initialShrimpCount WHERE id=$pondId";
     if ($db->query($sql)) {
         $response[KEY_ERROR_CODE] = ERROR_CODE_SUCCESS;
         $response[KEY_ERROR_MESSAGE] = 'แก้ไขข้อมูลบ่อเลี้ยงสำเร็จ';

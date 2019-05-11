@@ -48,6 +48,7 @@ if ($result = $db->query($sql)) {
         $pond['id'] = (int)$row['id'];
         $pond['number'] = (int)$row['number'];
         $pond['area'] = (int)$row['area'];
+        $pond['initial_shrimp_count'] = (int)$row['initial_shrimp_count'];
         array_push($pondList, $pond);
     }
     $result->close();
@@ -106,6 +107,20 @@ if ($result = $db->query($sql)) {
                                            id="inputPondArea"
                                            placeholder="กรอกพื้นที่บ่อ (ไร่)" required
                                            oninvalid="this.setCustomValidity('กรอกพื้นที่บ่อ (ไร่)')"
+                                           oninput="this.setCustomValidity('')">
+                                </div>
+                            </div>
+                            <!--จำนวนกุ้งที่ปล่อย-->
+                            <div class="form-group">
+                                <label for="inputInitialShrimpCount">จำนวนกุ้งที่ปล่อย:</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-bug"></i>
+                                    </span>
+                                    <input type="number" class="form-control"
+                                           id="inputInitialShrimpCount"
+                                           placeholder="จำนวนกุ้งที่ปล่อย" required
+                                           oninvalid="this.setCustomValidity('กรอกจำนวนกุ้งที่ปล่อย')"
                                            oninput="this.setCustomValidity('')">
                                 </div>
                             </div>
@@ -171,6 +186,20 @@ if ($result = $db->query($sql)) {
                                            id="inputPondArea"
                                            placeholder="กรอกพื้นที่บ่อ (ไร่)" required
                                            oninvalid="this.setCustomValidity('กรอกพื้นที่บ่อ (ไร่)')"
+                                           oninput="this.setCustomValidity('')">
+                                </div>
+                            </div>
+                            <!--จำนวนกุ้งที่ปล่อย-->
+                            <div class="form-group">
+                                <label for="inputInitialShrimpCount">จำนวนกุ้งที่ปล่อย:</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-bug"></i>
+                                    </span>
+                                    <input type="number" class="form-control"
+                                           id="inputInitialShrimpCount"
+                                           placeholder="จำนวนกุ้งที่ปล่อย" required
+                                           oninvalid="this.setCustomValidity('กรอกจำนวนกุ้งที่ปล่อย')"
                                            oninput="this.setCustomValidity('')">
                                 </div>
                             </div>
@@ -334,8 +363,9 @@ if ($result = $db->query($sql)) {
                                 <table id="example1" class="table table-bordered table-striped">
                                     <thead>
                                     <tr>
-                                        <th style="width: 50%; text-align: center">บ่อที่</th>
-                                        <th style="width: 50%; text-align: center">พื้นที่บ่อ (ไร่)</th>
+                                        <th style="width: 33%; text-align: center">บ่อที่</th>
+                                        <th style="width: 33%; text-align: center">พื้นที่บ่อ (ไร่)</th>
+                                        <th style="width: 33%; text-align: center">จำนวนกุ้งที่ปล่อย</th>
                                         <th style="text-align: center" nowrap>จัดการ</th>
                                     </tr>
                                     </thead>
@@ -352,14 +382,16 @@ if ($result = $db->query($sql)) {
                                             $pondId = $pond['id'];
                                             $pondNumber = $pond['number'];
                                             $pondArea = $pond['area'];
+                                            $initialShrimpCount = $pond['initial_shrimp_count'];
                                             ?>
                                             <tr style="">
                                                 <td style="vertical-align: middle; text-align: center"><?php echo $pondNumber; ?></td>
-                                                <td style="vertical-align: middle; text-align: center"><?php echo $pondArea; ?></td>
+                                                <td style="vertical-align: middle; text-align: center"><?php echo number_format($pondArea); ?></td>
+                                                <td style="vertical-align: middle; text-align: center"><?php echo number_format($initialShrimpCount); ?></td>
                                                 <td style="text-align: center" nowrap>
                                                     <button type="button" class="btn btn-warning"
                                                             style="margin-left: 6px; margin-right: 3px;"
-                                                            onclick="onClickEdit(this, <?php echo $pondId; ?>, <?php echo $pondNumber; ?>, <?php echo $pondArea; ?>)">
+                                                            onclick="onClickEdit(this, <?php echo $pondId; ?>, <?php echo $pondNumber; ?>, <?php echo $pondArea; ?>, <?php echo $initialShrimpCount; ?>)">
                                                         <span class="fa fa-edit"></span>&nbsp;
                                                         แก้ไข
                                                     </button>
@@ -410,10 +442,11 @@ if ($result = $db->query($sql)) {
             });
         });
 
-        function onClickEdit(element, pondId, pondNumber, pondArea) {
+        function onClickEdit(element, pondId, pondNumber, pondArea, initialShrimpCount) {
             $('#formEditPond #inputPondId').val(pondId);
             $('#formEditPond #inputPondNumber').val(pondNumber);
             $('#formEditPond #inputPondArea').val(pondArea);
+            $('#formEditPond #inputInitialShrimpCount').val(initialShrimpCount);
             $('#formEditPond #editPondResult').text('');
             $('#editPondModal').modal('show');
         }
@@ -530,6 +563,7 @@ if ($result = $db->query($sql)) {
                 {
                     pondNumber: $('#formAddPond #inputPondNumber').val(),
                     pondArea: $('#formAddPond #inputPondArea').val(),
+                    initialShrimpCount: $('#formAddPond #inputInitialShrimpCount').val(),
                 }
             ).done(function (data) {
                 if (data.error_code === 0) {
@@ -549,6 +583,7 @@ if ($result = $db->query($sql)) {
                     pondId: $('#formEditPond #inputPondId').val(),
                     pondNumber: $('#formEditPond #inputPondNumber').val(),
                     pondArea: $('#formEditPond #inputPondArea').val(),
+                    initialShrimpCount: $('#formEditPond #inputInitialShrimpCount').val(),
                 }
             ).done(function (data) {
                 if (data.error_code === 0) {

@@ -41,10 +41,29 @@ public class FarmInfoFragment extends Fragment {
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         mProgressView = view.findViewById(R.id.progress_view);
+
+        if (mListener != null) {
+            mListener.setupRefreshButton(true, new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    doGetFarmInfo(view);
+                }
+            });
+        }
+
+        view.findViewById(R.id.pond_info_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mListener != null) {
+                    mListener.onClickPondInfoButton();
+                }
+            }
+        });
+
         doGetFarmInfo(view);
     }
 
@@ -113,5 +132,9 @@ public class FarmInfoFragment extends Fragment {
 
     public interface FarmInfoFragmentListener {
         void setTitle(String title);
+
+        void setupRefreshButton(boolean visible, View.OnClickListener listener);
+
+        void onClickPondInfoButton();
     }
 }

@@ -2,17 +2,31 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="400ad1e9-3ace-4749-a423-ddfa7c2f1fcf" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/../app/src/main/java/th/ac/dusit/dbizcom/smartshrimp/App.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app/src/main/java/th/ac/dusit/dbizcom/smartshrimp/model/Pond.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app/src/main/java/th/ac/dusit/dbizcom/smartshrimp/net/GetPondResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app/src/main/res/anim/enter_from_left.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app/src/main/res/anim/enter_from_right.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app/src/main/res/anim/exit_to_left.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app/src/main/res/anim/exit_to_right.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app/src/main/res/anim/fade_in.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app/src/main/res/anim/fade_out.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app/src/main/res/drawable/ic_refresh.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app/src/main/res/layout/item_pond.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/th/ac/dusit/dbizcom/smartshrimp/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/th/ac/dusit/dbizcom/smartshrimp/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/th/ac/dusit/dbizcom/smartshrimp/fragment/FarmInfoFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/th/ac/dusit/dbizcom/smartshrimp/fragment/FarmInfoFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/th/ac/dusit/dbizcom/smartshrimp/fragment/PondInfoFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/th/ac/dusit/dbizcom/smartshrimp/fragment/PondInfoFragment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../app/src/main/java/th/ac/dusit/dbizcom/smartshrimp/net/ApiClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/th/ac/dusit/dbizcom/smartshrimp/net/ApiClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/xml/network_security_config.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/res/xml/network_security_config.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/th/ac/dusit/dbizcom/smartshrimp/net/WebServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/th/ac/dusit/dbizcom/smartshrimp/net/WebServices.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/res/layout/activity_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/fragment_farm_info.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/res/layout/fragment_farm_info.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/fragment_pond_info.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/res/layout/fragment_pond_info.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/c38df377-d5c7-4036-9be2-c23ed7d10db6.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/c38df377-d5c7-4036-9be2-c23ed7d10db6.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/api.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/farm_info.php" beforeDir="false" afterPath="$PROJECT_DIR$/farm_info.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/footer.inc" beforeDir="false" afterPath="$PROJECT_DIR$/include/footer.inc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/head.inc" beforeDir="false" afterPath="$PROJECT_DIR$/include/head.inc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/header.inc" beforeDir="false" afterPath="$PROJECT_DIR$/include/header.inc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/sidebar.inc" beforeDir="false" afterPath="$PROJECT_DIR$/include/sidebar.inc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pond_info.php" beforeDir="false" afterPath="$PROJECT_DIR$/pond_info.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -41,14 +55,14 @@
     <select />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.49620253">
+    <splitter split-orientation="horizontal" split-proportion="0.16962026">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file leaf-file-name="api.php" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/api/api.php">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="418">
-                  <caret line="181" column="18" selection-start-line="181" selection-start-column="18" selection-end-line="181" selection-end-column="18" />
+                <state relative-caret-position="342">
+                  <caret line="324" selection-start-line="324" selection-end-line="324" />
                 </state>
               </provider>
             </entry>
@@ -132,11 +146,12 @@
           <file leaf-file-name="farm_info.php" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/farm_info.php">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="4770">
-                  <caret line="441" column="19" lean-forward="true" selection-start-line="441" selection-start-column="19" selection-end-line="441" selection-end-column="19" />
+                <state relative-caret-position="95">
+                  <caret line="69" lean-forward="true" selection-start-line="69" selection-end-line="69" />
                   <folding>
                     <element signature="e#5474#9022#0#HTML" />
                     <element signature="e#6016#6055#0#HTML" expanded="true" />
+                    <element signature="e#5470#9021#0#HTML" />
                     <element signature="e#6014#6053#0#HTML" expanded="true" />
                     <element signature="e#8152#8230#0#HTML" expanded="true" />
                     <element signature="e#8590#8596#0#HTML" expanded="true" />
@@ -144,6 +159,15 @@
                     <element signature="e#1871#9158#0#HTML" />
                     <element signature="e#2914#8937#0#HTML" />
                     <element signature="e#9292#9317#0#HTML" expanded="true" />
+                    <element signature="e#9154#18564#0#HTML" />
+                    <element signature="e#15273#15311#0#HTML" expanded="true" />
+                    <element signature="e#15368#15406#0#HTML" expanded="true" />
+                    <element signature="e#19706#19744#0#HTML" expanded="true" />
+                    <element signature="e#15473#15499#0#HTML" expanded="true" />
+                    <element signature="e#16541#16591#0#HTML" expanded="true" />
+                    <element signature="e#16676#16726#0#HTML" expanded="true" />
+                    <element signature="e#21245#21295#0#HTML" expanded="true" />
+                    <element signature="e#16809#16835#0#HTML" expanded="true" />
                     <element signature="e#17102#17146#0#HTML" expanded="true" />
                   </folding>
                 </state>
@@ -188,6 +212,11 @@
       </split-second>
     </splitter>
   </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>onClickEdit</find>
+    </findStrings>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
@@ -204,8 +233,8 @@
         <option value="$PROJECT_DIR$/pond_info.php" />
         <option value="$PROJECT_DIR$/include/sidebar.inc" />
         <option value="$PROJECT_DIR$/include/head.inc" />
-        <option value="$PROJECT_DIR$/farm_info.php" />
         <option value="$PROJECT_DIR$/api/api.php" />
+        <option value="$PROJECT_DIR$/farm_info.php" />
       </list>
     </option>
   </component>
@@ -325,18 +354,18 @@
       <workItem from="1557239064120" duration="4507000" />
       <workItem from="1557326278222" duration="7169000" />
       <workItem from="1557404113035" duration="14573000" />
-      <workItem from="1557490665655" duration="13859000" />
+      <workItem from="1557490665655" duration="16845000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="46367000" />
+    <option name="totallyTimeSpent" value="49353000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.10363086" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.10363086" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
@@ -455,6 +484,7 @@
           <folding>
             <element signature="e#5474#9022#0#HTML" />
             <element signature="e#6016#6055#0#HTML" expanded="true" />
+            <element signature="e#5470#9021#0#HTML" />
             <element signature="e#6014#6053#0#HTML" expanded="true" />
             <element signature="e#8152#8230#0#HTML" expanded="true" />
             <element signature="e#8590#8596#0#HTML" expanded="true" />
@@ -462,6 +492,15 @@
             <element signature="e#1871#9158#0#HTML" />
             <element signature="e#2914#8937#0#HTML" />
             <element signature="e#9292#9317#0#HTML" expanded="true" />
+            <element signature="e#9154#18564#0#HTML" />
+            <element signature="e#15273#15311#0#HTML" expanded="true" />
+            <element signature="e#15368#15406#0#HTML" expanded="true" />
+            <element signature="e#19706#19744#0#HTML" expanded="true" />
+            <element signature="e#15473#15499#0#HTML" expanded="true" />
+            <element signature="e#16541#16591#0#HTML" expanded="true" />
+            <element signature="e#16676#16726#0#HTML" expanded="true" />
+            <element signature="e#21245#21295#0#HTML" expanded="true" />
+            <element signature="e#16809#16835#0#HTML" expanded="true" />
             <element signature="e#17102#17146#0#HTML" expanded="true" />
           </folding>
         </state>
@@ -683,13 +722,21 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/api/api.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="324" selection-start-line="324" selection-end-line="324" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/farm_info.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4770">
-          <caret line="441" column="19" lean-forward="true" selection-start-line="441" selection-start-column="19" selection-end-line="441" selection-end-column="19" />
+        <state relative-caret-position="95">
+          <caret line="69" lean-forward="true" selection-start-line="69" selection-end-line="69" />
           <folding>
             <element signature="e#5474#9022#0#HTML" />
             <element signature="e#6016#6055#0#HTML" expanded="true" />
+            <element signature="e#5470#9021#0#HTML" />
             <element signature="e#6014#6053#0#HTML" expanded="true" />
             <element signature="e#8152#8230#0#HTML" expanded="true" />
             <element signature="e#8590#8596#0#HTML" expanded="true" />
@@ -697,15 +744,17 @@
             <element signature="e#1871#9158#0#HTML" />
             <element signature="e#2914#8937#0#HTML" />
             <element signature="e#9292#9317#0#HTML" expanded="true" />
+            <element signature="e#9154#18564#0#HTML" />
+            <element signature="e#15273#15311#0#HTML" expanded="true" />
+            <element signature="e#15368#15406#0#HTML" expanded="true" />
+            <element signature="e#19706#19744#0#HTML" expanded="true" />
+            <element signature="e#15473#15499#0#HTML" expanded="true" />
+            <element signature="e#16541#16591#0#HTML" expanded="true" />
+            <element signature="e#16676#16726#0#HTML" expanded="true" />
+            <element signature="e#21245#21295#0#HTML" expanded="true" />
+            <element signature="e#16809#16835#0#HTML" expanded="true" />
             <element signature="e#17102#17146#0#HTML" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/api/api.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="418">
-          <caret line="181" column="18" selection-start-line="181" selection-start-column="18" selection-end-line="181" selection-end-column="18" />
         </state>
       </provider>
     </entry>

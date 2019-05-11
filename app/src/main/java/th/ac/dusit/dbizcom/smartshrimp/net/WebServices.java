@@ -26,4 +26,8 @@ public interface WebServices {
     @GET("get_farm_info")
     Call<GetFarmInfoResponse> getFarmInfo(
     );
+
+    @GET("get_pond")
+    Call<GetPondResponse> getPond(
+    );
 }
