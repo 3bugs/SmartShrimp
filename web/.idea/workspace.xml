@@ -2,19 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="400ad1e9-3ace-4749-a423-ddfa7c2f1fcf" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/../app/src/main/java/th/ac/dusit/dbizcom/smartshrimp/model/Feeding.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../app/src/main/res/drawable/bg_table_header.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../app/src/main/res/drawable/bg_table_row_dark.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../app/src/main/res/drawable/bg_table_row_light.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../app/src/main/res/layout/item_feeding_dark.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../app/src/main/res/layout/item_feeding_light.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app/src/main/java/th/ac/dusit/dbizcom/smartshrimp/fragment/AddFeedingRecordFragment.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app/src/main/java/th/ac/dusit/dbizcom/smartshrimp/net/AddFeedingResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app/src/main/res/drawable/bg_main.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app/src/main/res/drawable/bg_table_row_transparent.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app/src/main/res/layout/fragment_add_feeding_record.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../app/src/main/java/th/ac/dusit/dbizcom/smartshrimp/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/th/ac/dusit/dbizcom/smartshrimp/MainActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../app/src/main/java/th/ac/dusit/dbizcom/smartshrimp/fragment/FeedingRecordFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/th/ac/dusit/dbizcom/smartshrimp/fragment/FeedingRecordFragment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../app/src/main/java/th/ac/dusit/dbizcom/smartshrimp/net/WebServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/th/ac/dusit/dbizcom/smartshrimp/net/WebServices.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/fragment_feeding_record.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/res/layout/fragment_feeding_record.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/activity_login.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/res/layout/activity_login.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/res/layout/activity_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/activity_menu.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/res/layout/activity_menu.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/item_feeding_dark.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/item_feeding_light.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/res/layout/item_feeding.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../app/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/res/values/colors.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../app/src/main/res/values/styles.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/res/values/styles.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/c38df377-d5c7-4036-9be2-c23ed7d10db6.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/c38df377-d5c7-4036-9be2-c23ed7d10db6.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/api.php" afterDir="false" />
     </list>
@@ -41,18 +43,36 @@
         <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
         <item name="smart_shrimp@localhost" type="feb32156:DbDataSourceImpl" />
       </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="smart_shrimp@localhost" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="smart_shrimp@localhost" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="smart_shrimp: schema" type="c314c289:MysqlImplModel$Schema" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="smart_shrimp@localhost" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="smart_shrimp: schema" type="c314c289:MysqlImplModel$Schema" />
+        <item name="feeding: table" type="98d5ac3d:MysqlImplModel$Table" />
+      </path>
     </expand>
     <select />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.59831226">
+    <splitter split-orientation="horizontal" split-proportion="0.85636854">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file leaf-file-name="api.php" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/api/api.php">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="153">
-                  <caret line="362" column="56" lean-forward="true" selection-start-line="362" selection-start-column="56" selection-end-line="362" selection-end-column="56" />
+                <state relative-caret-position="380">
+                  <caret line="428" column="68" lean-forward="true" selection-start-line="428" selection-start-column="68" selection-end-line="428" selection-end-column="68" />
                 </state>
               </provider>
             </entry>
@@ -344,22 +364,22 @@
       <workItem from="1557239064120" duration="4507000" />
       <workItem from="1557326278222" duration="7169000" />
       <workItem from="1557404113035" duration="14573000" />
-      <workItem from="1557490665655" duration="18359000" />
+      <workItem from="1557490665655" duration="20792000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="50867000" />
+    <option name="totallyTimeSpent" value="53300000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.10363086" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.10363086" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
-      <window_info anchor="right" id="Database" order="3" weight="0.09304085" />
+      <window_info anchor="right" id="Database" order="3" visible="true" weight="0.059001513" />
       <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="10" />
       <window_info anchor="bottom" id="Run" order="2" />
@@ -743,8 +763,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/api/api.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="362" column="56" lean-forward="true" selection-start-line="362" selection-start-column="56" selection-end-line="362" selection-end-column="56" />
+        <state relative-caret-position="380">
+          <caret line="428" column="68" lean-forward="true" selection-start-line="428" selection-start-column="68" selection-end-line="428" selection-end-column="68" />
         </state>
       </provider>
     </entry>

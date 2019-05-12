@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment.AddFeedingRecordFragment"
+    tools:ignore="UnusedAttribute,HardcodedText,LabelFor">
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent=".53"/>
+
+    <TextView
+        android:id="@+id/feed_date_text_view"
+        style="@style/LabelTextWhite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:labelFor="@id/farm_name_edit_text"
+        android:text="วันที่"
+        app:layout_constraintBottom_toBottomOf="@+id/feed_date_edit_text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/feed_date_edit_text"
+        tools:textColor="@android:color/black"/>
+
+    <TextView
+        android:id="@+id/first_feed_text_view"
+        style="@style/LabelTextWhite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:labelFor="@id/address_edit_text"
+        android:text="จำนวนอาหารมื้อที่ 1"
+        app:layout_constraintBottom_toBottomOf="@+id/first_feed_edit_text"
+        app:layout_constraintStart_toStartOf="@+id/feed_date_text_view"
+        app:layout_constraintTop_toTopOf="@+id/first_feed_edit_text"
+        tools:textColor="@android:color/black"/>
+
+    <TextView
+        android:id="@+id/second_feed_text_view"
+        style="@style/LabelTextWhite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:labelFor="@id/sub_district_edit_text"
+        android:text="จำนวนอาหารมื้อที่ 2"
+        app:layout_constraintBottom_toBottomOf="@+id/second_feed_edit_text"
+        app:layout_constraintStart_toStartOf="@+id/feed_date_text_view"
+        app:layout_constraintTop_toTopOf="@+id/second_feed_edit_text"
+        tools:textColor="@android:color/black"/>
+
+    <TextView
+        android:id="@+id/third_feed_text_view"
+        style="@style/LabelTextWhite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:labelFor="@id/district_edit_text"
+        android:text="จำนวนอาหารมื้อที่ 3"
+        app:layout_constraintBottom_toBottomOf="@+id/third_feed_edit_text"
+        app:layout_constraintStart_toStartOf="@+id/second_feed_text_view"
+        app:layout_constraintTop_toTopOf="@+id/third_feed_edit_text"
+        tools:textColor="@android:color/black"/>
+
+    <EditText
+        android:id="@+id/feed_date_edit_text"
+        style="@style/EditTextWhite"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="32dp"
+        android:autofillHints="farm name"
+        android:editable="false"
+        android:ems="10"
+        android:focusable="false"
+        android:gravity="center_horizontal"
+        android:inputType="none"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="Deprecated,TextFields"
+        tools:text="01 / 01 / 2561"/>
+
+    <EditText
+        android:id="@+id/first_feed_edit_text"
+        style="@style/EditTextWhite"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:autofillHints="address"
+        android:ems="10"
+        android:gravity="end"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="@+id/feed_date_edit_text"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/feed_date_edit_text"/>
+
+    <EditText
+        android:id="@+id/second_feed_edit_text"
+        style="@style/EditTextWhite"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:autofillHints="address"
+        android:ems="10"
+        android:gravity="end"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="@+id/feed_date_edit_text"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/first_feed_edit_text"/>
+
+    <EditText
+        android:id="@+id/third_feed_edit_text"
+        style="@style/EditTextWhite"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:autofillHints="address"
+        android:ems="10"
+        android:gravity="end"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="@+id/feed_date_edit_text"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/second_feed_edit_text"/>
+
+    <Button
+        android:id="@+id/save_button"
+        style="@style/Button"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:text="บันทึก"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/third_feed_edit_text"/>
+
+    <LinearLayout
+        android:id="@+id/progress_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#80000000"
+        android:gravity="center"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="gone">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

@@ -29,6 +29,7 @@ import th.ac.dusit.dbizcom.smartshrimp.net.WebServices;
 public class FeedingRecordFragment extends Fragment {
 
     private static final String TITLE = "บันทึกการให้อาหารกุ้ง";
+    private static final int TEMP_POND_ID = 1;
 
     private FeedingRecordFragmentListener mListener;
 
@@ -51,6 +52,14 @@ public class FeedingRecordFragment extends Fragment {
 
         mProgressView = view.findViewById(R.id.progress_view);
         mFeedingRecyclerView = view.findViewById(R.id.feeding_recycler_view);
+        view.findViewById(R.id.add_feeding_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mListener != null) {
+                    mListener.onClickAddFeedingButton(TEMP_POND_ID); //todo: *****
+                }
+            }
+        });
 
         if (mListener != null) {
             mListener.setupRefreshButton(true, new View.OnClickListener() {
@@ -70,7 +79,7 @@ public class FeedingRecordFragment extends Fragment {
         Retrofit retrofit = ApiClient.getClient();
         WebServices services = retrofit.create(WebServices.class);
 
-        Call<GetFeedingResponse> call = services.getFeedingByPond(1);
+        Call<GetFeedingResponse> call = services.getFeedingByPond(TEMP_POND_ID); //todo: *****
         call.enqueue(new MyRetrofitCallback<>(
                 getActivity(),
                 null,
@@ -124,6 +133,8 @@ public class FeedingRecordFragment extends Fragment {
         void setTitle(String title);
 
         void setupRefreshButton(boolean visible, View.OnClickListener listener);
+
+        void onClickAddFeedingButton(int pondId);
     }
 
     private static class FeedingListAdapter extends RecyclerView.Adapter<FeedingRecordFragment.FeedingListAdapter.FeedingViewHolder> {
@@ -156,7 +167,7 @@ public class FeedingRecordFragment extends Fragment {
         @Override
         public FeedingViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext()).inflate(
-                    R.layout.item_feeding_light, parent, false
+                    R.layout.item_feeding, parent, false
             );
             return new FeedingViewHolder(view);
         }
@@ -170,11 +181,25 @@ public class FeedingRecordFragment extends Fragment {
             holder.mDayTextView.setText(String.valueOf(diffInDays + 1));
 
             holder.mFeedDateTextView.setText(formatThaiDate(feeding.feedDate));
-            holder.mFirstFeedTextView.setText(String.valueOf(feeding.firstFeed));
-            holder.mSecondFeedTextView.setText(String.valueOf(feeding.secondFeed));
-            holder.mThirdFeedTextView.setText(String.valueOf(feeding.thirdFeed));
+
+            if (feeding.firstFeed == 0) {
+                holder.mFirstFeedTextView.setBackgroundResource(R.drawable.bg_table_row_red);
+            }
+            if (feeding.secondFeed == 0) {
+                holder.mSecondFeedTextView.setBackgroundResource(R.drawable.bg_table_row_red);
+            }
+            if (feeding.thirdFeed == 0) {
+                holder.mThirdFeedTextView.setBackgroundResource(R.drawable.bg_table_row_red);
+            }
+
+            holder.mFirstFeedTextView.setText(feeding.firstFeed == 0 ? "" : String.valueOf(feeding.firstFeed));
+            holder.mSecondFeedTextView.setText(feeding.secondFeed == 0 ? "" : String.valueOf(feeding.secondFeed));
+            holder.mThirdFeedTextView.setText(feeding.thirdFeed == 0 ? "" : String.valueOf(feeding.thirdFeed));
             holder.mDayTotalTextView.setText(String.valueOf(feeding.getDayTotal()));
             holder.mTotalTextView.setText(String.valueOf(feeding.getTotal()));
+
+            int rowBgColorRes = position % 2 == 0 ? R.color.row_light_background : R.color.row_dark_background;
+            holder.mRootView.setBackgroundResource(rowBgColorRes);
         }
 
         private String formatThaiDate(String dateString) {
@@ -182,7 +207,7 @@ public class FeedingRecordFragment extends Fragment {
             String day = datePart[2];
             String month = datePart[1];
             String year = String.valueOf(Integer.parseInt(datePart[0]) + 543).substring(2);
-            return String.format(Locale.getDefault(), "%s-%s-%s", day, month, year);
+            return String.format(Locale.getDefault(), "%s/%s/%s", day, month, year);
         }
 
         @Override
@@ -192,6 +217,7 @@ public class FeedingRecordFragment extends Fragment {
 
         class FeedingViewHolder extends RecyclerView.ViewHolder {
 
+            private final View mRootView;
             private final TextView mDayTextView;
             private final TextView mFeedDateTextView;
             private final TextView mFirstFeedTextView;
@@ -203,6 +229,7 @@ public class FeedingRecordFragment extends Fragment {
             FeedingViewHolder(View itemView) {
                 super(itemView);
 
+                mRootView = itemView;
                 mDayTextView = itemView.findViewById(R.id.day_text_view);
                 mFeedDateTextView = itemView.findViewById(R.id.feed_date_text_view);
                 mFirstFeedTextView = itemView.findViewById(R.id.first_feed_text_view);

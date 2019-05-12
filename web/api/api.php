@@ -61,6 +61,9 @@ switch ($action) {
     case 'get_feeding':
         doGetFeedingByPond();
         break;
+    case 'add_feeding':
+        doAddFeeding();
+        break;
     default:
         $response[KEY_ERROR_CODE] = ERROR_CODE_ERROR;
         $response[KEY_ERROR_MESSAGE] = 'No action specified or invalid action.';
@@ -194,6 +197,7 @@ function doGetFarmInfo()
             $farm['farm_reg_id'] = $row['farm_reg_id'];
             array_push($farmList, $farm);
         }
+        $result->close();
         $response[KEY_DATA_LIST] = $farmList;
     } else {
         $response[KEY_ERROR_CODE] = ERROR_CODE_ERROR;
@@ -255,6 +259,7 @@ function doGetPond()
             $pond['initial_shrimp_count'] = (int)$row['initial_shrimp_count'];
             array_push($pondList, $pond);
         }
+        $result->close();
         $response[KEY_DATA_LIST] = $pondList;
     } else {
         $response[KEY_ERROR_CODE] = ERROR_CODE_ERROR;
@@ -357,7 +362,8 @@ function doDeletePond()
     }
 }
 
-function doGetFeedingByPond() {
+function doGetFeedingByPond()
+{
     global $db, $response;
 
     $pondId = $db->real_escape_string($_POST['pondId']);
@@ -380,11 +386,53 @@ function doGetFeedingByPond() {
             array_push($feedingList, $feeding);
         }
         $response[KEY_DATA_LIST] = $feedingList;
+        $result->close();
     } else {
         $response[KEY_ERROR_CODE] = ERROR_CODE_ERROR;
         $response[KEY_ERROR_MESSAGE] = 'เกิดข้อผิดพลาดในการอ่านข้อมูลการให้อาหาร';
         $errMessage = $db->error;
         $response[KEY_ERROR_MESSAGE_MORE] = "$errMessage\nSQL: $sql";
+    }
+}
+
+function doAddFeeding()
+{
+    global $db, $response;
+
+    $pondId = $db->real_escape_string($_POST['pondId']);
+    $feedDate = $db->real_escape_string($_POST['feedDate']);
+    $firstFeed = $db->real_escape_string($_POST['firstFeed']);
+    $secondFeed = $db->real_escape_string($_POST['secondFeed']);
+    $thirdFeed = $db->real_escape_string($_POST['thirdFeed']);
+
+    $selectExistingFeedDateSql = "SELECT id FROM `feeding` WHERE feed_date='$feedDate'";
+    if ($selectExistingFeedDateResult = $db->query($selectExistingFeedDateSql)) {
+        if ($selectExistingFeedDateResult->num_rows > 0) {
+            $response[KEY_ERROR_CODE] = ERROR_CODE_ERROR;
+            $response[KEY_ERROR_MESSAGE] = 'มีข้อมูลการให้อาหารในวันดังกล่าวแล้ว กรุณาย้อนไปหน้าแสดงรายการ แล้วกดที่วันที่นั้นหากต้องการกรอกมื้ออาหารที่ยังไม่ได้กรอก';
+            $response[KEY_ERROR_MESSAGE_MORE] = '';
+            $selectExistingFeedDateResult->close();
+            return;
+        }
+        $selectExistingFeedDateResult->close();
+
+        $sql = "INSERT INTO `feeding` (`pond_id`, `feed_date`, `first_feed`, `second_feed`, `third_feed`) "
+            . " VALUES ($pondId, '$feedDate', $firstFeed, $secondFeed, $thirdFeed)";
+        if ($result = $db->query($sql)) {
+            $response[KEY_ERROR_CODE] = ERROR_CODE_SUCCESS;
+            $response[KEY_ERROR_MESSAGE] = 'บันทึกข้อมูลการให้อาหารสำเร็จ';
+            $response[KEY_ERROR_MESSAGE_MORE] = '';
+        } else {
+            $response[KEY_ERROR_CODE] = ERROR_CODE_ERROR;
+            $response[KEY_ERROR_MESSAGE] = 'เกิดข้อผิดพลาดในการบันทึกข้อมูลการให้อาหาร';
+            $errMessage = $db->error;
+            $response[KEY_ERROR_MESSAGE_MORE] = "$errMessage\nSQL: $sql";
+        }
+    } else {
+        $response[KEY_ERROR_CODE] = ERROR_CODE_ERROR;
+        $response[KEY_ERROR_MESSAGE] = 'เกิดข้อผิดพลาดในการบันทึกข้อมูลการให้อาหาร';
+        $errMessage = $db->error;
+        $response[KEY_ERROR_MESSAGE_MORE] = "$errMessage\nSQL: $selectExistingFeedDateSql";
     }
 }
 

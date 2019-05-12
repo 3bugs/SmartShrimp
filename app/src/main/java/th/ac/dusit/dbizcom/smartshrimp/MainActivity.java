@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import th.ac.dusit.dbizcom.smartshrimp.fragment.AddFeedingRecordFragment;
 import th.ac.dusit.dbizcom.smartshrimp.fragment.FarmInfoFragment;
 import th.ac.dusit.dbizcom.smartshrimp.fragment.FeedingRecordFragment;
 import th.ac.dusit.dbizcom.smartshrimp.fragment.PondInfoFragment;
@@ -16,12 +17,14 @@ import th.ac.dusit.dbizcom.smartshrimp.fragment.PondInfoFragment;
 public class MainActivity extends AppCompatActivity implements
         FarmInfoFragment.FarmInfoFragmentListener,
         PondInfoFragment.PondInfoFragmentListener,
-        FeedingRecordFragment.FeedingRecordFragmentListener {
+        FeedingRecordFragment.FeedingRecordFragmentListener,
+        AddFeedingRecordFragment.AddFeedingRecordFragmentListener {
 
     static final String KEY_FRAGMENT = "fragment";
     static final String TAG_FRAGMENT_FARM_INFO = "farm_info_fragment";
     private static final String TAG_FRAGMENT_POND_INFO = "pond_info_fragment";
     static final String TAG_FRAGMENT_FEEDING_RECORD = "feeding_record_fragment";
+    private static final String TAG_FRAGMENT_ADD_FEEDING_RECORD = "add_feeding_record_fragment";
     static final String TAG_FRAGMENT_WATER_QUALITY = "water_quality_fragment";
     static final String TAG_FRAGMENT_BREED_SOURCE = "breed_source_fragment";
     static final String TAG_FRAGMENT_FORMULA = "formula_fragment";
@@ -116,6 +119,11 @@ public class MainActivity extends AppCompatActivity implements
         }
     }
 
+    protected void popBackStack() {
+        FragmentManager fm = getSupportFragmentManager();
+        fm.popBackStack();
+    }
+
     @Override
     public void setTitle(String title) {
         TextView titleTextView = findViewById(R.id.title_text_view);
@@ -132,10 +140,25 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     @Override
+    public void onSaveFeedingRecordSuccess() {
+        popBackStack();
+    }
+
+    @Override
     public void onClickPondInfoButton() {
         loadFragment(
                 new PondInfoFragment(),
                 TAG_FRAGMENT_POND_INFO,
+                true,
+                FragmentTransitionType.SLIDE
+        );
+    }
+
+    @Override
+    public void onClickAddFeedingButton(int pondId) {
+        loadFragment(
+                AddFeedingRecordFragment.newInstance(pondId),
+                TAG_FRAGMENT_ADD_FEEDING_RECORD,
                 true,
                 FragmentTransitionType.SLIDE
         );

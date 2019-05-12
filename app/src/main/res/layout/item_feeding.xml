@@ -65,7 +65,7 @@
 
     <TextView
         android:id="@+id/feed_date_text_view"
-        style="@style/TableRowDark"
+        style="@style/TableRowTransparent"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:gravity="center"
@@ -77,7 +77,7 @@
 
     <TextView
         android:id="@+id/first_feed_text_view"
-        style="@style/TableRowDark"
+        style="@style/TableRowTransparent"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:gravity="center"
@@ -89,7 +89,7 @@
 
     <TextView
         android:id="@+id/second_feed_text_view"
-        style="@style/TableRowDark"
+        style="@style/TableRowTransparent"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:gravity="center"
@@ -101,7 +101,7 @@
 
     <TextView
         android:id="@+id/third_feed_text_view"
-        style="@style/TableRowDark"
+        style="@style/TableRowTransparent"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:gravity="center"
@@ -113,7 +113,7 @@
 
     <TextView
         android:id="@+id/day_total_text_view"
-        style="@style/TableRowDark"
+        style="@style/TableRowTransparent"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:gravity="center"
@@ -125,7 +125,7 @@
 
     <TextView
         android:id="@+id/total_text_view"
-        style="@style/TableRowDark"
+        style="@style/TableRowTransparent"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:gravity="center"

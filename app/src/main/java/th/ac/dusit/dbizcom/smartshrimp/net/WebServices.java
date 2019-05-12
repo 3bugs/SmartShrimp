@@ -36,4 +36,14 @@ public interface WebServices {
     Call<GetFeedingResponse> getFeedingByPond(
             @Field("pondId") int pondId
     );
+
+    @FormUrlEncoded
+    @POST("add_feeding")
+    Call<AddFeedingResponse> addFeeding(
+            @Field("pondId") int pondId,
+            @Field("feedDate") String feedDate,
+            @Field("firstFeed") int firstFeed,
+            @Field("secondFeed") int secondFeed,
+            @Field("thirdFeed") int thirdFeed
+    );
 }

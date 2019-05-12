@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_login"
+    android:background="@drawable/bg_main"
     tools:context=".MenuActivity"
     tools:ignore="UnusedAttribute,HardcodedText">
 
@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
-            android:gravity="right"
+            android:gravity="end"
             android:text="ออกจากระบบ"
             app:layout_constraintBottom_toBottomOf="@+id/logout_image_view"
             app:layout_constraintEnd_toStartOf="@+id/logout_image_view"
