@@ -30,4 +30,10 @@ public interface WebServices {
     @GET("get_pond")
     Call<GetPondResponse> getPond(
     );
+
+    @FormUrlEncoded
+    @POST("get_feeding")
+    Call<GetFeedingResponse> getFeedingByPond(
+            @Field("pondId") int pondId
+    );
 }

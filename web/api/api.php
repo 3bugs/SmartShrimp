@@ -58,6 +58,9 @@ switch ($action) {
     case 'delete_pond':
         doDeletePond();
         break;
+    case 'get_feeding':
+        doGetFeedingByPond();
+        break;
     default:
         $response[KEY_ERROR_CODE] = ERROR_CODE_ERROR;
         $response[KEY_ERROR_MESSAGE] = 'No action specified or invalid action.';
@@ -349,6 +352,37 @@ function doDeletePond()
     } else {
         $response[KEY_ERROR_CODE] = ERROR_CODE_ERROR;
         $response[KEY_ERROR_MESSAGE] = 'เกิดข้อผิดพลาดในการลบข้อมูลบ่อเลี้ยง';
+        $errMessage = $db->error;
+        $response[KEY_ERROR_MESSAGE_MORE] = "$errMessage\nSQL: $sql";
+    }
+}
+
+function doGetFeedingByPond() {
+    global $db, $response;
+
+    $pondId = $db->real_escape_string($_POST['pondId']);
+
+    $sql = "SELECT * FROM `feeding` WHERE `pond_id`=$pondId ORDER BY `feed_date` DESC";
+    if ($result = $db->query($sql)) {
+        $response[KEY_ERROR_CODE] = ERROR_CODE_SUCCESS;
+        $response[KEY_ERROR_MESSAGE] = 'อ่านข้อมูลการให้อาหารสำเร็จ';
+        $response[KEY_ERROR_MESSAGE_MORE] = '';
+
+        $feedingList = array();
+        while ($row = $result->fetch_assoc()) {
+            $feeding = array();
+            $feeding['id'] = (int)$row['id'];
+            $feeding['pond_id'] = (int)$row['pond_id'];
+            $feeding['feed_date'] = $row['feed_date'];
+            $feeding['first_feed'] = (int)$row['first_feed'];
+            $feeding['second_feed'] = (int)$row['second_feed'];
+            $feeding['third_feed'] = (int)$row['third_feed'];
+            array_push($feedingList, $feeding);
+        }
+        $response[KEY_DATA_LIST] = $feedingList;
+    } else {
+        $response[KEY_ERROR_CODE] = ERROR_CODE_ERROR;
+        $response[KEY_ERROR_MESSAGE] = 'เกิดข้อผิดพลาดในการอ่านข้อมูลการให้อาหาร';
         $errMessage = $db->error;
         $response[KEY_ERROR_MESSAGE_MORE] = "$errMessage\nSQL: $sql";
     }

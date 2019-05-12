@@ -54,8 +54,7 @@ public class MainActivity extends AppCompatActivity implements
                 fragment = new FarmInfoFragment();
                 break;
             case TAG_FRAGMENT_FEEDING_RECORD:
-                //fragment = new FeedingRecordFragment();
-                //titleTextView.setText("บันทึกการให้อาหารกุ้ง");
+                fragment = new FeedingRecordFragment();
                 break;
             case TAG_FRAGMENT_WATER_QUALITY:
                 //fragment = new WaterQualityFragment();

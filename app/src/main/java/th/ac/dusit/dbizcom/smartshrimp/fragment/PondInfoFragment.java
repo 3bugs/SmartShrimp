@@ -45,7 +45,7 @@ public class PondInfoFragment extends Fragment {
     }
 
     @Override
-    public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         mProgressView = view.findViewById(R.id.progress_view);
@@ -55,15 +55,15 @@ public class PondInfoFragment extends Fragment {
             mListener.setupRefreshButton(true, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    doGetPond(view);
+                    doGetPond();
                 }
             });
         }
 
-        doGetPond(view);
+        doGetPond();
     }
 
-    private void doGetPond(final View view) {
+    private void doGetPond() {
         mProgressView.setVisibility(View.VISIBLE);
 
         Retrofit retrofit = ApiClient.getClient();
@@ -130,7 +130,7 @@ public class PondInfoFragment extends Fragment {
         private final Context mContext;
         private final List<Pond> mPondList;
 
-        public PondListAdapter(Context context, List<Pond> pondList) {
+        PondListAdapter(Context context, List<Pond> pondList) {
             mContext = context;
             mPondList = pondList;
         }
@@ -163,8 +163,10 @@ public class PondInfoFragment extends Fragment {
 
             PondViewHolder(View itemView) {
                 super(itemView);
+
                 mPondNumberTextView = itemView.findViewById(R.id.pond_number_text_view);
                 mPondAreaTextView = itemView.findViewById(R.id.pond_area_text_view);
+
                 itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
