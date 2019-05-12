@@ -31,6 +31,8 @@ public class FeedingRecordFragment extends Fragment {
     private static final String TITLE = "บันทึกการให้อาหารกุ้ง";
     private static final int TEMP_POND_ID = 1;
 
+    private List<Feeding> mFeedingList = null;
+
     private FeedingRecordFragmentListener mListener;
 
     private View mProgressView;
@@ -70,11 +72,17 @@ public class FeedingRecordFragment extends Fragment {
             });
         }
 
-        doGetFeeding();
+        if (mFeedingList == null) {
+            doGetFeeding();
+        } else {
+            setupRecyclerView();
+        }
     }
 
-    private void doGetFeeding() {
-        mProgressView.setVisibility(View.VISIBLE);
+    public void doGetFeeding() {
+        if (mProgressView != null) {
+            mProgressView.setVisibility(View.VISIBLE);
+        }
 
         Retrofit retrofit = ApiClient.getClient();
         WebServices services = retrofit.create(WebServices.class);
@@ -87,13 +95,8 @@ public class FeedingRecordFragment extends Fragment {
                 new MyRetrofitCallback.MyRetrofitCallbackListener<GetFeedingResponse>() {
                     @Override
                     public void onSuccess(GetFeedingResponse responseBody) {
-                        List<Feeding> feedingList = responseBody.feedingList;
-                        FeedingListAdapter adapter = new FeedingListAdapter(
-                                getContext(),
-                                feedingList
-                        );
-                        mFeedingRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                        mFeedingRecyclerView.setAdapter(adapter);
+                        mFeedingList = responseBody.feedingList;
+                        setupRecyclerView();
                     }
 
                     @Override
@@ -102,6 +105,16 @@ public class FeedingRecordFragment extends Fragment {
                     }
                 }
         ));
+    }
+
+    private void setupRecyclerView() {
+        FeedingListAdapter adapter = new FeedingListAdapter(
+                getContext(),
+                mFeedingList,
+                mListener
+        );
+        mFeedingRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        mFeedingRecyclerView.setAdapter(adapter);
     }
 
     @Override
@@ -135,16 +148,20 @@ public class FeedingRecordFragment extends Fragment {
         void setupRefreshButton(boolean visible, View.OnClickListener listener);
 
         void onClickAddFeedingButton(int pondId);
+
+        void onEditFeeding(Feeding feeding);
     }
 
     private static class FeedingListAdapter extends RecyclerView.Adapter<FeedingRecordFragment.FeedingListAdapter.FeedingViewHolder> {
 
         private final Context mContext;
         private final List<Feeding> mFeedingList;
+        private final FeedingRecordFragmentListener mListener;
 
-        FeedingListAdapter(Context context, List<Feeding> feedingList) {
+        FeedingListAdapter(Context context, List<Feeding> feedingList, FeedingRecordFragmentListener listener) {
             mContext = context;
             mFeedingList = feedingList;
+            mListener = listener;
 
             for (Feeding feeding : mFeedingList) {
                 feeding.parseFeedDate();
@@ -198,6 +215,8 @@ public class FeedingRecordFragment extends Fragment {
             holder.mDayTotalTextView.setText(String.valueOf(feeding.getDayTotal()));
             holder.mTotalTextView.setText(String.valueOf(feeding.getTotal()));
 
+            holder.mFeeding = feeding;
+
             int rowBgColorRes = position % 2 == 0 ? R.color.row_light_background : R.color.row_dark_background;
             holder.mRootView.setBackgroundResource(rowBgColorRes);
         }
@@ -226,6 +245,8 @@ public class FeedingRecordFragment extends Fragment {
             private final TextView mDayTotalTextView;
             private final TextView mTotalTextView;
 
+            private Feeding mFeeding;
+
             FeedingViewHolder(View itemView) {
                 super(itemView);
 
@@ -241,7 +262,7 @@ public class FeedingRecordFragment extends Fragment {
                 itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        //todo:
+                        mListener.onEditFeeding(mFeeding);
                     }
                 });
             }

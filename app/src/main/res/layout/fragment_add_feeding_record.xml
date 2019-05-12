@@ -95,6 +95,10 @@
         android:ems="10"
         android:gravity="end"
         android:inputType="number"
+        android:paddingEnd="24dp"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp"
+        android:paddingStart="24dp"
         app:layout_constraintEnd_toEndOf="@+id/feed_date_edit_text"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/feed_date_edit_text"/>
@@ -109,6 +113,10 @@
         android:ems="10"
         android:gravity="end"
         android:inputType="number"
+        android:paddingEnd="24dp"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp"
+        android:paddingStart="24dp"
         app:layout_constraintEnd_toEndOf="@+id/feed_date_edit_text"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/first_feed_edit_text"/>
@@ -123,6 +131,10 @@
         android:ems="10"
         android:gravity="end"
         android:inputType="number"
+        android:paddingEnd="24dp"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp"
+        android:paddingStart="24dp"
         app:layout_constraintEnd_toEndOf="@+id/feed_date_edit_text"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/second_feed_edit_text"/>

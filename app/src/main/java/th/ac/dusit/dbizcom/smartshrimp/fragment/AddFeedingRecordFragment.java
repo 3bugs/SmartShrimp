@@ -2,6 +2,7 @@ package th.ac.dusit.dbizcom.smartshrimp.fragment;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,6 +13,8 @@ import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
+import com.google.gson.Gson;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -20,18 +23,23 @@ import java.util.Locale;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import th.ac.dusit.dbizcom.smartshrimp.R;
+import th.ac.dusit.dbizcom.smartshrimp.etc.MyDateFormatter;
 import th.ac.dusit.dbizcom.smartshrimp.etc.Utils;
+import th.ac.dusit.dbizcom.smartshrimp.model.Feeding;
 import th.ac.dusit.dbizcom.smartshrimp.net.AddFeedingResponse;
 import th.ac.dusit.dbizcom.smartshrimp.net.ApiClient;
 import th.ac.dusit.dbizcom.smartshrimp.net.MyRetrofitCallback;
+import th.ac.dusit.dbizcom.smartshrimp.net.UpdateFeedingResponse;
 import th.ac.dusit.dbizcom.smartshrimp.net.WebServices;
 
 public class AddFeedingRecordFragment extends Fragment {
 
     private static final String TITLE = "บันทึกการให้อาหารกุ้ง";
-    private static final String ARG_POND_ID = "param1";
+    private static final String ARG_POND_ID = "pond_id";
+    private static final String ARG_FEEDING_JSON = "feeding_json";
 
     private int mPondId;
+    private Feeding mFeeding;
     private Calendar mCalendar = Calendar.getInstance();
 
     private AddFeedingRecordFragmentListener mListener;
@@ -44,10 +52,11 @@ public class AddFeedingRecordFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static AddFeedingRecordFragment newInstance(int pondId) {
+    public static AddFeedingRecordFragment newInstance(int pondId, Feeding feeding) {
         AddFeedingRecordFragment fragment = new AddFeedingRecordFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_POND_ID, pondId);
+        args.putString(ARG_FEEDING_JSON, new Gson().toJson(feeding));
         fragment.setArguments(args);
         return fragment;
     }
@@ -57,6 +66,12 @@ public class AddFeedingRecordFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mPondId = getArguments().getInt(ARG_POND_ID);
+            String feedingJson = getArguments().getString(ARG_FEEDING_JSON);
+            mFeeding = new Gson().fromJson(feedingJson, Feeding.class);
+        }
+        if (mFeeding != null) {
+            Date date = new MyDateFormatter().parseDateString(mFeeding.feedDate);
+            mCalendar.setTime(date);
         }
     }
 
@@ -76,32 +91,49 @@ public class AddFeedingRecordFragment extends Fragment {
         mSecondFeedEditText = view.findViewById(R.id.second_feed_edit_text);
         mThirdFeedEditText = view.findViewById(R.id.third_feed_edit_text);
 
+        if (mFeeding != null) {
+            mFirstFeedEditText.setText(
+                    mFeeding.firstFeed == 0 ? "" : String.valueOf(mFeeding.firstFeed)
+            );
+            mSecondFeedEditText.setText(
+                    mFeeding.secondFeed == 0 ? "" : String.valueOf(mFeeding.secondFeed)
+            );
+            mThirdFeedEditText.setText(
+                    mFeeding.thirdFeed == 0 ? "" : String.valueOf(mFeeding.thirdFeed)
+            );
+        }
+
         mFeedDateEditText = view.findViewById(R.id.feed_date_edit_text);
-        mFeedDateEditText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final DatePickerDialog.OnDateSetListener dateSetListener =
-                        new DatePickerDialog.OnDateSetListener() {
-                            @Override
-                            public void onDateSet(DatePicker view, int year,
-                                                  int monthOfYear, int dayOfMonth) {
-                                mCalendar.set(Calendar.YEAR, year);
-                                mCalendar.set(Calendar.MONTH, monthOfYear);
-                                mCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                                updateFeedDateEditText();
-                            }
-                        };
-                if (getActivity() != null) {
-                    new DatePickerDialog(
-                            getActivity(),
-                            dateSetListener,
-                            mCalendar.get(Calendar.YEAR),
-                            mCalendar.get(Calendar.MONTH),
-                            mCalendar.get(Calendar.DAY_OF_MONTH)
-                    ).show();
+        if (mFeeding == null) {
+            mFeedDateEditText.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    final DatePickerDialog.OnDateSetListener dateSetListener =
+                            new DatePickerDialog.OnDateSetListener() {
+                                @Override
+                                public void onDateSet(DatePicker view, int year,
+                                                      int monthOfYear, int dayOfMonth) {
+                                    mCalendar.set(Calendar.YEAR, year);
+                                    mCalendar.set(Calendar.MONTH, monthOfYear);
+                                    mCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                                    updateFeedDateEditText();
+                                }
+                            };
+                    if (getActivity() != null) {
+                        new DatePickerDialog(
+                                getActivity(),
+                                dateSetListener,
+                                mCalendar.get(Calendar.YEAR),
+                                mCalendar.get(Calendar.MONTH),
+                                mCalendar.get(Calendar.DAY_OF_MONTH)
+                        ).show();
+                    }
                 }
-            }
-        });
+            });
+        } else {
+            mFeedDateEditText.setTextColor(Color.GRAY);
+        }
+
         view.findViewById(R.id.save_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -121,23 +153,8 @@ public class AddFeedingRecordFragment extends Fragment {
     }
 
     private void updateFeedDateEditText() {
-        Date date = mCalendar.getTime();
-
-        SimpleDateFormat monthFormatter = new SimpleDateFormat("MM", Locale.US);
-        String month = monthFormatter.format(date);
-
-        SimpleDateFormat yearFormatter = new SimpleDateFormat("yyyy", Locale.US);
-        String yearInBe = String.valueOf(Integer.valueOf(yearFormatter.format(date)) + 543);
-
-        SimpleDateFormat dayFormatter = new SimpleDateFormat("dd", Locale.US);
-        String day = dayFormatter.format(date);
-
-        String dateText = String.format(
-                Locale.getDefault(),
-                "%s/%s/%s",
-                day, month, yearInBe
-        );
-        mFeedDateEditText.setText(dateText);
+        String formatDate = MyDateFormatter.formatForUi(mCalendar.getTime());
+        mFeedDateEditText.setText(formatDate);
     }
 
     private String getFormatFeedDateForMysql() {
@@ -187,33 +204,60 @@ public class AddFeedingRecordFragment extends Fragment {
         String secondFeed = mSecondFeedEditText.getText().toString().trim();
         String thirdFeed = mThirdFeedEditText.getText().toString().trim();
 
-        Call<AddFeedingResponse> call = services.addFeeding(
-                mPondId,
-                getFormatFeedDateForMysql(),
-                firstFeed.isEmpty() ? 0 : Integer.parseInt(firstFeed),
-                secondFeed.isEmpty() ? 0 : Integer.parseInt(secondFeed),
-                thirdFeed.isEmpty() ? 0 : Integer.parseInt(thirdFeed)
-        );
-        call.enqueue(new MyRetrofitCallback<>(
-                getActivity(),
-                null,
-                mProgressView,
-                new MyRetrofitCallback.MyRetrofitCallbackListener<AddFeedingResponse>() {
-                    @Override
-                    public void onSuccess(AddFeedingResponse responseBody) {
-                        Utils.showLongToast(getContext(), responseBody.errorMessage);
-                        if (mListener != null) {
-                            mListener.onSaveFeedingRecordSuccess();
+        if (mFeeding != null) {
+            Call<UpdateFeedingResponse> call = services.updateFeeding(
+                    mFeeding.id,
+                    firstFeed.isEmpty() ? 0 : Integer.parseInt(firstFeed),
+                    secondFeed.isEmpty() ? 0 : Integer.parseInt(secondFeed),
+                    thirdFeed.isEmpty() ? 0 : Integer.parseInt(thirdFeed)
+            );
+            call.enqueue(new MyRetrofitCallback<>(
+                    getActivity(),
+                    null,
+                    mProgressView,
+                    new MyRetrofitCallback.MyRetrofitCallbackListener<UpdateFeedingResponse>() {
+                        @Override
+                        public void onSuccess(UpdateFeedingResponse responseBody) {
+                            Utils.showLongToast(getContext(), responseBody.errorMessage);
+                            if (mListener != null) {
+                                mListener.onSaveFeedingRecordSuccess();
+                            }
+                        }
+
+                        @Override
+                        public void onError(String errorMessage) {
+                            Utils.showOkDialog(getActivity(), "ผิดพลาด", errorMessage);
                         }
                     }
+            ));
+        } else {
+            Call<AddFeedingResponse> call = services.addFeeding(
+                    mPondId,
+                    getFormatFeedDateForMysql(),
+                    firstFeed.isEmpty() ? 0 : Integer.parseInt(firstFeed),
+                    secondFeed.isEmpty() ? 0 : Integer.parseInt(secondFeed),
+                    thirdFeed.isEmpty() ? 0 : Integer.parseInt(thirdFeed)
+            );
+            call.enqueue(new MyRetrofitCallback<>(
+                    getActivity(),
+                    null,
+                    mProgressView,
+                    new MyRetrofitCallback.MyRetrofitCallbackListener<AddFeedingResponse>() {
+                        @Override
+                        public void onSuccess(AddFeedingResponse responseBody) {
+                            Utils.showLongToast(getContext(), responseBody.errorMessage);
+                            if (mListener != null) {
+                                mListener.onSaveFeedingRecordSuccess();
+                            }
+                        }
 
-                    @Override
-                    public void onError(String errorMessage) {
-                        Utils.showOkDialog(getActivity(), "ผิดพลาด", errorMessage);
+                        @Override
+                        public void onError(String errorMessage) {
+                            Utils.showOkDialog(getActivity(), "ผิดพลาด", errorMessage);
+                        }
                     }
-                }
-        ));
-
+            ));
+        }
     }
 
     @Override

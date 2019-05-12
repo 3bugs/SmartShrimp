@@ -46,4 +46,13 @@ public interface WebServices {
             @Field("secondFeed") int secondFeed,
             @Field("thirdFeed") int thirdFeed
     );
+
+    @FormUrlEncoded
+    @POST("update_feeding")
+    Call<UpdateFeedingResponse> updateFeeding(
+            @Field("feedingId") int feedingId,
+            @Field("firstFeed") int firstFeed,
+            @Field("secondFeed") int secondFeed,
+            @Field("thirdFeed") int thirdFeed
+    );
 }

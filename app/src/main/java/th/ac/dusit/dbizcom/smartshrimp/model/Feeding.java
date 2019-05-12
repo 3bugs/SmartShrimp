@@ -9,6 +9,8 @@ import java.util.Locale;
 
 public class Feeding {
 
+    @SerializedName("id")
+    public final int id;
     @SerializedName("pond_id")
     public final int pondId;
     @SerializedName("feed_date")
@@ -24,7 +26,8 @@ public class Feeding {
     private int mDayTotal;
     private int mTotal = 0;
 
-    public Feeding(int pondId, String feedDate, int firstFeed, int secondFeed, int thirdFeed) {
+    public Feeding(int id, int pondId, String feedDate, int firstFeed, int secondFeed, int thirdFeed) {
+        this.id = id;
         this.pondId = pondId;
         this.feedDate = feedDate;
         this.firstFeed = firstFeed;

@@ -9,10 +9,12 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import th.ac.dusit.dbizcom.smartshrimp.etc.Utils;
 import th.ac.dusit.dbizcom.smartshrimp.fragment.AddFeedingRecordFragment;
 import th.ac.dusit.dbizcom.smartshrimp.fragment.FarmInfoFragment;
 import th.ac.dusit.dbizcom.smartshrimp.fragment.FeedingRecordFragment;
 import th.ac.dusit.dbizcom.smartshrimp.fragment.PondInfoFragment;
+import th.ac.dusit.dbizcom.smartshrimp.model.Feeding;
 
 public class MainActivity extends AppCompatActivity implements
         FarmInfoFragment.FarmInfoFragmentListener,
@@ -141,7 +143,12 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onSaveFeedingRecordSuccess() {
+        Utils.hideKeyboard(this);
         popBackStack();
+        FeedingRecordFragment fragment = (FeedingRecordFragment) getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT_FEEDING_RECORD);
+        if (fragment != null) {
+            fragment.doGetFeeding();
+        }
     }
 
     @Override
@@ -157,7 +164,17 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public void onClickAddFeedingButton(int pondId) {
         loadFragment(
-                AddFeedingRecordFragment.newInstance(pondId),
+                AddFeedingRecordFragment.newInstance(pondId, null),
+                TAG_FRAGMENT_ADD_FEEDING_RECORD,
+                true,
+                FragmentTransitionType.SLIDE
+        );
+    }
+
+    @Override
+    public void onEditFeeding(Feeding feeding) {
+        loadFragment(
+                AddFeedingRecordFragment.newInstance(-1, feeding),
                 TAG_FRAGMENT_ADD_FEEDING_RECORD,
                 true,
                 FragmentTransitionType.SLIDE

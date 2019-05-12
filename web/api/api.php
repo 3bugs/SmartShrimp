@@ -64,6 +64,9 @@ switch ($action) {
     case 'add_feeding':
         doAddFeeding();
         break;
+    case 'update_feeding':
+        doUpdateFeeding();
+        break;
     default:
         $response[KEY_ERROR_CODE] = ERROR_CODE_ERROR;
         $response[KEY_ERROR_MESSAGE] = 'No action specified or invalid action.';
@@ -433,6 +436,29 @@ function doAddFeeding()
         $response[KEY_ERROR_MESSAGE] = 'เกิดข้อผิดพลาดในการบันทึกข้อมูลการให้อาหาร';
         $errMessage = $db->error;
         $response[KEY_ERROR_MESSAGE_MORE] = "$errMessage\nSQL: $selectExistingFeedDateSql";
+    }
+}
+
+function doUpdateFeeding()
+{
+    global $db, $response;
+
+    $feedingId = $db->real_escape_string($_POST['feedingId']);
+    $firstFeed = $db->real_escape_string($_POST['firstFeed']);
+    $secondFeed = $db->real_escape_string($_POST['secondFeed']);
+    $thirdFeed = $db->real_escape_string($_POST['thirdFeed']);
+
+    $sql = "UPDATE `feeding` SET `first_feed`=$firstFeed, `second_feed`=$secondFeed, `third_feed`=$thirdFeed "
+        . " WHERE `id`=$feedingId";
+    if ($result = $db->query($sql)) {
+        $response[KEY_ERROR_CODE] = ERROR_CODE_SUCCESS;
+        $response[KEY_ERROR_MESSAGE] = 'บันทึกข้อมูลการให้อาหารสำเร็จ';
+        $response[KEY_ERROR_MESSAGE_MORE] = '';
+    } else {
+        $response[KEY_ERROR_CODE] = ERROR_CODE_ERROR;
+        $response[KEY_ERROR_MESSAGE] = 'เกิดข้อผิดพลาดในการบันทึกข้อมูลการให้อาหาร';
+        $errMessage = $db->error;
+        $response[KEY_ERROR_MESSAGE_MORE] = "$errMessage\nSQL: $sql";
     }
 }
 
