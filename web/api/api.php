@@ -133,6 +133,9 @@ function fetchUser($selectUserResult)
     $user['id'] = (int)$row['id'];
     $user['username'] = $row['username'];
     $user['email'] = $row['email'];
+    $user['first_name'] = $row['first_name'];
+    $user['last_name'] = $row['last_name'];
+    $user['address'] = $row['address'];
     $user['created_at'] = $row['created_at'];
 
     return $user;
@@ -145,6 +148,9 @@ function doRegister()
     $username = $db->real_escape_string($_POST['username']);
     $password = $db->real_escape_string($_POST['password']);
     $email = $db->real_escape_string($_POST['email']);
+    $firstName = $db->real_escape_string($_POST['firstName']);
+    $lastName = $db->real_escape_string($_POST['lastName']);
+    $address = $db->real_escape_string($_POST['address']);
 
     $selectExistingUserSQL = "SELECT * FROM `user` WHERE `username` = '$username'";
     $selectExistingUserResult = $db->query($selectExistingUserSQL);
@@ -157,7 +163,8 @@ function doRegister()
     }
     $selectExistingUserResult->close();
 
-    $insertUserSql = "INSERT INTO `user` (`username`, `password`, `email`) VALUES ('$username', '$password', '$email')";
+    $insertUserSql = "INSERT INTO `user` (`username`, `password`, `email`, `first_name`, `last_name`, `address`) "
+        . " VALUES ('$username', '$password', '$email', '$firstName', '$lastName', '$address')";
     $insertUserResult = $db->query($insertUserSql);
     if ($insertUserResult) {
         $insertId = $db->insert_id;

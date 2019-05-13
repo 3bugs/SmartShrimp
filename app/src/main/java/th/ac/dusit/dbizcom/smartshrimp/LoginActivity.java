@@ -8,10 +8,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.util.Locale;
+
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import th.ac.dusit.dbizcom.smartshrimp.etc.MyPrefs;
 import th.ac.dusit.dbizcom.smartshrimp.etc.Utils;
+import th.ac.dusit.dbizcom.smartshrimp.model.User;
 import th.ac.dusit.dbizcom.smartshrimp.net.ApiClient;
 import th.ac.dusit.dbizcom.smartshrimp.net.LoginResponse;
 import th.ac.dusit.dbizcom.smartshrimp.net.MyRetrofitCallback;
@@ -94,13 +97,23 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(LoginResponse responseBody) {
                         if (responseBody.loginSuccess) { // login สำเร็จ
+                            User user = responseBody.user;
                             // จำว่า user login แล้ว
-                            MyPrefs.setUserPref(LoginActivity.this, responseBody.user);
+                            MyPrefs.setUserPref(LoginActivity.this, user);
+
                             // แสดง toast
-                            Utils.showShortToast(LoginActivity.this, "เข้าสู่ระบบสำเร็จ");
+                            String msg = String.format(
+                                    Locale.getDefault(),
+                                    "ยินดีต้อนรับ %s %s",
+                                    user.firstName,
+                                    user.lastName
+                            );
+                            Utils.showShortToast(LoginActivity.this, msg);
+
                             // ไปหน้าหลัก
                             Intent intent = new Intent(LoginActivity.this, MenuActivity.class);
                             startActivity(intent);
+
                             // ปิดหน้า login
                             finish();
                         } else { // login ไม่สำเร็จ

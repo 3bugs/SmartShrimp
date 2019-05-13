@@ -28,6 +28,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
             android:gravity="end"
+            android:lineSpacingMultiplier="1.25"
             android:text="ออกจากระบบ"
             app:layout_constraintBottom_toBottomOf="@+id/logout_image_view"
             app:layout_constraintEnd_toStartOf="@+id/logout_image_view"

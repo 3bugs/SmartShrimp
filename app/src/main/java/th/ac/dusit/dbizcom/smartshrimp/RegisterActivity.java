@@ -22,6 +22,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private EditText mEmailEditText, mUsernameEditText;
     private EditText mPasswordEditText, mConfirmPasswordEditText;
+    private EditText mfirstNameEditText, mLastNameEditText, mAddressEditText;
     private Button mRegisterButton;
     private View mProgressView;
 
@@ -34,6 +35,10 @@ public class RegisterActivity extends AppCompatActivity {
         mUsernameEditText = findViewById(R.id.username_edit_text);
         mPasswordEditText = findViewById(R.id.password_edit_text);
         mConfirmPasswordEditText = findViewById(R.id.confirm_password_edit_text);
+        mfirstNameEditText = findViewById(R.id.first_name_edit_text);
+        mLastNameEditText = findViewById(R.id.last_name_edit_text);
+        mAddressEditText = findViewById(R.id.address_edit_text);
+
         mProgressView = findViewById(R.id.progress_view);
 
         mRegisterButton = findViewById(R.id.register_button);
@@ -53,6 +58,24 @@ public class RegisterActivity extends AppCompatActivity {
     private boolean isFormValid() {
         boolean valid = true;
 
+        String address = mAddressEditText.getText().toString().trim();
+        if (address.length() == 0) {
+            mAddressEditText.setText("");
+            mAddressEditText.setError("กรอกที่อยู่");
+            valid = false;
+        }
+        String lastName = mLastNameEditText.getText().toString().trim();
+        if (lastName.length() == 0) {
+            mLastNameEditText.setText("");
+            mLastNameEditText.setError("กรอกนามสกุล");
+            valid = false;
+        }
+        String firstName = mfirstNameEditText.getText().toString().trim();
+        if (firstName.length() == 0) {
+            mfirstNameEditText.setText("");
+            mfirstNameEditText.setError("กรอกชื่อ");
+            valid = false;
+        }
         String confirmPassword = mConfirmPasswordEditText.getText().toString().trim();
         if (confirmPassword.length() == 0) {
             mConfirmPasswordEditText.setText("");
@@ -93,6 +116,9 @@ public class RegisterActivity extends AppCompatActivity {
         String username = mUsernameEditText.getText().toString().trim();
         String password = mPasswordEditText.getText().toString().trim();
         String email = mEmailEditText.getText().toString().trim();
+        String firstName = mfirstNameEditText.getText().toString().trim();
+        String lastName = mLastNameEditText.getText().toString().trim();
+        String address = mAddressEditText.getText().toString().trim();
 
         mProgressView.setVisibility(View.VISIBLE);
         mRegisterButton.setEnabled(false);
@@ -100,7 +126,9 @@ public class RegisterActivity extends AppCompatActivity {
         Retrofit retrofit = ApiClient.getClient();
         WebServices services = retrofit.create(WebServices.class);
 
-        Call<RegisterResponse> call = services.register(username, password, email);
+        Call<RegisterResponse> call = services.register(
+                username, password, email, firstName, lastName, address
+        );
         call.enqueue(new MyRetrofitCallback<>(
                 RegisterActivity.this,
                 null,

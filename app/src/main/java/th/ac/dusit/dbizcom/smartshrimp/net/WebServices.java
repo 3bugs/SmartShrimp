@@ -20,7 +20,10 @@ public interface WebServices {
     Call<RegisterResponse> register(
             @Field("username") String username,
             @Field("password") String password,
-            @Field("email") String email
+            @Field("email") String email,
+            @Field("firstName") String firstName,
+            @Field("lastName") String lastName,
+            @Field("address") String address
     );
 
     @GET("get_farm_info")

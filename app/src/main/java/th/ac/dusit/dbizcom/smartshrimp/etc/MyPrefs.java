@@ -13,6 +13,9 @@ public class MyPrefs {
     private static final String KEY_USER_ID = "user_id_pref";
     private static final String KEY_USER_USERNAME = "user_username_pref";
     private static final String KEY_USER_EMAIL = "user_email_pref";
+    private static final String KEY_USER_FIRST_NAME = "user_first_name_pref";
+    private static final String KEY_USER_LAST_NAME = "user_last_name_pref";
+    private static final String KEY_USER_ADDRESS = "user_address_pref";
     private static final String KEY_USER_CREATED_AT = "user_created_at_pref";
 
     private static SharedPreferences getSharedPref(Context context) {
@@ -26,6 +29,9 @@ public class MyPrefs {
         editor.putInt(KEY_USER_ID, user == null ? INVALID_USER_ID : user.id);
         editor.putString(KEY_USER_USERNAME, user == null ? "" : user.username);
         editor.putString(KEY_USER_EMAIL, user == null ? "" : user.email);
+        editor.putString(KEY_USER_FIRST_NAME, user == null ? "" : user.firstName);
+        editor.putString(KEY_USER_LAST_NAME, user == null ? "" : user.lastName);
+        editor.putString(KEY_USER_ADDRESS, user == null ? "" : user.address);
         editor.putString(KEY_USER_CREATED_AT, user == null ? "" : user.createdAt);
         editor.apply();
     }
@@ -37,8 +43,11 @@ public class MyPrefs {
         } else {
             String username = getSharedPref(context).getString(KEY_USER_USERNAME, "");
             String email = getSharedPref(context).getString(KEY_USER_EMAIL, "");
+            String firstName = getSharedPref(context).getString(KEY_USER_FIRST_NAME, "");
+            String lastName = getSharedPref(context).getString(KEY_USER_LAST_NAME, "");
+            String address = getSharedPref(context).getString(KEY_USER_ADDRESS, "");
             String createdAt = getSharedPref(context).getString(KEY_USER_CREATED_AT, "");
-            return new User(userId, username, email, createdAt);
+            return new User(userId, username, email, firstName, lastName, address, createdAt);
         }
     }
 }

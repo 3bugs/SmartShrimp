@@ -64,7 +64,11 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
 
         User user = MyPrefs.getUserPref(this);
         if (user != null) {
-            String msg = String.format(Locale.getDefault(), "ออกจากระบบ\n(%s)", user.username);
+            String msg = String.format(
+                    Locale.getDefault(),
+                    "ออกจากระบบ\n(%s)",
+                    (user.firstName + " " + user.lastName).trim()
+            );
             TextView logoutTextView = logoutLayout.findViewById(R.id.logout_text_view);
             logoutTextView.setText(msg);
         }
