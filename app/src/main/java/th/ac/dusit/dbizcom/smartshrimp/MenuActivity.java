@@ -18,7 +18,7 @@ import static th.ac.dusit.dbizcom.smartshrimp.MainActivity.KEY_FRAGMENT;
 import static th.ac.dusit.dbizcom.smartshrimp.MainActivity.TAG_FRAGMENT_BREED_SOURCE;
 import static th.ac.dusit.dbizcom.smartshrimp.MainActivity.TAG_FRAGMENT_FARM_INFO;
 import static th.ac.dusit.dbizcom.smartshrimp.MainActivity.TAG_FRAGMENT_FEEDING_RECORD;
-import static th.ac.dusit.dbizcom.smartshrimp.MainActivity.TAG_FRAGMENT_FORMULA;
+import static th.ac.dusit.dbizcom.smartshrimp.MainActivity.TAG_FRAGMENT_FORMULA_MAIN;
 import static th.ac.dusit.dbizcom.smartshrimp.MainActivity.TAG_FRAGMENT_REPORT;
 import static th.ac.dusit.dbizcom.smartshrimp.MainActivity.TAG_FRAGMENT_SUMMARY;
 import static th.ac.dusit.dbizcom.smartshrimp.MainActivity.TAG_FRAGMENT_WATER_QUALITY;
@@ -92,7 +92,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
                 fragmentTag = TAG_FRAGMENT_BREED_SOURCE;
                 break;
             case R.id.formula_image_view:
-                fragmentTag = TAG_FRAGMENT_FORMULA;
+                fragmentTag = TAG_FRAGMENT_FORMULA_MAIN;
                 break;
             case R.id.summary_image_view:
                 fragmentTag = TAG_FRAGMENT_SUMMARY;

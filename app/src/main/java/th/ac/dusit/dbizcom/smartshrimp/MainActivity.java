@@ -13,6 +13,8 @@ import th.ac.dusit.dbizcom.smartshrimp.etc.Utils;
 import th.ac.dusit.dbizcom.smartshrimp.fragment.AddFeedingRecordFragment;
 import th.ac.dusit.dbizcom.smartshrimp.fragment.FarmInfoFragment;
 import th.ac.dusit.dbizcom.smartshrimp.fragment.FeedingRecordFragment;
+import th.ac.dusit.dbizcom.smartshrimp.fragment.FormulaFcrFragment;
+import th.ac.dusit.dbizcom.smartshrimp.fragment.FormulaMainFragment;
 import th.ac.dusit.dbizcom.smartshrimp.fragment.PondInfoFragment;
 import th.ac.dusit.dbizcom.smartshrimp.model.Feeding;
 
@@ -20,7 +22,9 @@ public class MainActivity extends AppCompatActivity implements
         FarmInfoFragment.FarmInfoFragmentListener,
         PondInfoFragment.PondInfoFragmentListener,
         FeedingRecordFragment.FeedingRecordFragmentListener,
-        AddFeedingRecordFragment.AddFeedingRecordFragmentListener {
+        AddFeedingRecordFragment.AddFeedingRecordFragmentListener,
+        FormulaMainFragment.FormulaMainFragmentListener,
+        FormulaFcrFragment.FormulaFcrFragmentListener {
 
     static final String KEY_FRAGMENT = "fragment";
     static final String TAG_FRAGMENT_FARM_INFO = "farm_info_fragment";
@@ -29,7 +33,11 @@ public class MainActivity extends AppCompatActivity implements
     private static final String TAG_FRAGMENT_ADD_FEEDING_RECORD = "add_feeding_record_fragment";
     static final String TAG_FRAGMENT_WATER_QUALITY = "water_quality_fragment";
     static final String TAG_FRAGMENT_BREED_SOURCE = "breed_source_fragment";
-    static final String TAG_FRAGMENT_FORMULA = "formula_fragment";
+    static final String TAG_FRAGMENT_FORMULA_MAIN = "formula_main_fragment";
+    static final String TAG_FRAGMENT_FORMULA_FCR = "formula_fcr_fragment";
+    static final String TAG_FRAGMENT_FORMULA_SIZE = "formula_size_fragment";
+    static final String TAG_FRAGMENT_FORMULA_ADG = "formula_adg_fragment";
+    static final String TAG_FRAGMENT_FORMULA_SURVIVAL_RATE = "formula_survival_rate_fragment";
     static final String TAG_FRAGMENT_SUMMARY = "summary_fragment";
     static final String TAG_FRAGMENT_REPORT = "report_fragment";
 
@@ -69,9 +77,8 @@ public class MainActivity extends AppCompatActivity implements
                 //fragment = new BreedSourceFragment();
                 //titleTextView.setText("แหล่งพันธุ์ลูกกุ้ง");
                 break;
-            case TAG_FRAGMENT_FORMULA:
-                //fragment = new FormulaMainFragment();
-                //titleTextView.setText("สูตรคำนวณ");
+            case TAG_FRAGMENT_FORMULA_MAIN:
+                fragment = new FormulaMainFragment();
                 break;
             case TAG_FRAGMENT_SUMMARY:
                 //fragment = new SummaryFragment();
@@ -179,5 +186,30 @@ public class MainActivity extends AppCompatActivity implements
                 true,
                 FragmentTransitionType.SLIDE
         );
+    }
+
+    @Override
+    public void onClickFormulaButton(int which) {
+        switch (which) {
+            case 0:
+                loadFragment(
+                        new FormulaFcrFragment(),
+                        TAG_FRAGMENT_FORMULA_FCR,
+                        true,
+                        FragmentTransitionType.SLIDE
+                );
+                break;
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+        }
+    }
+
+    @Override
+    public void onClickBackButton() {
+        popBackStack();
     }
 }
