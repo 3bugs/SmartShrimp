@@ -96,7 +96,24 @@ public class FeedingRecordFragment extends Fragment {
                     @Override
                     public void onSuccess(GetFeedingResponse responseBody) {
                         mFeedingList = responseBody.feedingList;
+
+                        for (Feeding feeding : mFeedingList) {
+                            feeding.parseFeedDate();
+                            feeding.calculateDayTotal();
+                        }
+                        for (Feeding feeding : mFeedingList) {
+                            calculateTotalForFeeding(feeding);
+                        }
+
                         setupRecyclerView();
+                    }
+
+                    private void calculateTotalForFeeding(Feeding feeding) {
+                        for (Feeding f : mFeedingList) {
+                            if (f.feedDate.compareTo(feeding.feedDate) <= 0) {
+                                feeding.setTotal(feeding.getTotal() + f.getDayTotal());
+                            }
+                        }
                     }
 
                     @Override
@@ -163,21 +180,6 @@ public class FeedingRecordFragment extends Fragment {
             mFeedingList = feedingList;
             mListener = listener;
 
-            for (Feeding feeding : mFeedingList) {
-                feeding.parseFeedDate();
-                feeding.calculateDayTotal();
-            }
-            for (Feeding feeding : mFeedingList) {
-                calculateTotalForFeeding(feeding);
-            }
-        }
-
-        private void calculateTotalForFeeding(Feeding feeding) {
-            for (Feeding f : mFeedingList) {
-                if (f.feedDate.compareTo(feeding.feedDate) <= 0) {
-                    feeding.setTotal(feeding.getTotal() + f.getDayTotal());
-                }
-            }
         }
 
         @NonNull
