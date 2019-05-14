@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_main"
+    tools:context=".MenuActivity"
+    tools:ignore="UnusedAttribute,HardcodedText">
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/logout_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_button_transparent"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:id="@+id/logout_text_view"
+            style="@style/MainMenuText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:gravity="end"
+            android:lineSpacingMultiplier="1.25"
+            android:text="ออกจากระบบ"
+            app:layout_constraintBottom_toBottomOf="@+id/logout_image_view"
+            app:layout_constraintEnd_toStartOf="@+id/logout_image_view"
+            app:layout_constraintTop_toTopOf="@+id/logout_image_view"/>
+
+        <ImageView
+            android:id="@+id/logout_image_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="logout"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/ic_logout"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+    <ImageView
+        android:id="@+id/farm_info_image_view"
+        android:layout_width="95dp"
+        android:layout_height="95dp"
+        android:clickable="true"
+        android:contentDescription="farm information"
+        android:focusable="true"
+        android:foreground="?attr/selectableItemBackground"
+        app:layout_constraintBottom_toTopOf="@+id/farm_info_text_view"
+        app:layout_constraintEnd_toStartOf="@+id/feeding_record_image_view"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:srcCompat="@drawable/ic_main_farm_info"/>
+
+    <ImageView
+        android:id="@+id/feeding_record_image_view"
+        android:layout_width="95dp"
+        android:layout_height="95dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginStart="12dp"
+        android:clickable="true"
+        android:contentDescription="feeding record"
+        android:focusable="true"
+        android:foreground="?attr/selectableItemBackground"
+        app:layout_constraintBottom_toBottomOf="@+id/farm_info_image_view"
+        app:layout_constraintEnd_toStartOf="@+id/water_quality_image_view"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/farm_info_image_view"
+        app:layout_constraintTop_toTopOf="@+id/farm_info_image_view"
+        app:srcCompat="@drawable/ic_main_feeding_record"/>
+
+    <ImageView
+        android:id="@+id/water_quality_image_view"
+        android:layout_width="95dp"
+        android:layout_height="95dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginStart="12dp"
+        android:clickable="true"
+        android:contentDescription="water quality"
+        android:focusable="true"
+        android:foreground="?attr/selectableItemBackground"
+        app:layout_constraintBottom_toBottomOf="@+id/feeding_record_image_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/feeding_record_image_view"
+        app:layout_constraintTop_toTopOf="@+id/feeding_record_image_view"
+        app:srcCompat="@drawable/ic_main_water_quality"/>
+
+    <ImageView
+        android:id="@+id/breed_source_image_view"
+        android:layout_width="95dp"
+        android:layout_height="95dp"
+        android:layout_marginTop="32dp"
+        android:clickable="true"
+        android:contentDescription="breed source"
+        android:focusable="true"
+        android:foreground="?attr/selectableItemBackground"
+        app:layout_constraintBottom_toTopOf="@+id/breed_source_text_view"
+        app:layout_constraintEnd_toEndOf="@+id/farm_info_image_view"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/farm_info_image_view"
+        app:layout_constraintTop_toBottomOf="@+id/farm_info_text_view"
+        app:srcCompat="@drawable/ic_main_breed_source"/>
+
+    <ImageView
+        android:id="@+id/report_image_view"
+        android:layout_width="95dp"
+        android:layout_height="95dp"
+        android:layout_marginTop="32dp"
+        android:clickable="true"
+        android:contentDescription="report"
+        android:focusable="true"
+        android:foreground="?attr/selectableItemBackground"
+        app:layout_constraintBottom_toTopOf="@+id/report_text_view"
+        app:layout_constraintEnd_toEndOf="@+id/breed_source_image_view"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/breed_source_image_view"
+        app:layout_constraintTop_toBottomOf="@+id/breed_source_text_view"
+        app:srcCompat="@drawable/ic_main_report"/>
+
+    <TextView
+        android:id="@+id/farm_info_text_view"
+        style="@style/MainMenuText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="ข้อมูลฟาร์ม"
+        app:layout_constraintBottom_toTopOf="@+id/breed_source_image_view"
+        app:layout_constraintEnd_toEndOf="@+id/farm_info_image_view"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/farm_info_image_view"
+        app:layout_constraintTop_toBottomOf="@+id/farm_info_image_view"/>
+
+    <TextView
+        android:id="@+id/breed_source_text_view"
+        style="@style/MainMenuText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="แหล่งพันธุ์ลูกกุ้ง"
+        app:layout_constraintBottom_toTopOf="@+id/report_image_view"
+        app:layout_constraintEnd_toEndOf="@+id/breed_source_image_view"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/breed_source_image_view"
+        app:layout_constraintTop_toBottomOf="@+id/breed_source_image_view"/>
+
+    <TextView
+        android:id="@+id/report_text_view"
+        style="@style/MainMenuText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="รายงานข้อมูล"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/report_image_view"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/report_image_view"
+        app:layout_constraintTop_toBottomOf="@+id/report_image_view"/>
+
+    <ImageView
+        android:id="@+id/formula_image_view"
+        android:layout_width="95dp"
+        android:layout_height="95dp"
+        android:clickable="true"
+        android:contentDescription="formula"
+        android:focusable="true"
+        android:foreground="?attr/selectableItemBackground"
+        app:layout_constraintBottom_toBottomOf="@+id/breed_source_image_view"
+        app:layout_constraintEnd_toEndOf="@+id/feeding_record_image_view"
+        app:layout_constraintStart_toStartOf="@+id/feeding_record_image_view"
+        app:layout_constraintTop_toTopOf="@+id/breed_source_image_view"
+        app:srcCompat="@drawable/ic_main_formula"/>
+
+    <ImageView
+        android:id="@+id/summary_image_view"
+        android:layout_width="95dp"
+        android:layout_height="95dp"
+        android:clickable="true"
+        android:contentDescription="summary"
+        android:focusable="true"
+        android:foreground="?attr/selectableItemBackground"
+        app:layout_constraintBottom_toBottomOf="@+id/formula_image_view"
+        app:layout_constraintEnd_toEndOf="@+id/water_quality_image_view"
+        app:layout_constraintStart_toStartOf="@+id/water_quality_image_view"
+        app:layout_constraintTop_toTopOf="@+id/formula_image_view"
+        app:srcCompat="@drawable/ic_main_summary"/>
+
+    <TextView
+        android:id="@+id/formula_text_view"
+        style="@style/MainMenuText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="สูตรคำนวณ"
+        app:layout_constraintEnd_toEndOf="@+id/formula_image_view"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/formula_image_view"
+        app:layout_constraintTop_toBottomOf="@+id/formula_image_view"/>
+
+    <TextView
+        android:id="@+id/feeding_record_text_view"
+        style="@style/MainMenuText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="บันทึกการให้อาหาร"
+        app:layout_constraintEnd_toEndOf="@+id/feeding_record_image_view"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/feeding_record_image_view"
+        app:layout_constraintTop_toBottomOf="@+id/feeding_record_image_view"/>
+
+    <TextView
+        android:id="@+id/water_quality_text_view"
+        style="@style/MainMenuText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="คุณภาพน้ำ"
+        app:layout_constraintEnd_toEndOf="@+id/water_quality_image_view"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/water_quality_image_view"
+        app:layout_constraintTop_toBottomOf="@+id/water_quality_image_view"/>
+
+    <TextView
+        android:id="@+id/summary_text_view"
+        style="@style/MainMenuText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="สรุปผลการเลี้ยง"
+        app:layout_constraintEnd_toEndOf="@+id/summary_image_view"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/summary_image_view"
+        app:layout_constraintTop_toBottomOf="@+id/summary_image_view"/>
+
+</android.support.constraint.ConstraintLayout>

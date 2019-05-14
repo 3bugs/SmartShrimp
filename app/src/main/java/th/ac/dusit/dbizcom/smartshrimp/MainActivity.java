@@ -13,9 +13,11 @@ import th.ac.dusit.dbizcom.smartshrimp.etc.Utils;
 import th.ac.dusit.dbizcom.smartshrimp.fragment.AddFeedingRecordFragment;
 import th.ac.dusit.dbizcom.smartshrimp.fragment.FarmInfoFragment;
 import th.ac.dusit.dbizcom.smartshrimp.fragment.FeedingRecordFragment;
+import th.ac.dusit.dbizcom.smartshrimp.fragment.FormulaAdgFragment;
 import th.ac.dusit.dbizcom.smartshrimp.fragment.FormulaFcrFragment;
 import th.ac.dusit.dbizcom.smartshrimp.fragment.FormulaMainFragment;
 import th.ac.dusit.dbizcom.smartshrimp.fragment.FormulaSizeFragment;
+import th.ac.dusit.dbizcom.smartshrimp.fragment.FormulaSurvivalRateFragment;
 import th.ac.dusit.dbizcom.smartshrimp.fragment.PondInfoFragment;
 import th.ac.dusit.dbizcom.smartshrimp.model.Feeding;
 
@@ -26,7 +28,9 @@ public class MainActivity extends AppCompatActivity implements
         AddFeedingRecordFragment.AddFeedingRecordFragmentListener,
         FormulaMainFragment.FormulaMainFragmentListener,
         FormulaFcrFragment.FormulaFcrFragmentListener,
-        FormulaSizeFragment.FormulaSizeFragmentListener {
+        FormulaSizeFragment.FormulaSizeFragmentListener,
+        FormulaAdgFragment.FormulaAdgFragmentListener,
+        FormulaSurvivalRateFragment.FormulaSurvivalRateFragmentListener {
 
     static final String KEY_FRAGMENT = "fragment";
     static final String TAG_FRAGMENT_FARM_INFO = "farm_info_fragment";
@@ -201,16 +205,21 @@ public class MainActivity extends AppCompatActivity implements
                 fragment = new FormulaSizeFragment();
                 break;
             case 2:
+                fragment = new FormulaAdgFragment();
                 break;
             case 3:
+                fragment = new FormulaSurvivalRateFragment();
                 break;
         }
-        loadFragment(
-                fragment,
-                TAG_FRAGMENT_FORMULA_FCR,
-                true,
-                FragmentTransitionType.SLIDE
-        );
+
+        if (fragment != null) {
+            loadFragment(
+                    fragment,
+                    TAG_FRAGMENT_FORMULA_FCR,
+                    true,
+                    FragmentTransitionType.SLIDE
+            );
+        }
     }
 
     @Override

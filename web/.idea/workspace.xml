@@ -1,17 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="400ad1e9-3ace-4749-a423-ddfa7c2f1fcf" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/../app/src/main/res/drawable/ic_address.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../app/src/main/res/drawable/ic_name.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/java/th/ac/dusit/dbizcom/smartshrimp/RegisterActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/th/ac/dusit/dbizcom/smartshrimp/RegisterActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/java/th/ac/dusit/dbizcom/smartshrimp/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/th/ac/dusit/dbizcom/smartshrimp/model/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/java/th/ac/dusit/dbizcom/smartshrimp/net/WebServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/th/ac/dusit/dbizcom/smartshrimp/net/WebServices.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/activity_register.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/res/layout/activity_register.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/c38df377-d5c7-4036-9be2-c23ed7d10db6.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/c38df377-d5c7-4036-9be2-c23ed7d10db6.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/api.php" afterDir="false" />
-    </list>
+    <list default="true" id="400ad1e9-3ace-4749-a423-ddfa7c2f1fcf" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -317,16 +307,15 @@
       <workItem from="1557650551242" duration="1480000" />
       <workItem from="1557672752904" duration="2906000" />
       <workItem from="1557743836050" duration="1061000" />
-      <workItem from="1557759050200" duration="1808000" />
+      <workItem from="1557759050200" duration="2385000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="61189000" />
+    <option name="totallyTimeSpent" value="61766000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.10892587" />
       <window_info anchor="bottom" id="TODO" order="6" />
