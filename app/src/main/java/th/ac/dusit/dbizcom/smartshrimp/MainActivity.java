@@ -15,6 +15,7 @@ import th.ac.dusit.dbizcom.smartshrimp.fragment.FarmInfoFragment;
 import th.ac.dusit.dbizcom.smartshrimp.fragment.FeedingRecordFragment;
 import th.ac.dusit.dbizcom.smartshrimp.fragment.FormulaFcrFragment;
 import th.ac.dusit.dbizcom.smartshrimp.fragment.FormulaMainFragment;
+import th.ac.dusit.dbizcom.smartshrimp.fragment.FormulaSizeFragment;
 import th.ac.dusit.dbizcom.smartshrimp.fragment.PondInfoFragment;
 import th.ac.dusit.dbizcom.smartshrimp.model.Feeding;
 
@@ -24,7 +25,8 @@ public class MainActivity extends AppCompatActivity implements
         FeedingRecordFragment.FeedingRecordFragmentListener,
         AddFeedingRecordFragment.AddFeedingRecordFragmentListener,
         FormulaMainFragment.FormulaMainFragmentListener,
-        FormulaFcrFragment.FormulaFcrFragmentListener {
+        FormulaFcrFragment.FormulaFcrFragmentListener,
+        FormulaSizeFragment.FormulaSizeFragmentListener {
 
     static final String KEY_FRAGMENT = "fragment";
     static final String TAG_FRAGMENT_FARM_INFO = "farm_info_fragment";
@@ -190,22 +192,25 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onClickFormulaButton(int which) {
+        Fragment fragment = null;
         switch (which) {
             case 0:
-                loadFragment(
-                        new FormulaFcrFragment(),
-                        TAG_FRAGMENT_FORMULA_FCR,
-                        true,
-                        FragmentTransitionType.SLIDE
-                );
+                fragment = new FormulaFcrFragment();
                 break;
             case 1:
+                fragment = new FormulaSizeFragment();
                 break;
             case 2:
                 break;
             case 3:
                 break;
         }
+        loadFragment(
+                fragment,
+                TAG_FRAGMENT_FORMULA_FCR,
+                true,
+                FragmentTransitionType.SLIDE
+        );
     }
 
     @Override
