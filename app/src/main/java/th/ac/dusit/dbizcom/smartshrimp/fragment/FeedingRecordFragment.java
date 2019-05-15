@@ -64,7 +64,7 @@ public class FeedingRecordFragment extends Fragment {
         });
 
         if (mListener != null) {
-            mListener.setupRefreshButton(true, new View.OnClickListener() {
+            mListener.setupRefreshButton(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     doGetFeeding();
@@ -162,7 +162,7 @@ public class FeedingRecordFragment extends Fragment {
     public interface FeedingRecordFragmentListener {
         void setTitle(String title);
 
-        void setupRefreshButton(boolean visible, View.OnClickListener listener);
+        void setupRefreshButton(View.OnClickListener listener);
 
         void onClickAddFeedingButton(int pondId);
 

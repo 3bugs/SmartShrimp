@@ -52,7 +52,7 @@ public class PondInfoFragment extends Fragment {
         mPondRecyclerView = view.findViewById(R.id.pond_recycler_view);
 
         if (mListener != null) {
-            mListener.setupRefreshButton(true, new View.OnClickListener() {
+            mListener.setupRefreshButton(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     doGetPond();
@@ -122,7 +122,7 @@ public class PondInfoFragment extends Fragment {
     public interface PondInfoFragmentListener {
         void setTitle(String title);
 
-        void setupRefreshButton(boolean visible, View.OnClickListener listener);
+        void setupRefreshButton(View.OnClickListener listener);
     }
 
     private static class PondListAdapter extends RecyclerView.Adapter<PondListAdapter.PondViewHolder> {

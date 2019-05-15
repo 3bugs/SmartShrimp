@@ -146,7 +146,7 @@ public class AddFeedingRecordFragment extends Fragment {
         });
 
         if (mListener != null) {
-            mListener.setupRefreshButton(false, null);
+            mListener.setupRefreshButton(null);
         }
 
         updateFeedDateEditText();
@@ -288,7 +288,7 @@ public class AddFeedingRecordFragment extends Fragment {
     public interface AddFeedingRecordFragmentListener {
         void setTitle(String title);
 
-        void setupRefreshButton(boolean visible, View.OnClickListener listener);
+        void setupRefreshButton(View.OnClickListener listener);
 
         void onSaveFeedingRecordSuccess();
     }

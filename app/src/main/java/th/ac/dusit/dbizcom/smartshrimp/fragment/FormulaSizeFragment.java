@@ -39,7 +39,15 @@ public class FormulaSizeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         if (mListener != null) {
-            mListener.setupRefreshButton(false, null);
+            mListener.setupRefreshButton(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mCountEditText.setText("");
+                    mWeightEditText.setText("");
+                    mResultTextView.setText("");
+                    mCountEditText.requestFocus();
+                }
+            });
         }
 
         mCountEditText = view.findViewById(R.id.count_edit_text);
@@ -50,9 +58,9 @@ public class FormulaSizeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if (isFormValid()) {
-                    double feed = Double.parseDouble(mCountEditText.getText().toString().trim());
+                    double count = Double.parseDouble(mCountEditText.getText().toString().trim());
                     double weight = Double.parseDouble(mWeightEditText.getText().toString().trim());
-                    double result = feed / weight;
+                    double result = count / weight;
                     mResultTextView.setText(String.format(Locale.getDefault(), "%.2f", result));
                 }
             }
@@ -112,7 +120,7 @@ public class FormulaSizeFragment extends Fragment {
     public interface FormulaSizeFragmentListener {
         void setTitle(String title);
 
-        void setupRefreshButton(boolean visible, View.OnClickListener listener);
+        void setupRefreshButton(View.OnClickListener listener);
 
         void onClickBackButton();
     }

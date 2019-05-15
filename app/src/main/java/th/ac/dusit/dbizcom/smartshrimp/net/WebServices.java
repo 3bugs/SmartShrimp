@@ -58,4 +58,8 @@ public interface WebServices {
             @Field("secondFeed") int secondFeed,
             @Field("thirdFeed") int thirdFeed
     );
+
+    @GET("get_summary")
+    Call<GetSummaryResponse> getSummary(
+    );
 }

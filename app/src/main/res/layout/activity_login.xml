@@ -5,16 +5,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_main"
+    android:background="@drawable/bg_login"
     tools:context=".LoginActivity"
     tools:ignore="HardcodedText,UnusedAttribute">
 
     <ImageView
         android:id="@+id/logo_image_view"
-        android:layout_width="177dp"
-        android:layout_height="175dp"
+        android:layout_width="185dp"
+        android:layout_height="189dp"
         android:layout_marginBottom="16dp"
-        android:layout_marginTop="16dp"
         android:contentDescription="logo"
         app:layout_constraintBottom_toTopOf="@+id/username_edit_text"
         app:layout_constraintEnd_toEndOf="parent"
@@ -22,7 +21,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed"
-        app:srcCompat="@drawable/ic_login"/>
+        app:srcCompat="@drawable/ic_login_new"/>
 
     <EditText
         android:id="@+id/username_edit_text"
@@ -32,7 +31,7 @@
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:autofillHints="username"
         android:background="@drawable/bg_edit_text"
         android:drawableLeft="@drawable/ic_username2"
@@ -114,7 +113,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="visible">
+        tools:visibility="gone">
 
         <ProgressBar
             android:layout_width="wrap_content"

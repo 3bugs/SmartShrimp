@@ -39,7 +39,16 @@ public class FormulaAdgFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         if (mListener != null) {
-            mListener.setupRefreshButton(false, null);
+            mListener.setupRefreshButton(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mInitialWeightEditText.setText("");
+                    mFinalWeightEditText.setText("");
+                    mPeriodEditText.setText("");
+                    mResultTextView.setText("");
+                    mFinalWeightEditText.requestFocus();
+                }
+            });
         }
 
         mInitialWeightEditText = view.findViewById(R.id.initial_weight_edit_text);
@@ -119,7 +128,7 @@ public class FormulaAdgFragment extends Fragment {
     public interface FormulaAdgFragmentListener {
         void setTitle(String title);
 
-        void setupRefreshButton(boolean visible, View.OnClickListener listener);
+        void setupRefreshButton(View.OnClickListener listener);
 
         void onClickBackButton();
     }

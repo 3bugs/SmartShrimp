@@ -39,7 +39,16 @@ public class FormulaSurvivalRateFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         if (mListener != null) {
-            mListener.setupRefreshButton(false, null);
+            mListener.setupRefreshButton(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mWeightEditText.setText("");
+                    mSizeEditText.setText("");
+                    mCountEditText.setText("");
+                    mResultTextView.setText("");
+                    mWeightEditText.requestFocus();
+                }
+            });
         }
 
         mWeightEditText = view.findViewById(R.id.weight_edit_text);
@@ -119,7 +128,7 @@ public class FormulaSurvivalRateFragment extends Fragment {
     public interface FormulaSurvivalRateFragmentListener {
         void setTitle(String title);
 
-        void setupRefreshButton(boolean visible, View.OnClickListener listener);
+        void setupRefreshButton(View.OnClickListener listener);
 
         void onClickBackButton();
     }

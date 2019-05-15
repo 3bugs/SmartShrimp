@@ -19,6 +19,7 @@ import th.ac.dusit.dbizcom.smartshrimp.fragment.FormulaMainFragment;
 import th.ac.dusit.dbizcom.smartshrimp.fragment.FormulaSizeFragment;
 import th.ac.dusit.dbizcom.smartshrimp.fragment.FormulaSurvivalRateFragment;
 import th.ac.dusit.dbizcom.smartshrimp.fragment.PondInfoFragment;
+import th.ac.dusit.dbizcom.smartshrimp.fragment.SummaryFragment;
 import th.ac.dusit.dbizcom.smartshrimp.model.Feeding;
 
 public class MainActivity extends AppCompatActivity implements
@@ -30,22 +31,23 @@ public class MainActivity extends AppCompatActivity implements
         FormulaFcrFragment.FormulaFcrFragmentListener,
         FormulaSizeFragment.FormulaSizeFragmentListener,
         FormulaAdgFragment.FormulaAdgFragmentListener,
-        FormulaSurvivalRateFragment.FormulaSurvivalRateFragmentListener {
+        FormulaSurvivalRateFragment.FormulaSurvivalRateFragmentListener,
+        SummaryFragment.SummaryFragmentListener {
 
-    static final String KEY_FRAGMENT = "fragment";
-    static final String TAG_FRAGMENT_FARM_INFO = "farm_info_fragment";
+    public static final String KEY_FRAGMENT = "fragment";
+    public static final String TAG_FRAGMENT_FARM_INFO = "farm_info_fragment";
     private static final String TAG_FRAGMENT_POND_INFO = "pond_info_fragment";
-    static final String TAG_FRAGMENT_FEEDING_RECORD = "feeding_record_fragment";
+    public static final String TAG_FRAGMENT_FEEDING_RECORD = "feeding_record_fragment";
     private static final String TAG_FRAGMENT_ADD_FEEDING_RECORD = "add_feeding_record_fragment";
-    static final String TAG_FRAGMENT_WATER_QUALITY = "water_quality_fragment";
-    static final String TAG_FRAGMENT_BREED_SOURCE = "breed_source_fragment";
-    static final String TAG_FRAGMENT_FORMULA_MAIN = "formula_main_fragment";
-    static final String TAG_FRAGMENT_FORMULA_FCR = "formula_fcr_fragment";
-    static final String TAG_FRAGMENT_FORMULA_SIZE = "formula_size_fragment";
-    static final String TAG_FRAGMENT_FORMULA_ADG = "formula_adg_fragment";
-    static final String TAG_FRAGMENT_FORMULA_SURVIVAL_RATE = "formula_survival_rate_fragment";
-    static final String TAG_FRAGMENT_SUMMARY = "summary_fragment";
-    static final String TAG_FRAGMENT_REPORT = "report_fragment";
+    public static final String TAG_FRAGMENT_WATER_QUALITY = "water_quality_fragment";
+    public static final String TAG_FRAGMENT_BREED_SOURCE = "breed_source_fragment";
+    public static final String TAG_FRAGMENT_FORMULA_MAIN = "formula_main_fragment";
+    public static final String TAG_FRAGMENT_FORMULA_FCR = "formula_fcr_fragment";
+    public static final String TAG_FRAGMENT_FORMULA_SIZE = "formula_size_fragment";
+    public static final String TAG_FRAGMENT_FORMULA_ADG = "formula_adg_fragment";
+    public static final String TAG_FRAGMENT_FORMULA_SURVIVAL_RATE = "formula_survival_rate_fragment";
+    public static final String TAG_FRAGMENT_SUMMARY = "summary_fragment";
+    public static final String TAG_FRAGMENT_REPORT = "report_fragment";
 
     protected enum FragmentTransitionType {
         NONE,
@@ -87,8 +89,7 @@ public class MainActivity extends AppCompatActivity implements
                 fragment = new FormulaMainFragment();
                 break;
             case TAG_FRAGMENT_SUMMARY:
-                //fragment = new SummaryFragment();
-                //titleTextView.setText("สรุปผลการเลี้ยง");
+                fragment = new SummaryFragment();
                 break;
             case TAG_FRAGMENT_REPORT:
                 //fragment = new ReportFragment();
@@ -146,12 +147,10 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void setupRefreshButton(boolean visible, View.OnClickListener listener) {
+    public void setupRefreshButton(View.OnClickListener listener) {
         ImageView refreshImageView = findViewById(R.id.refresh_image_view);
-        refreshImageView.setVisibility(visible ? View.VISIBLE : View.GONE);
-        if (visible) {
-            refreshImageView.setOnClickListener(listener);
-        }
+        refreshImageView.setVisibility(listener != null ? View.VISIBLE : View.GONE);
+        refreshImageView.setOnClickListener(listener);
     }
 
     @Override

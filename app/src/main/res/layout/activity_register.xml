@@ -19,6 +19,7 @@
             android:layout_height="72dp"
             android:layout_marginTop="32dp"
             android:contentDescription="logo"
+            android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@+id/email_edit_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -52,7 +53,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/logo_image_view"/>
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <EditText
             android:id="@+id/username_edit_text"
@@ -193,7 +194,7 @@
             style="@style/Button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="32dp"
             android:layout_marginTop="32dp"
             android:text="สมัครสมาชิก"
             app:layout_constraintBottom_toBottomOf="parent"

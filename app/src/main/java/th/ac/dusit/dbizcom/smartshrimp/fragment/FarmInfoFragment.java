@@ -47,7 +47,7 @@ public class FarmInfoFragment extends Fragment {
         mProgressView = view.findViewById(R.id.progress_view);
 
         if (mListener != null) {
-            mListener.setupRefreshButton(true, new View.OnClickListener() {
+            mListener.setupRefreshButton(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     doGetFarmInfo(view);
@@ -133,7 +133,7 @@ public class FarmInfoFragment extends Fragment {
     public interface FarmInfoFragmentListener {
         void setTitle(String title);
 
-        void setupRefreshButton(boolean visible, View.OnClickListener listener);
+        void setupRefreshButton(View.OnClickListener listener);
 
         void onClickPondInfoButton();
     }

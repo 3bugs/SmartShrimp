@@ -39,7 +39,15 @@ public class FormulaFcrFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         if (mListener != null) {
-            mListener.setupRefreshButton(false, null);
+            mListener.setupRefreshButton(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mFeedEditText.setText("");
+                    mWeightEditText.setText("");
+                    mResultTextView.setText("");
+                    mFeedEditText.requestFocus();
+                }
+            });
         }
 
         mFeedEditText = view.findViewById(R.id.feed_edit_text);
@@ -112,7 +120,7 @@ public class FormulaFcrFragment extends Fragment {
     public interface FormulaFcrFragmentListener {
         void setTitle(String title);
 
-        void setupRefreshButton(boolean visible, View.OnClickListener listener);
+        void setupRefreshButton(View.OnClickListener listener);
 
         void onClickBackButton();
     }

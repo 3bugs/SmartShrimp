@@ -53,4 +53,22 @@ public class MyDateFormatter {
                 day, month, yearInBe
         );
     }
+
+    public static String formatForUiShortYear(Date date) {
+        SimpleDateFormat monthFormatter = new SimpleDateFormat("MM", Locale.US);
+        String month = monthFormatter.format(date);
+
+        SimpleDateFormat yearFormatter = new SimpleDateFormat("yyyy", Locale.US);
+        //String yearInBe = String.valueOf(Integer.valueOf(yearFormatter.format(date)));
+        String yearInBe = String.valueOf(Integer.valueOf(yearFormatter.format(date)) + 543).substring(2);
+
+        SimpleDateFormat dayFormatter = new SimpleDateFormat("dd", Locale.US);
+        String day = dayFormatter.format(date);
+
+        return String.format(
+                Locale.getDefault(),
+                "%s/%s/%s",
+                day, month, yearInBe
+        );
+    }
 }

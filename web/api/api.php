@@ -67,6 +67,9 @@ switch ($action) {
     case 'update_feeding':
         doUpdateFeeding();
         break;
+    case 'get_summary':
+        doGetSummary();
+        break;
     default:
         $response[KEY_ERROR_CODE] = ERROR_CODE_ERROR;
         $response[KEY_ERROR_MESSAGE] = 'No action specified or invalid action.';
@@ -464,6 +467,50 @@ function doUpdateFeeding()
     } else {
         $response[KEY_ERROR_CODE] = ERROR_CODE_ERROR;
         $response[KEY_ERROR_MESSAGE] = 'เกิดข้อผิดพลาดในการบันทึกข้อมูลการให้อาหาร';
+        $errMessage = $db->error;
+        $response[KEY_ERROR_MESSAGE_MORE] = "$errMessage\nSQL: $sql";
+    }
+}
+
+function doGetSummary()
+{
+    global $db, $response;
+
+    try {
+        $response[KEY_ERROR_CODE] = ERROR_CODE_SUCCESS;
+        $response[KEY_ERROR_MESSAGE] = 'อ่านข้อมูลสำเร็จ';
+        $response[KEY_ERROR_MESSAGE_MORE] = '';
+
+        $sql = "SELECT * FROM pond WHERE number=1";
+        $result = $db->query($sql);
+        $row = $result->fetch_assoc();
+        $summary['pond_area'] = (int)$row['area']; //ขนาดบ่อ
+        $summary['shrimp_count'] = (int)$row['initial_shrimp_count']; //ขนาดบ่อ
+        $result->close();
+
+        $sql = "SELECT MIN(feed_date) AS begin_date, MAX(feed_date) AS end_date FROM feeding";
+        $result = $db->query($sql);
+        $row = $result->fetch_assoc();
+        $beginDate = $row['begin_date'];
+        $endDate = $row['end_date'];
+        $summary['begin_date'] = $beginDate; //วันที่ปล่อยกุ้ง
+        $summary['end_date'] = $endDate; //วันที่จับกุ้ง
+        $diff = date_diff(date_create($beginDate), date_create($endDate));
+        $summary['period'] = (int)($diff->format("%a")); //ระยะเวลาการเลี้ยง
+        $result->close();
+
+        $sql = "SELECT SUM(first_feed) AS sum1, SUM(second_feed) AS sum2, SUM(third_feed) AS sum3 FROM feeding";
+        $result = $db->query($sql);
+        $row = $result->fetch_assoc();
+        $sum1 = (int)$row['sum1'];
+        $sum2 = (int)$row['sum2'];
+        $sum3 = (int)$row['sum3'];
+        $summary['feed'] = $sum1 + $sum2 + $sum3; //ปริมาณอาหารที่ใช้
+
+        $response['summary'] = $summary;
+    } catch (Exception $e) {
+        $response[KEY_ERROR_CODE] = ERROR_CODE_ERROR;
+        $response[KEY_ERROR_MESSAGE] = 'เกิดข้อผิดพลาดในการเชื่อมต่อฐานข้อมูล';
         $errMessage = $db->error;
         $response[KEY_ERROR_MESSAGE_MORE] = "$errMessage\nSQL: $sql";
     }

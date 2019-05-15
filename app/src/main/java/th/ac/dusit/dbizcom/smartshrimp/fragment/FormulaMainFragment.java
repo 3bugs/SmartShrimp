@@ -32,7 +32,7 @@ public class FormulaMainFragment extends Fragment implements View.OnClickListene
         super.onViewCreated(view, savedInstanceState);
 
         if (mListener != null) {
-            mListener.setupRefreshButton(false, null);
+            mListener.setupRefreshButton(null);
         }
 
         view.findViewById(R.id.fcr_button).setOnClickListener(this);
@@ -91,7 +91,7 @@ public class FormulaMainFragment extends Fragment implements View.OnClickListene
     public interface FormulaMainFragmentListener {
         void setTitle(String title);
 
-        void setupRefreshButton(boolean visible, View.OnClickListener listener);
+        void setupRefreshButton(View.OnClickListener listener);
 
         void onClickFormulaButton(int which);
     }

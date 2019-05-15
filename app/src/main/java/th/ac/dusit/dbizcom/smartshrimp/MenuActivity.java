@@ -12,24 +12,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.Locale;
-
 import th.ac.dusit.dbizcom.smartshrimp.etc.MyPrefs;
+import th.ac.dusit.dbizcom.smartshrimp.fragment.MenuHomeFragment;
 import th.ac.dusit.dbizcom.smartshrimp.model.User;
 
-import static th.ac.dusit.dbizcom.smartshrimp.MainActivity.KEY_FRAGMENT;
-import static th.ac.dusit.dbizcom.smartshrimp.MainActivity.TAG_FRAGMENT_BREED_SOURCE;
-import static th.ac.dusit.dbizcom.smartshrimp.MainActivity.TAG_FRAGMENT_FARM_INFO;
-import static th.ac.dusit.dbizcom.smartshrimp.MainActivity.TAG_FRAGMENT_FEEDING_RECORD;
-import static th.ac.dusit.dbizcom.smartshrimp.MainActivity.TAG_FRAGMENT_FORMULA_MAIN;
-import static th.ac.dusit.dbizcom.smartshrimp.MainActivity.TAG_FRAGMENT_REPORT;
-import static th.ac.dusit.dbizcom.smartshrimp.MainActivity.TAG_FRAGMENT_SUMMARY;
-import static th.ac.dusit.dbizcom.smartshrimp.MainActivity.TAG_FRAGMENT_WATER_QUALITY;
+public class MenuActivity extends AppCompatActivity implements
+        NavigationView.OnNavigationItemSelectedListener,
+        MenuHomeFragment.MenuHomeFragmentListener {
 
-public class MenuActivity extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
+    public static final String TAG_FRAGMENT_MENU_HOME = "menu_home_fragment";
+    public static final String TAG_FRAGMENT_MENU_DEVELOPER = "menu_developer_fragment";
+    public static final String TAG_FRAGMENT_MENU_ABOUT = "menu_about_fragment";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,13 +33,9 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
 
         setupToolbarAndDrawer();
 
-        findViewById(R.id.farm_info_image_view).setOnClickListener(this);
-        findViewById(R.id.feeding_record_image_view).setOnClickListener(this);
-        findViewById(R.id.water_quality_image_view).setOnClickListener(this);
-        findViewById(R.id.breed_source_image_view).setOnClickListener(this);
-        findViewById(R.id.formula_image_view).setOnClickListener(this);
-        findViewById(R.id.summary_image_view).setOnClickListener(this);
-        findViewById(R.id.report_image_view).setOnClickListener(this);
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, new MenuHomeFragment(), TAG_FRAGMENT_MENU_HOME)
+                .commit();
 
         /*ViewGroup logoutLayout = findViewById(R.id.logout_layout);
         logoutLayout.setOnClickListener(new View.OnClickListener() {
@@ -115,37 +106,6 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         } else {
             super.onBackPressed();
         }
-    }
-
-    @Override
-    public void onClick(View view) {
-        Intent intent = new Intent(MenuActivity.this, MainActivity.class);
-        String fragmentTag = null;
-        switch (view.getId()) {
-            case R.id.farm_info_image_view:
-                fragmentTag = TAG_FRAGMENT_FARM_INFO;
-                break;
-            case R.id.feeding_record_image_view:
-                fragmentTag = TAG_FRAGMENT_FEEDING_RECORD;
-                break;
-            case R.id.water_quality_image_view:
-                fragmentTag = TAG_FRAGMENT_WATER_QUALITY;
-                break;
-            case R.id.breed_source_image_view:
-                fragmentTag = TAG_FRAGMENT_BREED_SOURCE;
-                break;
-            case R.id.formula_image_view:
-                fragmentTag = TAG_FRAGMENT_FORMULA_MAIN;
-                break;
-            case R.id.summary_image_view:
-                fragmentTag = TAG_FRAGMENT_SUMMARY;
-                break;
-            case R.id.report_image_view:
-                fragmentTag = TAG_FRAGMENT_REPORT;
-                break;
-        }
-        intent.putExtra(KEY_FRAGMENT, fragmentTag);
-        startActivity(intent);
     }
 
     @Override

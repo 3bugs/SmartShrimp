@@ -1242,7 +1242,7 @@
     </column>
     <column id="297" parent="258" name="address">
       <Position>7</Position>
-      <DataType>varchar(500)|0s</DataType>
+      <DataType>text|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
