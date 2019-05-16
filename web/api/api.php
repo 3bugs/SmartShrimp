@@ -70,6 +70,9 @@ switch ($action) {
     case 'get_summary':
         doGetSummary();
         break;
+    case 'update_summary':
+        doUpdateSummary();
+        break;
     default:
         $response[KEY_ERROR_CODE] = ERROR_CODE_ERROR;
         $response[KEY_ERROR_MESSAGE] = 'No action specified or invalid action.';
@@ -511,6 +514,28 @@ function doGetSummary()
     } catch (Exception $e) {
         $response[KEY_ERROR_CODE] = ERROR_CODE_ERROR;
         $response[KEY_ERROR_MESSAGE] = 'เกิดข้อผิดพลาดในการเชื่อมต่อฐานข้อมูล';
+        $errMessage = $db->error;
+        $response[KEY_ERROR_MESSAGE_MORE] = "$errMessage\nSQL: $sql";
+    }
+}
+
+function doUpdateSummary()
+{
+    global $db, $response;
+
+    $finalWeight = $db->real_escape_string($_POST['finalWeight']);
+    $cost = $db->real_escape_string($_POST['cost']);
+    $salePrice = $db->real_escape_string($_POST['salePrice']);
+
+    $sql = "UPDATE `pond` SET `final_weight`=$finalWeight, `cost`=$cost, `sale_price`=$salePrice "
+        . " WHERE `number`=1";
+    if ($result = $db->query($sql)) {
+        $response[KEY_ERROR_CODE] = ERROR_CODE_SUCCESS;
+        $response[KEY_ERROR_MESSAGE] = 'บันทึกข้อมูลสำเร็จ';
+        $response[KEY_ERROR_MESSAGE_MORE] = '';
+    } else {
+        $response[KEY_ERROR_CODE] = ERROR_CODE_ERROR;
+        $response[KEY_ERROR_MESSAGE] = 'เกิดข้อผิดพลาดในการบันทึกข้อมูล';
         $errMessage = $db->error;
         $response[KEY_ERROR_MESSAGE_MORE] = "$errMessage\nSQL: $sql";
     }

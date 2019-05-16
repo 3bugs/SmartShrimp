@@ -23,6 +23,7 @@ import th.ac.dusit.dbizcom.smartshrimp.model.Summary;
 import th.ac.dusit.dbizcom.smartshrimp.net.ApiClient;
 import th.ac.dusit.dbizcom.smartshrimp.net.GetSummaryResponse;
 import th.ac.dusit.dbizcom.smartshrimp.net.MyRetrofitCallback;
+import th.ac.dusit.dbizcom.smartshrimp.net.UpdateSummaryResponse;
 import th.ac.dusit.dbizcom.smartshrimp.net.WebServices;
 
 public class SummaryFragment extends Fragment {
@@ -32,6 +33,7 @@ public class SummaryFragment extends Fragment {
     private SummaryFragmentListener mListener;
 
     private View mProgressView;
+    private EditText mSalePriceEditText, mCostEditText, mFinalWeightEditText;
 
     public SummaryFragment() {
         // Required empty public constructor
@@ -48,10 +50,22 @@ public class SummaryFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         mProgressView = view.findViewById(R.id.progress_view);
+        mFinalWeightEditText = view.findViewById(R.id.final_weight_edit_text);
+        mCostEditText = view.findViewById(R.id.cost_edit_text);
+        mSalePriceEditText = view.findViewById(R.id.sale_price_edit_text);
 
         if (mListener != null) {
             mListener.setupRefreshButton(null);
         }
+
+        view.findViewById(R.id.save_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (isFormValid()) {
+                    doUpdateSummary();
+                }
+            }
+        });
 
         doGetSummary(view);
     }
@@ -83,7 +97,7 @@ public class SummaryFragment extends Fragment {
                         ((EditText) view.findViewById(R.id.period_edit_text)).setText(String.valueOf(summary.period));
                         ((EditText) view.findViewById(R.id.feed_edit_text)).setText(String.valueOf(summary.feed));
 
-                        ((EditText) view.findViewById(R.id.final_weight_edit_text)).addTextChangedListener(new TextWatcher() {
+                        mFinalWeightEditText.addTextChangedListener(new TextWatcher() {
                             @Override
                             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -111,10 +125,8 @@ public class SummaryFragment extends Fragment {
                         });
 
                         final EditText profitEditText = view.findViewById(R.id.profit_edit_text);
-                        final EditText salePriceEditText = view.findViewById(R.id.sale_price_edit_text);
-                        final EditText costEditText = view.findViewById(R.id.cost_edit_text);
 
-                        salePriceEditText.addTextChangedListener(new TextWatcher() {
+                        mSalePriceEditText.addTextChangedListener(new TextWatcher() {
                             @Override
                             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -124,7 +136,7 @@ public class SummaryFragment extends Fragment {
                             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                                 try {
                                     int salePrice = Integer.parseInt(charSequence.toString());
-                                    int cost = Integer.parseInt(costEditText.getText().toString());
+                                    int cost = Integer.parseInt(mCostEditText.getText().toString());
 
                                     profitEditText.setText(String.valueOf(salePrice - cost));
                                 } catch (NumberFormatException e) {
@@ -138,7 +150,7 @@ public class SummaryFragment extends Fragment {
                             }
                         });
 
-                        costEditText.addTextChangedListener(new TextWatcher() {
+                        mCostEditText.addTextChangedListener(new TextWatcher() {
                             @Override
                             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -147,7 +159,7 @@ public class SummaryFragment extends Fragment {
                             @Override
                             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                                 try {
-                                    int salePrice = Integer.parseInt(salePriceEditText.getText().toString());
+                                    int salePrice = Integer.parseInt(mSalePriceEditText.getText().toString());
                                     int cost = Integer.parseInt(charSequence.toString());
 
                                     profitEditText.setText(String.valueOf(salePrice - cost));
@@ -169,6 +181,56 @@ public class SummaryFragment extends Fragment {
                     }
                 }
         ));
+    }
+
+    private boolean isFormValid() {
+        boolean valid = true;
+
+        if (mCostEditText.getText().toString().trim().isEmpty()) {
+            mCostEditText.setError("กรอกค่าใช้จ่าย");
+            valid = false;
+        }
+        if (mSalePriceEditText.getText().toString().trim().isEmpty()) {
+            mSalePriceEditText.setError("กรอกราคากุ้งที่ขายได้");
+            valid = false;
+        }
+        if (mFinalWeightEditText.getText().toString().trim().isEmpty()) {
+            mFinalWeightEditText.setError("กรอกผลผลิต");
+            valid = false;
+        }
+
+        return valid;
+    }
+
+    private void doUpdateSummary() {
+        mProgressView.setVisibility(View.VISIBLE);
+
+        Retrofit retrofit = ApiClient.getClient();
+        WebServices services = retrofit.create(WebServices.class);
+
+        Call<UpdateSummaryResponse> call = services.updateSummary(
+                Integer.parseInt(mFinalWeightEditText.getText().toString()),
+                Integer.parseInt(mCostEditText.getText().toString()),
+                Integer.parseInt(mSalePriceEditText.getText().toString())
+        );
+        call.enqueue(new MyRetrofitCallback<>(
+                getActivity(),
+                null,
+                mProgressView,
+                new MyRetrofitCallback.MyRetrofitCallbackListener<UpdateSummaryResponse>() {
+                    @Override
+                    public void onSuccess(UpdateSummaryResponse responseBody) {
+                        if (getActivity() != null) {
+                            Utils.showLongToast(getActivity(), responseBody.errorMessage);
+                        }
+                    }
+
+                    @Override
+                    public void onError(String errorMessage) {
+                        Utils.showOkDialog(getActivity(), "ผิดพลาด", errorMessage);
+                    }
+                })
+        );
     }
 
     @Override

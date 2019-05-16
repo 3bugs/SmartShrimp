@@ -62,4 +62,12 @@ public interface WebServices {
     @GET("get_summary")
     Call<GetSummaryResponse> getSummary(
     );
+
+    @FormUrlEncoded
+    @POST("update_summary")
+    Call<UpdateSummaryResponse> updateSummary(
+            @Field("finalWeight") int finalWeight,
+            @Field("cost") int cost,
+            @Field("salePrice") int salePrice
+    );
 }
