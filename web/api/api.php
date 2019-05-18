@@ -488,7 +488,10 @@ function doGetSummary()
         $result = $db->query($sql);
         $row = $result->fetch_assoc();
         $summary['pond_area'] = (int)$row['area']; //ขนาดบ่อ
-        $summary['shrimp_count'] = (int)$row['initial_shrimp_count']; //ขนาดบ่อ
+        $summary['shrimp_count'] = (int)$row['initial_shrimp_count']; //จำนวนกุ้งที่ปล่อย
+        $summary['final_weight'] = (int)$row['final_weight']; //น้ำหนักกุ้งที่จับได้
+        $summary['cost'] = (int)$row['cost']; //ค่าใช้จ่าย
+        $summary['sale_price'] = (int)$row['sale_price']; //ราคากุ้งที่ขายได้
         $result->close();
 
         $sql = "SELECT MIN(feed_date) AS begin_date, MAX(feed_date) AS end_date FROM feeding";

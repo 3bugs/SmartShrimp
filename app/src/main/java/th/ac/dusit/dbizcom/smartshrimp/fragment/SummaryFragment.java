@@ -34,6 +34,7 @@ public class SummaryFragment extends Fragment {
 
     private View mProgressView;
     private EditText mSalePriceEditText, mCostEditText, mFinalWeightEditText;
+    private EditText mSizeEditText, mProfitEditText;
 
     public SummaryFragment() {
         // Required empty public constructor
@@ -52,7 +53,9 @@ public class SummaryFragment extends Fragment {
         mProgressView = view.findViewById(R.id.progress_view);
         mFinalWeightEditText = view.findViewById(R.id.final_weight_edit_text);
         mCostEditText = view.findViewById(R.id.cost_edit_text);
+        mSizeEditText = view.findViewById(R.id.size_edit_text);
         mSalePriceEditText = view.findViewById(R.id.sale_price_edit_text);
+        mProfitEditText = view.findViewById(R.id.profit_edit_text);
 
         if (mListener != null) {
             mListener.setupRefreshButton(null);
@@ -97,80 +100,55 @@ public class SummaryFragment extends Fragment {
                         ((EditText) view.findViewById(R.id.period_edit_text)).setText(String.valueOf(summary.period));
                         ((EditText) view.findViewById(R.id.feed_edit_text)).setText(String.valueOf(summary.feed));
 
+                        mFinalWeightEditText.setText(summary.finalWeight < 0 ? "" : String.valueOf(summary.finalWeight));
+                        mCostEditText.setText(summary.cost < 0 ? "" : String.valueOf(summary.cost));
+                        mSalePriceEditText.setText(summary.salePrice < 0 ? "" : String.valueOf(summary.salePrice));
+
+                        calculateSize(mFinalWeightEditText.getText().toString(), summary.shrimpCount);
+                        calculateProfit(mSalePriceEditText.getText().toString(), mCostEditText.getText().toString());
+
                         mFinalWeightEditText.addTextChangedListener(new TextWatcher() {
                             @Override
                             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
                             }
 
                             @Override
                             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                                EditText sizeEditText = view.findViewById(R.id.size_edit_text);
-                                int finalWeight = 0;
-                                try {
-                                    finalWeight = Integer.parseInt(charSequence.toString());
-                                } catch (NumberFormatException e) {
-                                    sizeEditText.setText("");
-                                }
-                                if (finalWeight > 0) {
-                                    float size = (float) summary.shrimpCount / (float) finalWeight;
-                                    sizeEditText.setText(String.format(Locale.getDefault(), "%.2f", size));
-                                }
+                                calculateSize(charSequence.toString(), summary.shrimpCount);
                             }
 
                             @Override
                             public void afterTextChanged(Editable editable) {
-
                             }
                         });
-
-                        final EditText profitEditText = view.findViewById(R.id.profit_edit_text);
 
                         mSalePriceEditText.addTextChangedListener(new TextWatcher() {
                             @Override
                             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
                             }
 
                             @Override
                             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                                try {
-                                    int salePrice = Integer.parseInt(charSequence.toString());
-                                    int cost = Integer.parseInt(mCostEditText.getText().toString());
-
-                                    profitEditText.setText(String.valueOf(salePrice - cost));
-                                } catch (NumberFormatException e) {
-                                    profitEditText.setText("");
-                                }
+                                calculateProfit(charSequence.toString(), mCostEditText.getText().toString());
                             }
 
                             @Override
                             public void afterTextChanged(Editable editable) {
-
                             }
                         });
 
                         mCostEditText.addTextChangedListener(new TextWatcher() {
                             @Override
                             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
                             }
 
                             @Override
                             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                                try {
-                                    int salePrice = Integer.parseInt(mSalePriceEditText.getText().toString());
-                                    int cost = Integer.parseInt(charSequence.toString());
-
-                                    profitEditText.setText(String.valueOf(salePrice - cost));
-                                } catch (NumberFormatException e) {
-                                    profitEditText.setText("");
-                                }
+                                calculateProfit(mSalePriceEditText.getText().toString(), charSequence.toString());
                             }
 
                             @Override
                             public void afterTextChanged(Editable editable) {
-
                             }
                         });
                     }
@@ -181,6 +159,30 @@ public class SummaryFragment extends Fragment {
                     }
                 }
         ));
+    }
+
+    private void calculateProfit(String salePriceText, String costText) {
+        try {
+            int salePrice = Integer.parseInt(salePriceText);
+            int cost = Integer.parseInt(costText);
+
+            mProfitEditText.setText(String.valueOf(salePrice - cost));
+        } catch (NumberFormatException e) {
+            mProfitEditText.setText("");
+        }
+    }
+
+    private void calculateSize(String finalWeightText, int shrimpCount) {
+        int finalWeight = 0;
+        try {
+            finalWeight = Integer.parseInt(finalWeightText);
+        } catch (NumberFormatException e) {
+            mSizeEditText.setText("");
+        }
+        if (finalWeight > 0) {
+            float size = (float) shrimpCount / (float) finalWeight;
+            mSizeEditText.setText(String.format(Locale.getDefault(), "%.2f", size));
+        }
     }
 
     private boolean isFormValid() {

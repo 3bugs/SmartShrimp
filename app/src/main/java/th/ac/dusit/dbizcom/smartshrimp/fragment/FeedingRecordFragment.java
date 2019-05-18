@@ -1,12 +1,15 @@
 package th.ac.dusit.dbizcom.smartshrimp.fragment;
 
 import android.content.Context;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,7 +57,7 @@ public class FeedingRecordFragment extends Fragment {
 
         mProgressView = view.findViewById(R.id.progress_view);
         mFeedingRecyclerView = view.findViewById(R.id.feeding_recycler_view);
-        view.findViewById(R.id.add_feeding_button).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.add_feeding_fab).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (mListener != null) {
@@ -125,13 +128,16 @@ public class FeedingRecordFragment extends Fragment {
     }
 
     private void setupRecyclerView() {
-        FeedingListAdapter adapter = new FeedingListAdapter(
-                getContext(),
-                mFeedingList,
-                mListener
-        );
-        mFeedingRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mFeedingRecyclerView.setAdapter(adapter);
+        if (getContext() != null) {
+            FeedingListAdapter adapter = new FeedingListAdapter(
+                    getContext(),
+                    mFeedingList,
+                    mListener
+            );
+            mFeedingRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+            mFeedingRecyclerView.addItemDecoration(new SpacingDecoration(getContext()));
+            mFeedingRecyclerView.setAdapter(adapter);
+        }
     }
 
     @Override
@@ -179,7 +185,6 @@ public class FeedingRecordFragment extends Fragment {
             mContext = context;
             mFeedingList = feedingList;
             mListener = listener;
-
         }
 
         @NonNull
@@ -267,6 +272,38 @@ public class FeedingRecordFragment extends Fragment {
                         mListener.onEditFeeding(mFeeding);
                     }
                 });
+            }
+        }
+    }
+
+    public class SpacingDecoration extends RecyclerView.ItemDecoration {
+
+        private final static int MARGIN_IN_DP = 88;
+        private final int mMarginBottom;
+
+        SpacingDecoration(@NonNull Context context) {
+            DisplayMetrics metrics = context.getResources().getDisplayMetrics();
+            mMarginBottom = (int) TypedValue.applyDimension(
+                    TypedValue.COMPLEX_UNIT_DIP,
+                    MARGIN_IN_DP,
+                    metrics
+            );
+        }
+
+        @Override
+        public void getItemOffsets(@NonNull Rect outRect, @NonNull View view,
+                                   @NonNull RecyclerView parent,
+                                   @NonNull RecyclerView.State state) {
+            final int itemPosition = parent.getChildAdapterPosition(view);
+            if (itemPosition == RecyclerView.NO_POSITION) {
+                return;
+            }
+            /*if (itemPosition == 0) {
+                outRect.top = mMarginBottom;
+            }*/
+            final RecyclerView.Adapter adapter = parent.getAdapter();
+            if ((adapter != null) && (itemPosition == adapter.getItemCount() - 1)) {
+                outRect.bottom = mMarginBottom;
             }
         }
     }
