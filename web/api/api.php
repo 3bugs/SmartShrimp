@@ -479,14 +479,31 @@ function doGetSummary()
 {
     global $db, $response;
 
+    $pondNumber = $db->real_escape_string($_POST['pondNumber']);
+    if (!isset($_POST['pondNumber'])) {
+        $pondNumber = 1;
+    }
+
     try {
         $response[KEY_ERROR_CODE] = ERROR_CODE_SUCCESS;
         $response[KEY_ERROR_MESSAGE] = 'อ่านข้อมูลสำเร็จ';
         $response[KEY_ERROR_MESSAGE_MORE] = '';
 
-        $sql = "SELECT * FROM pond WHERE number=1";
+        $sql = "SELECT * FROM farm";
+        $result = $db->query($sql);
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            $summary['farm_name'] = $row['name'];
+        } else {
+            $summary['farm_name'] = null;
+        }
+        $result->close();
+
+        $sql = "SELECT * FROM pond WHERE number=$pondNumber";
         $result = $db->query($sql);
         $row = $result->fetch_assoc();
+        $pondId = (int)$row['id'];
+        $summary['pond_number'] = $pondNumber;
         $summary['pond_area'] = (int)$row['area']; //ขนาดบ่อ
         $summary['shrimp_count'] = (int)$row['initial_shrimp_count']; //จำนวนกุ้งที่ปล่อย
         $summary['final_weight'] = (int)$row['final_weight']; //น้ำหนักกุ้งที่จับได้
@@ -494,18 +511,24 @@ function doGetSummary()
         $summary['sale_price'] = (int)$row['sale_price']; //ราคากุ้งที่ขายได้
         $result->close();
 
-        $sql = "SELECT MIN(feed_date) AS begin_date, MAX(feed_date) AS end_date FROM feeding";
+        $sql = "SELECT MIN(feed_date) AS begin_date, MAX(feed_date) AS end_date FROM feeding "
+            . " WHERE pond_id=$pondId";
         $result = $db->query($sql);
         $row = $result->fetch_assoc();
         $beginDate = $row['begin_date'];
         $endDate = $row['end_date'];
         $summary['begin_date'] = $beginDate; //วันที่ปล่อยกุ้ง
         $summary['end_date'] = $endDate; //วันที่จับกุ้ง
-        $diff = date_diff(date_create($beginDate), date_create($endDate));
-        $summary['period'] = (int)($diff->format("%a")); //ระยะเวลาการเลี้ยง
+        if ($beginDate != null && $endDate != null) {
+            $diff = date_diff(date_create($beginDate), date_create($endDate));
+            $summary['period'] = (int)($diff->format("%a")); //ระยะเวลาการเลี้ยง
+        } else {
+            $summary['period'] = 0;
+        }
         $result->close();
 
-        $sql = "SELECT SUM(first_feed) AS sum1, SUM(second_feed) AS sum2, SUM(third_feed) AS sum3 FROM feeding";
+        $sql = "SELECT SUM(first_feed) AS sum1, SUM(second_feed) AS sum2, SUM(third_feed) AS sum3 FROM feeding"
+            . " WHERE pond_id=$pondId";
         $result = $db->query($sql);
         $row = $result->fetch_assoc();
         $sum1 = (int)$row['sum1'];

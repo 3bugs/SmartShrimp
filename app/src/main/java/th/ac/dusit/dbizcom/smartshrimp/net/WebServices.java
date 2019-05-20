@@ -59,8 +59,10 @@ public interface WebServices {
             @Field("thirdFeed") int thirdFeed
     );
 
-    @GET("get_summary")
+    @FormUrlEncoded
+    @POST("get_summary")
     Call<GetSummaryResponse> getSummary(
+            @Field("pondNumber") int pondNumber
     );
 
     @FormUrlEncoded

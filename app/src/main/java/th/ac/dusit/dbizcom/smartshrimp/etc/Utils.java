@@ -16,6 +16,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DecimalFormat;
+
 public class Utils {
 
     public static void showOkDialog(Context context, String title, String msg) {
@@ -88,6 +90,16 @@ public class Utils {
     public static String formatThaiDate(String date) {
         String[] dateParts = date.split("-");
         return dateParts[2] + "." + dateParts[1] + "." + String.valueOf(Integer.parseInt(dateParts[0]) + 543);
+    }
+
+    public static String formatWholeNumberWithComma(double number) {
+        DecimalFormat formatter = new DecimalFormat("#,###");
+        return formatter.format(number);
+    }
+
+    public static String formatNumber2DecimalDigitsWithComma(double number) {
+        DecimalFormat formatter = new DecimalFormat("#,###.00");
+        return formatter.format(number);
     }
 
     /**

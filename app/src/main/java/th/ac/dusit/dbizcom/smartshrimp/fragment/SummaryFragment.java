@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import java.util.Locale;
 
@@ -35,6 +36,8 @@ public class SummaryFragment extends Fragment {
     private View mProgressView;
     private EditText mSalePriceEditText, mCostEditText, mFinalWeightEditText;
     private EditText mSizeEditText, mProfitEditText;
+    private View mMainLayout;
+    private TextView mErrorMessageTextView;
 
     public SummaryFragment() {
         // Required empty public constructor
@@ -57,6 +60,9 @@ public class SummaryFragment extends Fragment {
         mSalePriceEditText = view.findViewById(R.id.sale_price_edit_text);
         mProfitEditText = view.findViewById(R.id.profit_edit_text);
 
+        mMainLayout = view.findViewById(R.id.farm_info_scroll_view);
+        mErrorMessageTextView = view.findViewById(R.id.error_message_text_view);
+
         if (mListener != null) {
             mListener.setupRefreshButton(null);
         }
@@ -75,11 +81,13 @@ public class SummaryFragment extends Fragment {
 
     private void doGetSummary(final View view) {
         mProgressView.setVisibility(View.VISIBLE);
+        mErrorMessageTextView.setVisibility(View.GONE);
+        mMainLayout.setVisibility(View.GONE);
 
         Retrofit retrofit = ApiClient.getClient();
         WebServices services = retrofit.create(WebServices.class);
 
-        Call<GetSummaryResponse> call = services.getSummary();
+        Call<GetSummaryResponse> call = services.getSummary(1); //todo: **************
         call.enqueue(new MyRetrofitCallback<>(
                 getActivity(),
                 null,
@@ -88,6 +96,15 @@ public class SummaryFragment extends Fragment {
                     @Override
                     public void onSuccess(GetSummaryResponse responseBody) {
                         final Summary summary = responseBody.summary;
+
+                        if (summary.beginDate == null || summary.endDate == null) {
+                            String errorMessage = "ไม่สามารถสรุปผลได้ เนื่องจากไม่มีข้อมูลการให้อาหารของบ่อนี้";
+                            mErrorMessageTextView.setText(errorMessage);
+                            mErrorMessageTextView.setVisibility(View.VISIBLE);
+                            return;
+                        }
+
+                        mMainLayout.setVisibility(View.VISIBLE);
                         ((EditText) view.findViewById(R.id.pond_area_edit_text)).setText(String.valueOf(summary.pondArea));
 
                         String beginDate = MyDateFormatter.formatForUiShortYear(new MyDateFormatter().parseDateString(summary.beginDate));

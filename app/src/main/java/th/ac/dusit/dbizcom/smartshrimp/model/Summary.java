@@ -4,6 +4,10 @@ import com.google.gson.annotations.SerializedName;
 
 public class Summary {
 
+    @SerializedName("farm_name")
+    public final String farmName;
+    @SerializedName("pond_number")
+    public final int pondNumber;
     @SerializedName("pond_area")
     public final int pondArea;
     @SerializedName("shrimp_count")
@@ -23,8 +27,10 @@ public class Summary {
     @SerializedName("sale_price")
     public final int salePrice;
 
-    public Summary(int pondArea, int shrimpCount, String beginDate, String endDate,
-                   int period, int feed, int finalWeight, int cost, int salePrice) {
+    public Summary(String farmName, int pondNumber, int pondArea, int shrimpCount, String beginDate,
+                   String endDate, int period, int feed, int finalWeight, int cost, int salePrice) {
+        this.pondNumber = pondNumber;
+        this.farmName= farmName;
         this.pondArea = pondArea;
         this.shrimpCount = shrimpCount;
         this.beginDate = beginDate;

@@ -19,6 +19,7 @@ import th.ac.dusit.dbizcom.smartshrimp.fragment.FormulaMainFragment;
 import th.ac.dusit.dbizcom.smartshrimp.fragment.FormulaSizeFragment;
 import th.ac.dusit.dbizcom.smartshrimp.fragment.FormulaSurvivalRateFragment;
 import th.ac.dusit.dbizcom.smartshrimp.fragment.PondInfoFragment;
+import th.ac.dusit.dbizcom.smartshrimp.fragment.ReportFragment;
 import th.ac.dusit.dbizcom.smartshrimp.fragment.SummaryFragment;
 import th.ac.dusit.dbizcom.smartshrimp.model.Feeding;
 
@@ -32,7 +33,8 @@ public class MainActivity extends AppCompatActivity implements
         FormulaSizeFragment.FormulaSizeFragmentListener,
         FormulaAdgFragment.FormulaAdgFragmentListener,
         FormulaSurvivalRateFragment.FormulaSurvivalRateFragmentListener,
-        SummaryFragment.SummaryFragmentListener {
+        SummaryFragment.SummaryFragmentListener,
+        ReportFragment.ReportFragmentListener {
 
     public static final String KEY_FRAGMENT = "fragment";
     public static final String TAG_FRAGMENT_FARM_INFO = "farm_info_fragment";
@@ -92,8 +94,7 @@ public class MainActivity extends AppCompatActivity implements
                 fragment = new SummaryFragment();
                 break;
             case TAG_FRAGMENT_REPORT:
-                //fragment = new ReportFragment();
-                //titleTextView.setText("รายงานข้อมูล");
+                fragment = new ReportFragment();
                 break;
         }
 
