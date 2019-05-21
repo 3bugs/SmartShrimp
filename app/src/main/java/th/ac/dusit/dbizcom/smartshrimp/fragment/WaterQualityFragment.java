@@ -129,12 +129,54 @@ public class WaterQualityFragment extends Fragment {
     }
 
     private boolean isFormValid() {
-        return true;
+        boolean valid = true;
+        String mPhMorning = mPhMorningEditText.getText().toString().trim();
+        String mPhEvening = mPhEveningEditText.getText().toString().trim();
+        String mSalty = mSaltyEditText.getText().toString().trim();
+        String mAmmonia = mAmmoniaEditText.getText().toString().trim();
+        String mNitrite = mNitriteEditText.getText().toString().trim();
+        String mAlkaline = mAlkalineEditText.getText().toString().trim();
+        String mCalcium = mCalciumEditText.getText().toString().trim();
+        String mMagnesium = mMagnesiumEditText.getText().toString().trim();
+
+        if (mMagnesium.isEmpty()) {
+            mMagnesiumEditText.setError("กรอกค่าแมกนีเซียม");
+            valid = false;
+        }
+        if (mCalcium.isEmpty()) {
+            mCalciumEditText.setError("กรอกค่าแคลเซียม");
+            valid = false;
+        }
+        if (mAlkaline.isEmpty()) {
+            mAlkalineEditText.setError("กรอกค่าอัลคาไลน์");
+            valid = false;
+        }
+        if (mNitrite.isEmpty()) {
+            mNitriteEditText.setError("กรอกค่าไนไตรท์");
+            valid = false;
+        }
+        if (mAmmonia.isEmpty()) {
+            mAmmoniaEditText.setError("กรอกค่าแอมโมเนีย");
+            valid = false;
+        }
+        if (mSalty.isEmpty()) {
+            mSaltyEditText.setError("กรอกค่าความเค็ม");
+            valid = false;
+        }
+        if (mPhEvening.isEmpty() && mPhMorning.isEmpty()) {
+            mPhMorningEditText.setError("กรอกค่า PH อย่างน้อย 1 เวลา");
+            mPhEveningEditText.setError("กรอกค่า PH อย่างน้อย 1 เวลา");
+            valid = false;
+        }
+        return valid;
     }
 
     private void doAddOrUpdateWaterQuality() {
-        double phMorning = Double.parseDouble(mPhMorningEditText.getText().toString());
-        double phEvening = Double.parseDouble(mPhEveningEditText.getText().toString());
+        String phMorningText = mPhMorningEditText.getText().toString().trim();
+        String phEveningText = mPhEveningEditText.getText().toString().trim();
+
+        double phMorning = Double.parseDouble("".equals(phMorningText) ? "0" : phMorningText);
+        double phEvening = Double.parseDouble("".equals(phEveningText) ? "0" : phEveningText);
         double salty = Double.parseDouble(mSaltyEditText.getText().toString());
         double ammonia = Double.parseDouble(mAmmoniaEditText.getText().toString());
         double nitrite = Double.parseDouble(mNitriteEditText.getText().toString());
