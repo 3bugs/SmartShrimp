@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent=".53"/>
+        app:layout_constraintGuide_percent=".55"/>
 
     <TextView
         android:id="@+id/feed_date_text_view"
@@ -35,7 +35,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:labelFor="@id/address_edit_text"
-        android:text="จำนวนอาหารมื้อที่ 1"
+        android:text="จำนวนอาหารมื้อเช้า"
         app:layout_constraintBottom_toBottomOf="@+id/first_feed_edit_text"
         app:layout_constraintStart_toStartOf="@+id/feed_date_text_view"
         app:layout_constraintTop_toTopOf="@+id/first_feed_edit_text"
@@ -47,7 +47,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:labelFor="@id/sub_district_edit_text"
-        android:text="จำนวนอาหารมื้อที่ 2"
+        android:text="จำนวนอาหารมื้อเที่ยง"
         app:layout_constraintBottom_toBottomOf="@+id/second_feed_edit_text"
         app:layout_constraintStart_toStartOf="@+id/feed_date_text_view"
         app:layout_constraintTop_toTopOf="@+id/second_feed_edit_text"
@@ -59,7 +59,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:labelFor="@id/district_edit_text"
-        android:text="จำนวนอาหารมื้อที่ 3"
+        android:text="จำนวนอาหารมื้อเย็น"
         app:layout_constraintBottom_toBottomOf="@+id/third_feed_edit_text"
         app:layout_constraintStart_toStartOf="@+id/second_feed_text_view"
         app:layout_constraintTop_toTopOf="@+id/third_feed_edit_text"

@@ -32,7 +32,7 @@ import th.ac.dusit.dbizcom.smartshrimp.net.WebServices;
 public class FeedingRecordFragment extends Fragment {
 
     private static final String TITLE = "บันทึกการให้อาหารกุ้ง";
-    private static final int TEMP_POND_ID = 1;
+    private static final int TEMP_POND_ID = 9;
 
     private List<Feeding> mFeedingList = null;
 

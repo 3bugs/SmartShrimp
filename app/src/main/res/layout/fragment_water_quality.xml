@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment.WaterQualityFragment"
+    tools:ignore="UnusedAttribute,HardcodedText,LabelFor,Autofill">
+
+    <ScrollView
+        android:id="@+id/farm_info_scroll_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5"/>
+
+            <TextView
+                android:id="@+id/test_date_text_view"
+                style="@style/LabelTextWhite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="24dp"
+                android:layout_marginStart="24dp"
+                android:labelFor="@id/farm_name_edit_text"
+                android:text="วันที่"
+                app:layout_constraintBottom_toBottomOf="@+id/test_date_edit_text"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/test_date_edit_text"
+                tools:textColor="@android:color/black"/>
+
+            <TextView
+                android:id="@+id/ph_text_view"
+                style="@style/LabelTextWhite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="24dp"
+                android:layout_marginStart="24dp"
+                android:labelFor="@id/farm_name_edit_text"
+                android:text="กรด-ด่าง PH"
+                app:layout_constraintBottom_toBottomOf="@+id/ph_evening_edit_text"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/ph_evening_edit_text"
+                tools:textColor="@android:color/black"/>
+
+            <TextView
+                android:id="@+id/salty_text_view"
+                style="@style/LabelTextWhite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:labelFor="@id/address_edit_text"
+                android:text="ความเค็ม"
+                app:layout_constraintBottom_toBottomOf="@+id/salty_edit_text"
+                app:layout_constraintStart_toStartOf="@+id/ph_text_view"
+                app:layout_constraintTop_toTopOf="@+id/salty_edit_text"
+                tools:textColor="@android:color/black"/>
+
+            <TextView
+                android:id="@+id/ammonia_text_view"
+                style="@style/LabelTextWhite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:labelFor="@id/sub_district_edit_text"
+                android:text="แอมโมเนีย"
+                app:layout_constraintBottom_toBottomOf="@+id/ammonia_edit_text"
+                app:layout_constraintStart_toStartOf="@+id/ph_text_view"
+                app:layout_constraintTop_toTopOf="@+id/ammonia_edit_text"
+                tools:textColor="@android:color/black"/>
+
+            <TextView
+                android:id="@+id/nitrite_text_view"
+                style="@style/LabelTextWhite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:labelFor="@id/district_edit_text"
+                android:text="ไนไตรท์"
+                app:layout_constraintBottom_toBottomOf="@+id/nitrite_edit_text"
+                app:layout_constraintStart_toStartOf="@+id/ph_text_view"
+                app:layout_constraintTop_toTopOf="@+id/nitrite_edit_text"
+                tools:textColor="@android:color/black"/>
+
+            <TextView
+                android:id="@+id/alkaline_text_view"
+                style="@style/LabelTextWhite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:labelFor="@id/province_edit_text"
+                android:text="อัลคาไลน์"
+                app:layout_constraintBottom_toBottomOf="@+id/alkaline_edit_text"
+                app:layout_constraintStart_toStartOf="@+id/ph_text_view"
+                app:layout_constraintTop_toTopOf="@+id/alkaline_edit_text"
+                tools:textColor="@android:color/black"/>
+
+            <TextView
+                android:id="@+id/calcium_text_view"
+                style="@style/LabelTextWhite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:labelFor="@id/postal_code_edit_text"
+                android:text="แคลเซียม"
+                app:layout_constraintBottom_toBottomOf="@+id/calcium_edit_text"
+                app:layout_constraintStart_toStartOf="@+id/ph_text_view"
+                app:layout_constraintTop_toTopOf="@+id/calcium_edit_text"
+                tools:textColor="@android:color/black"/>
+
+            <TextView
+                android:id="@+id/magnesium_text_view"
+                style="@style/LabelTextWhite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:labelFor="@id/farm_reg_id_edit_text"
+                android:text="แมกนีเซียม"
+                app:layout_constraintBottom_toBottomOf="@+id/magnesium_edit_text"
+                app:layout_constraintStart_toStartOf="@+id/ph_text_view"
+                app:layout_constraintTop_toTopOf="@+id/magnesium_edit_text"
+                tools:textColor="@android:color/black"/>
+
+            <EditText
+                android:id="@+id/test_date_edit_text"
+                style="@style/EditTextWhite"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
+                android:layout_marginRight="24dp"
+                android:layout_marginTop="16dp"
+                android:autofillHints="farm name"
+                android:editable="false"
+                android:ems="10"
+                android:focusable="false"
+                android:gravity="center_horizontal"
+                android:inputType="none"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/guideline"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="Deprecated,TextFields"
+                tools:text="01 / 01 / 2561"/>
+
+            <EditText
+                android:id="@+id/ph_morning_edit_text"
+                style="@style/EditTextWhite"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:ems="10"
+                android:gravity="end"
+                android:hint="เช้า"
+                android:inputType="numberDecimal"
+                app:layout_constraintBottom_toBottomOf="@+id/ph_evening_edit_text"
+                app:layout_constraintEnd_toStartOf="@+id/ph_evening_edit_text"
+                app:layout_constraintStart_toStartOf="@+id/guideline"
+                app:layout_constraintTop_toTopOf="@+id/ph_evening_edit_text"/>
+
+            <EditText
+                android:id="@+id/ph_evening_edit_text"
+                style="@style/EditTextWhite"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
+                android:layout_marginRight="24dp"
+                android:layout_marginTop="4dp"
+                android:ems="10"
+                android:gravity="end"
+                android:hint="เย็น"
+                android:inputType="numberDecimal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/ph_morning_edit_text"
+                app:layout_constraintTop_toBottomOf="@+id/test_date_edit_text"/>
+
+            <EditText
+                android:id="@+id/salty_edit_text"
+                style="@style/EditTextWhite"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:ems="10"
+                android:gravity="end"
+                android:inputType="numberDecimal"
+                app:layout_constraintEnd_toEndOf="@+id/ph_evening_edit_text"
+                app:layout_constraintStart_toStartOf="@+id/guideline"
+                app:layout_constraintTop_toBottomOf="@+id/ph_evening_edit_text"
+                tools:ignore="TextFields"/>
+
+            <EditText
+                android:id="@+id/ammonia_edit_text"
+                style="@style/EditTextWhite"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:ems="10"
+                android:gravity="end"
+                android:inputType="numberDecimal"
+                app:layout_constraintEnd_toEndOf="@+id/ph_evening_edit_text"
+                app:layout_constraintStart_toStartOf="@+id/guideline"
+                app:layout_constraintTop_toBottomOf="@+id/salty_edit_text"
+                tools:ignore="TextFields"/>
+
+            <EditText
+                android:id="@+id/nitrite_edit_text"
+                style="@style/EditTextWhite"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:ems="10"
+                android:gravity="end"
+                android:inputType="numberDecimal"
+                app:layout_constraintEnd_toEndOf="@+id/ph_evening_edit_text"
+                app:layout_constraintStart_toStartOf="@+id/guideline"
+                app:layout_constraintTop_toBottomOf="@+id/ammonia_edit_text"/>
+
+            <EditText
+                android:id="@+id/alkaline_edit_text"
+                style="@style/EditTextWhite"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:ems="10"
+                android:gravity="end"
+                android:inputType="numberDecimal"
+                app:layout_constraintEnd_toEndOf="@+id/ph_evening_edit_text"
+                app:layout_constraintStart_toStartOf="@+id/guideline"
+                app:layout_constraintTop_toBottomOf="@+id/nitrite_edit_text"/>
+
+            <EditText
+                android:id="@+id/calcium_edit_text"
+                style="@style/EditTextWhite"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:ems="10"
+                android:gravity="end"
+                android:inputType="numberDecimal"
+                app:layout_constraintEnd_toEndOf="@+id/ph_evening_edit_text"
+                app:layout_constraintStart_toStartOf="@+id/guideline"
+                app:layout_constraintTop_toBottomOf="@+id/alkaline_edit_text"/>
+
+            <EditText
+                android:id="@+id/magnesium_edit_text"
+                style="@style/EditTextWhite"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:ems="10"
+                android:gravity="end"
+                android:inputType="numberDecimal"
+                app:layout_constraintEnd_toEndOf="@+id/ph_evening_edit_text"
+                app:layout_constraintStart_toStartOf="@+id/guideline"
+                app:layout_constraintTop_toBottomOf="@+id/calcium_edit_text"/>
+
+            <Button
+                android:id="@+id/save_button"
+                style="@style/Button"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="32dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="32dp"
+                android:text="บันทึก"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/magnesium_edit_text"/>
+
+            <TextView
+                android:id="@+id/textView2"
+                style="@style/LabelTextWhite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
+                android:text="ไร่"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/ph_evening_edit_text"
+                app:layout_constraintStart_toEndOf="@+id/ph_evening_edit_text"
+                app:layout_constraintTop_toTopOf="@+id/ph_evening_edit_text"
+                tools:textColor="@android:color/black"/>
+
+            <TextView
+                android:id="@+id/textView3"
+                style="@style/LabelTextWhite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
+                android:text="กก."
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/calcium_edit_text"
+                app:layout_constraintStart_toEndOf="@+id/calcium_edit_text"
+                app:layout_constraintTop_toTopOf="@+id/calcium_edit_text"
+                tools:textColor="@android:color/black"/>
+
+            <TextView
+                android:id="@+id/textView4"
+                style="@style/LabelTextWhite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
+                android:text="ตัว/\nกก."
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/magnesium_edit_text"
+                app:layout_constraintStart_toEndOf="@+id/magnesium_edit_text"
+                app:layout_constraintTop_toTopOf="@+id/magnesium_edit_text"
+                tools:textColor="@android:color/black"/>
+
+            <TextView
+                android:id="@+id/textView7"
+                style="@style/LabelTextWhite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
+                android:text="ตัว"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/nitrite_edit_text"
+                app:layout_constraintStart_toEndOf="@+id/nitrite_edit_text"
+                app:layout_constraintTop_toTopOf="@+id/nitrite_edit_text"
+                tools:textColor="@android:color/black"/>
+
+            <TextView
+                android:id="@+id/textView8"
+                style="@style/LabelTextWhite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="11dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="วัน"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/alkaline_edit_text"
+                app:layout_constraintStart_toEndOf="@+id/alkaline_edit_text"
+                app:layout_constraintTop_toTopOf="@+id/alkaline_edit_text"
+                tools:textColor="@android:color/black"/>
+
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/progress_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#80000000"
+        android:gravity="center"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="gone">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

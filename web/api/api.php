@@ -73,6 +73,12 @@ switch ($action) {
     case 'update_summary':
         doUpdateSummary();
         break;
+    case 'get_water_quality':
+        doGetWaterQualityByPondAndDate();
+        break;
+    case 'add_water_quality':
+        doAddWaterQuality();
+        break;
     default:
         $response[KEY_ERROR_CODE] = ERROR_CODE_ERROR;
         $response[KEY_ERROR_MESSAGE] = 'No action specified or invalid action.';
@@ -562,6 +568,95 @@ function doUpdateSummary()
     } else {
         $response[KEY_ERROR_CODE] = ERROR_CODE_ERROR;
         $response[KEY_ERROR_MESSAGE] = 'เกิดข้อผิดพลาดในการบันทึกข้อมูล';
+        $errMessage = $db->error;
+        $response[KEY_ERROR_MESSAGE_MORE] = "$errMessage\nSQL: $sql";
+    }
+}
+
+function doGetWaterQualityByPondAndDate()
+{
+    global $db, $response;
+
+    $pondId = $db->real_escape_string($_POST['pondId']);
+    $testDate = $db->real_escape_string($_POST['testDate']);
+
+    $sql = "SELECT * FROM `water_quality` WHERE `pond_id`=$pondId AND `test_date`='$testDate'";
+    if ($result = $db->query($sql)) {
+        $response[KEY_ERROR_CODE] = ERROR_CODE_SUCCESS;
+        $response[KEY_ERROR_MESSAGE] = 'อ่านข้อมูลคุณภาพน้ำสำเร็จ';
+        $response[KEY_ERROR_MESSAGE_MORE] = '';
+
+        $waterQualityList = array();
+        while ($row = $result->fetch_assoc()) {
+            $waterQuality = array();
+            $waterQuality['id'] = (int)$row['id'];
+            $waterQuality['pond_id'] = (int)$row['pond_id'];
+            $waterQuality['test_date'] = $row['test_date'];
+            $waterQuality['ph_morning'] = floatval($row['ph_morning']);
+            $waterQuality['ph_evening'] = floatval($row['ph_evening']);
+            $waterQuality['salty'] = floatval($row['salty']);
+            $waterQuality['ammonia'] = floatval($row['ammonia']);
+            $waterQuality['nitrite'] = floatval($row['nitrite']);
+            $waterQuality['alkaline'] = floatval($row['alkaline']);
+            $waterQuality['calcium'] = floatval($row['calcium']);
+            $waterQuality['magnesium'] = floatval($row['magnesium']);
+            array_push($waterQualityList, $waterQuality);
+        }
+        $response[KEY_DATA_LIST] = $waterQualityList;
+        $result->close();
+    } else {
+        $response[KEY_ERROR_CODE] = ERROR_CODE_ERROR;
+        $response[KEY_ERROR_MESSAGE] = 'เกิดข้อผิดพลาดในการอ่านข้อมูลคุณภาพน้ำ';
+        $errMessage = $db->error;
+        $response[KEY_ERROR_MESSAGE_MORE] = "$errMessage\nSQL: $sql";
+    }
+}
+
+function doAddWaterQuality()
+{
+    global $db, $response;
+
+    $pondId = $db->real_escape_string($_POST['pondId']);
+    $testDate = $db->real_escape_string($_POST['testDate']);
+    $phMorning = $db->real_escape_string($_POST['phMorning']);
+    $phEvening = $db->real_escape_string($_POST['phEvening']);
+    $salty = $db->real_escape_string($_POST['salty']);
+    $ammonia = $db->real_escape_string($_POST['ammonia']);
+    $nitrite = $db->real_escape_string($_POST['nitrite']);
+    $alkaline = $db->real_escape_string($_POST['alkaline']);
+    $calcium = $db->real_escape_string($_POST['calcium']);
+    $magnesium = $db->real_escape_string($_POST['magnesium']);
+
+    $modeUpdate = FALSE;
+
+    $sql = "SELECT id FROM `water_quality` WHERE `pond_id`=$pondId AND `test_date`='$testDate'";
+    if ($result = $db->query($sql)) {
+        if ($result->num_rows > 0) {
+            $modeUpdate = TRUE;
+        }
+        $result->close();
+    } else {
+        $response[KEY_ERROR_CODE] = ERROR_CODE_ERROR;
+        $response[KEY_ERROR_MESSAGE] = 'เกิดข้อผิดพลาดในการบันทึกข้อมูลคุณภาพน้ำ';
+        $errMessage = $db->error;
+        $response[KEY_ERROR_MESSAGE_MORE] = "$errMessage\nSQL: $sql";
+        return;
+    }
+
+    if ($modeUpdate) {
+        $sql = "UPDATE `water_quality` SET `ph_morning`=$phMorning, `ph_evening`=$phEvening, `salty`=$salty, `ammonia`=$ammonia, `nitrite`=$nitrite, `alkaline`=$alkaline, `calcium`=$calcium, `magnesium`=$magnesium "
+            . " WHERE `pond_id`=$pondId AND `test_date`='$testDate'";
+    } else {
+        $sql = "INSERT INTO `water_quality` (`pond_id`, `test_date`, `ph_morning`, `ph_evening`, `salty`, `ammonia`, `nitrite`, `alkaline`, `calcium`, `magnesium`) "
+            . " VALUES ($pondId, '$testDate', $phMorning, $phEvening, $salty, $ammonia, $nitrite, $alkaline, $calcium, $magnesium)";
+    }
+    if ($result = $db->query($sql)) {
+        $response[KEY_ERROR_CODE] = ERROR_CODE_SUCCESS;
+        $response[KEY_ERROR_MESSAGE] = 'บันทึกข้อมูลคุณภาพน้ำสำเร็จ';
+        $response[KEY_ERROR_MESSAGE_MORE] = '';
+    } else {
+        $response[KEY_ERROR_CODE] = ERROR_CODE_ERROR;
+        $response[KEY_ERROR_MESSAGE] = 'เกิดข้อผิดพลาดในการบันทึกข้อมูลคุณภาพน้ำ';
         $errMessage = $db->error;
         $response[KEY_ERROR_MESSAGE_MORE] = "$errMessage\nSQL: $sql";
     }

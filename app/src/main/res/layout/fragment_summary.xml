@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragment.SummaryFragment"
-    tools:ignore="UnusedAttribute,HardcodedText,LabelFor,Autofill">
+    tools:ignore="UnusedAttribute,HardcodedText,LabelFor,Autofill,ContentDescription,TextFields">
 
     <ScrollView
         android:id="@+id/farm_info_scroll_view"
@@ -452,6 +452,28 @@
                 app:layout_constraintStart_toEndOf="@+id/profit_edit_text"
                 app:layout_constraintTop_toTopOf="@+id/profit_edit_text"
                 tools:textColor="@android:color/black"/>
+
+            <ImageView
+                android:id="@+id/begin_date_image_view"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
+                android:src="@drawable/ic_calendar"
+                app:layout_constraintBottom_toBottomOf="@+id/begin_date_edit_text"
+                app:layout_constraintStart_toEndOf="@+id/begin_date_edit_text"
+                app:layout_constraintTop_toTopOf="@+id/begin_date_edit_text"/>
+
+            <ImageView
+                android:id="@+id/end_date_image_view"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
+                android:src="@drawable/ic_calendar"
+                app:layout_constraintBottom_toBottomOf="@+id/end_date_edit_text"
+                app:layout_constraintStart_toEndOf="@+id/end_date_edit_text"
+                app:layout_constraintTop_toTopOf="@+id/end_date_edit_text"/>
 
         </android.support.constraint.ConstraintLayout>
     </ScrollView>

@@ -72,4 +72,26 @@ public interface WebServices {
             @Field("cost") int cost,
             @Field("salePrice") int salePrice
     );
+
+    @FormUrlEncoded
+    @POST("get_water_quality")
+    Call<GetWaterQualityResponse> getWaterQuality(
+            @Field("pondId") int pondId,
+            @Field("testDate") String testDate
+    );
+
+    @FormUrlEncoded
+    @POST("add_water_quality")
+    Call<AddWaterQualityResponse> addWaterQuality(
+            @Field("pondId") int pondId,
+            @Field("testDate") String testDate,
+            @Field("phMorning") double phMorning,
+            @Field("phEvening") double phEvening,
+            @Field("salty") double salty,
+            @Field("ammonia") double ammonia,
+            @Field("nitrite") double nitrite,
+            @Field("alkaline") double alkaline,
+            @Field("calcium") double calcium,
+            @Field("magnesium") double magnesium
+    );
 }

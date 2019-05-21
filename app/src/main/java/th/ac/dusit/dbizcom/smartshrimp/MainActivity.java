@@ -21,6 +21,7 @@ import th.ac.dusit.dbizcom.smartshrimp.fragment.FormulaSurvivalRateFragment;
 import th.ac.dusit.dbizcom.smartshrimp.fragment.PondInfoFragment;
 import th.ac.dusit.dbizcom.smartshrimp.fragment.ReportFragment;
 import th.ac.dusit.dbizcom.smartshrimp.fragment.SummaryFragment;
+import th.ac.dusit.dbizcom.smartshrimp.fragment.WaterQualityFragment;
 import th.ac.dusit.dbizcom.smartshrimp.model.Feeding;
 
 public class MainActivity extends AppCompatActivity implements
@@ -34,7 +35,8 @@ public class MainActivity extends AppCompatActivity implements
         FormulaAdgFragment.FormulaAdgFragmentListener,
         FormulaSurvivalRateFragment.FormulaSurvivalRateFragmentListener,
         SummaryFragment.SummaryFragmentListener,
-        ReportFragment.ReportFragmentListener {
+        ReportFragment.ReportFragmentListener,
+        WaterQualityFragment.WaterQualityFragmentListener {
 
     public static final String KEY_FRAGMENT = "fragment";
     public static final String TAG_FRAGMENT_FARM_INFO = "farm_info_fragment";
@@ -80,8 +82,7 @@ public class MainActivity extends AppCompatActivity implements
                 fragment = new FeedingRecordFragment();
                 break;
             case TAG_FRAGMENT_WATER_QUALITY:
-                //fragment = new WaterQualityFragment();
-                //titleTextView.setText("คุณภาพน้ำในบ่อเลี้ยง");
+                fragment = new WaterQualityFragment();
                 break;
             case TAG_FRAGMENT_BREED_SOURCE:
                 //fragment = new BreedSourceFragment();
