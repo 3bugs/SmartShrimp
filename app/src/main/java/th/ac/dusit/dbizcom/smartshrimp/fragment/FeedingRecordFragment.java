@@ -160,6 +160,7 @@ public class FeedingRecordFragment extends Fragment {
         if (getContext() != null) {
             FeedingListAdapter adapter = new FeedingListAdapter(
                     getContext(),
+                    mPond,
                     mFeedingList,
                     mListener
             );
@@ -210,17 +211,19 @@ public class FeedingRecordFragment extends Fragment {
 
         void onClickAddFeedingButton(Pond pond);
 
-        void onEditFeeding(Feeding feeding);
+        void onEditFeeding(Pond pond, Feeding feeding);
     }
 
     private static class FeedingListAdapter extends RecyclerView.Adapter<FeedingRecordFragment.FeedingListAdapter.FeedingViewHolder> {
 
         private final Context mContext;
+        private final Pond mPond;
         private final List<Feeding> mFeedingList;
         private final FeedingRecordFragmentListener mListener;
 
-        FeedingListAdapter(Context context, List<Feeding> feedingList, FeedingRecordFragmentListener listener) {
+        FeedingListAdapter(Context context, Pond pond, List<Feeding> feedingList, FeedingRecordFragmentListener listener) {
             mContext = context;
+            mPond = pond;
             mFeedingList = feedingList;
             mListener = listener;
         }
@@ -307,7 +310,7 @@ public class FeedingRecordFragment extends Fragment {
                 itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        mListener.onEditFeeding(mFeeding);
+                        mListener.onEditFeeding(mPond, mFeeding);
                     }
                 });
             }

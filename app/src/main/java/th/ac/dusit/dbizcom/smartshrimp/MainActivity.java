@@ -196,9 +196,9 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void onEditFeeding(Feeding feeding) {
+    public void onEditFeeding(Pond pond, Feeding feeding) {
         loadFragment(
-                AddFeedingRecordFragment.newInstance(null, feeding),
+                AddFeedingRecordFragment.newInstance(pond, feeding),
                 TAG_FRAGMENT_ADD_FEEDING_RECORD,
                 true,
                 FragmentTransitionType.SLIDE

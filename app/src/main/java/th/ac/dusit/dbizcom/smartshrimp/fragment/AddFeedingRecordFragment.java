@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 
@@ -88,6 +89,10 @@ public class AddFeedingRecordFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         mProgressView = view.findViewById(R.id.progress_view);
+
+        TextView pondNumberTextView = view.findViewById(R.id.pond_number_edit_text);
+        pondNumberTextView.setText(String.valueOf(mPond.number));
+        pondNumberTextView.setTextColor(Color.GRAY);
 
         mFirstFeedEditText = view.findViewById(R.id.first_feed_edit_text);
         mSecondFeedEditText = view.findViewById(R.id.second_feed_edit_text);
