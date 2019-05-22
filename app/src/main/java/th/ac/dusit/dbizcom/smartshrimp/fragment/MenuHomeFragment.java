@@ -18,8 +18,8 @@ import static th.ac.dusit.dbizcom.smartshrimp.MainActivity.TAG_FRAGMENT_BREED_SO
 import static th.ac.dusit.dbizcom.smartshrimp.MainActivity.TAG_FRAGMENT_FARM_INFO;
 import static th.ac.dusit.dbizcom.smartshrimp.MainActivity.TAG_FRAGMENT_FEEDING_RECORD_PAGER;
 import static th.ac.dusit.dbizcom.smartshrimp.MainActivity.TAG_FRAGMENT_FORMULA_MAIN;
-import static th.ac.dusit.dbizcom.smartshrimp.MainActivity.TAG_FRAGMENT_REPORT;
-import static th.ac.dusit.dbizcom.smartshrimp.MainActivity.TAG_FRAGMENT_SUMMARY;
+import static th.ac.dusit.dbizcom.smartshrimp.MainActivity.TAG_FRAGMENT_REPORT_PAGER;
+import static th.ac.dusit.dbizcom.smartshrimp.MainActivity.TAG_FRAGMENT_SUMMARY_PAGER;
 import static th.ac.dusit.dbizcom.smartshrimp.MainActivity.TAG_FRAGMENT_WATER_QUALITY;
 
 public class MenuHomeFragment extends Fragment implements View.OnClickListener {
@@ -70,10 +70,10 @@ public class MenuHomeFragment extends Fragment implements View.OnClickListener {
                 fragmentTag = TAG_FRAGMENT_FORMULA_MAIN;
                 break;
             case R.id.summary_image_view:
-                fragmentTag = TAG_FRAGMENT_SUMMARY;
+                fragmentTag = TAG_FRAGMENT_SUMMARY_PAGER;
                 break;
             case R.id.report_image_view:
-                fragmentTag = TAG_FRAGMENT_REPORT;
+                fragmentTag = TAG_FRAGMENT_REPORT_PAGER;
                 break;
         }
         intent.putExtra(KEY_FRAGMENT, fragmentTag);

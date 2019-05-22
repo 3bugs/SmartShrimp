@@ -10,12 +10,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+
 import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import th.ac.dusit.dbizcom.smartshrimp.R;
 import th.ac.dusit.dbizcom.smartshrimp.etc.Utils;
+import th.ac.dusit.dbizcom.smartshrimp.model.Pond;
 import th.ac.dusit.dbizcom.smartshrimp.model.Summary;
 import th.ac.dusit.dbizcom.smartshrimp.net.ApiClient;
 import th.ac.dusit.dbizcom.smartshrimp.net.GetSummaryResponse;
@@ -25,8 +28,10 @@ import th.ac.dusit.dbizcom.smartshrimp.net.WebServices;
 public class ReportFragment extends Fragment {
 
     private static final String TITLE = "รายงานผลข้อมูล";
+    private static final String ARG_POND_JSON = "feeding_json";
 
     private ReportFragmentListener mListener;
+    private Pond mPond;
 
     private View mProgressView;
     private TextView mPondNumberTextView, mFeedTextView, mSizeTextView;
@@ -35,6 +40,23 @@ public class ReportFragment extends Fragment {
 
     public ReportFragment() {
         // Required empty public constructor
+    }
+
+    public static ReportFragment newInstance(Pond pond) {
+        ReportFragment fragment = new ReportFragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_POND_JSON, new Gson().toJson(pond));
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            String pondJson = getArguments().getString(ARG_POND_JSON);
+            mPond = new Gson().fromJson(pondJson, Pond.class);
+        }
     }
 
     @Override
@@ -56,26 +78,17 @@ public class ReportFragment extends Fragment {
         mProfitTextView = view.findViewById(R.id.profit_text_view);
         mErrorMessageTextView = view.findViewById(R.id.error_message_text_view);
 
-        if (mListener != null) {
-            mListener.setupRefreshButton(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    doGetSummary(view);
-                }
-            });
-        }
-
-        doGetSummary(view);
+        doGetSummary();
     }
 
-    private void doGetSummary(final View view) {
+    private void doGetSummary() {
         mProgressView.setVisibility(View.VISIBLE);
         mErrorMessageTextView.setVisibility(View.GONE);
 
         Retrofit retrofit = ApiClient.getClient();
         WebServices services = retrofit.create(WebServices.class);
 
-        Call<GetSummaryResponse> call = services.getSummary(1); //todo: ********
+        Call<GetSummaryResponse> call = services.getSummary(mPond.id); //todo: ********
         call.enqueue(new MyRetrofitCallback<>(
                 getActivity(),
                 null,
@@ -148,6 +161,17 @@ public class ReportFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    public void setupRefreshButton() {
+        if (mListener != null) {
+            mListener.setupRefreshButton(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    doGetSummary();
+                }
+            });
+        }
     }
 
     @Override

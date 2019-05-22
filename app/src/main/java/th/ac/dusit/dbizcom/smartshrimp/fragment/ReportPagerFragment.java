@@ -8,7 +8,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,29 +20,28 @@ import th.ac.dusit.dbizcom.smartshrimp.adapter.PondListPagerAdapter;
 import th.ac.dusit.dbizcom.smartshrimp.etc.Utils;
 import th.ac.dusit.dbizcom.smartshrimp.model.Pond;
 
-public class FeedingRecordPagerFragment extends Fragment {
+public class ReportPagerFragment extends Fragment {
 
-    private static final String TAG = FeedingRecordPagerFragment.class.getName();
-    private static final String TITLE = "บันทึกการให้อาหารกุ้ง";
+    private static final String TAG = ReportPagerFragment.class.getName();
+    private static final String TITLE = "รายงานผลข้อมูล";
 
-    private FeedingRecordPagerFragmentListener mListener;
+    private ReportPagerFragmentListener mListener;
 
     private View mProgressView;
 
-    public FeedingRecordPagerFragment() {
+    public ReportPagerFragment() {
         // Required empty public constructor
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_feeding_record_pager, container, false);
+        return inflater.inflate(R.layout.fragment_report_pager, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Log.i(TAG, "onViewCreated()");
 
         mProgressView = view.findViewById(R.id.progress_view);
 
@@ -61,7 +59,7 @@ public class FeedingRecordPagerFragment extends Fragment {
                             getChildFragmentManager(),
                             getContext(),
                             pondList,
-                            FeedingRecordFragment.class
+                            ReportFragment.class
                     );
                     viewPager.setAdapter(adapter);
                     viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -71,8 +69,8 @@ public class FeedingRecordPagerFragment extends Fragment {
 
                         @Override
                         public void onPageSelected(int position) {
-                            FeedingRecordFragment fragment =
-                                    (FeedingRecordFragment) adapter.getRegisteredFragment(position);
+                            ReportFragment fragment =
+                                    (ReportFragment) adapter.getRegisteredFragment(position);
                             if (fragment != null) {
                                 fragment.setupRefreshButton();
                             }
@@ -109,11 +107,11 @@ public class FeedingRecordPagerFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof FeedingRecordPagerFragmentListener) {
-            mListener = (FeedingRecordPagerFragmentListener) context;
+        if (context instanceof ReportPagerFragmentListener) {
+            mListener = (ReportPagerFragmentListener) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement FeedingRecordPagerFragmentListener");
+                    + " must implement ReportPagerFragmentListener");
         }
     }
 
@@ -132,7 +130,7 @@ public class FeedingRecordPagerFragment extends Fragment {
         }
     }
 
-    public interface FeedingRecordPagerFragmentListener {
+    public interface ReportPagerFragmentListener {
         void setTitle(String title);
     }
 }

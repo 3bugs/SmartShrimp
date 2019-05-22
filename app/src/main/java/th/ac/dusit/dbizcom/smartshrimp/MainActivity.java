@@ -21,6 +21,7 @@ import th.ac.dusit.dbizcom.smartshrimp.fragment.FormulaSizeFragment;
 import th.ac.dusit.dbizcom.smartshrimp.fragment.FormulaSurvivalRateFragment;
 import th.ac.dusit.dbizcom.smartshrimp.fragment.PondInfoFragment;
 import th.ac.dusit.dbizcom.smartshrimp.fragment.ReportFragment;
+import th.ac.dusit.dbizcom.smartshrimp.fragment.ReportPagerFragment;
 import th.ac.dusit.dbizcom.smartshrimp.fragment.SummaryFragment;
 import th.ac.dusit.dbizcom.smartshrimp.fragment.SummaryPagerFragment;
 import th.ac.dusit.dbizcom.smartshrimp.fragment.WaterQualityFragment;
@@ -41,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements
         SummaryFragment.SummaryFragmentListener,
         SummaryPagerFragment.SummaryPagerFragmentListener,
         ReportFragment.ReportFragmentListener,
+        ReportPagerFragment.ReportPagerFragmentListener,
         WaterQualityFragment.WaterQualityFragmentListener {
 
     public static final String KEY_FRAGMENT = "fragment";
@@ -57,7 +59,9 @@ public class MainActivity extends AppCompatActivity implements
     public static final String TAG_FRAGMENT_FORMULA_ADG = "formula_adg_fragment";
     public static final String TAG_FRAGMENT_FORMULA_SURVIVAL_RATE = "formula_survival_rate_fragment";
     public static final String TAG_FRAGMENT_SUMMARY = "summary_fragment";
+    public static final String TAG_FRAGMENT_SUMMARY_PAGER = "summary_pager_fragment";
     public static final String TAG_FRAGMENT_REPORT = "report_fragment";
+    public static final String TAG_FRAGMENT_REPORT_PAGER = "report_pager_fragment";
 
     protected enum FragmentTransitionType {
         NONE,
@@ -97,11 +101,11 @@ public class MainActivity extends AppCompatActivity implements
             case TAG_FRAGMENT_FORMULA_MAIN:
                 fragment = new FormulaMainFragment();
                 break;
-            case TAG_FRAGMENT_SUMMARY:
+            case TAG_FRAGMENT_SUMMARY_PAGER:
                 fragment = new SummaryPagerFragment();
                 break;
-            case TAG_FRAGMENT_REPORT:
-                fragment = new ReportFragment();
+            case TAG_FRAGMENT_REPORT_PAGER:
+                fragment = new ReportPagerFragment();
                 break;
         }
 

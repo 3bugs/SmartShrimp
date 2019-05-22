@@ -27,6 +27,8 @@ public class SummaryPagerFragment extends Fragment {
 
     private SummaryPagerFragmentListener mListener;
 
+    private View mProgressView;
+
     public SummaryPagerFragment() {
         // Required empty public constructor
     }
@@ -41,11 +43,17 @@ public class SummaryPagerFragment extends Fragment {
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        mProgressView = view.findViewById(R.id.progress_view);
+
         if (getActivity() != null) {
+            mProgressView.setVisibility(View.VISIBLE);
+
             App app = (App) getActivity().getApplication();
             app.getPondList(new App.PondListListener() {
                 @Override
                 public void onPondListReady(List<Pond> pondList) {
+                    mProgressView.setVisibility(View.GONE);
+
                     ViewPager viewPager = view.findViewById(R.id.view_pager);
                     final PondListPagerAdapter adapter = new PondListPagerAdapter(
                             getChildFragmentManager(),
@@ -79,6 +87,8 @@ public class SummaryPagerFragment extends Fragment {
 
                 @Override
                 public void onError(String errorMessage) {
+                    mProgressView.setVisibility(View.GONE);
+
                     if (getActivity() != null) {
                         Utils.showOkDialog(getActivity(), "ผิดพลาด", errorMessage, new DialogInterface.OnClickListener() {
                             @Override
