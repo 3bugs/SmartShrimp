@@ -37,7 +37,6 @@ public class FeedingRecordFragment extends Fragment {
     private static final String TAG = FeedingRecordFragment.class.getName();
     private static final String TITLE = "บันทึกการให้อาหารกุ้ง";
     private static final String ARG_POND_JSON = "feeding_json";
-    private static final int TEMP_POND_ID = 9;
 
     private List<Feeding> mFeedingList = null;
     private Pond mPond;

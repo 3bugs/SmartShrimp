@@ -78,7 +78,7 @@ public class PondInfoFragment extends Fragment {
                 @Override
                 public void onError(String errorMessage) {
                     mProgressView.setVisibility(View.GONE);
-                    Utils.showOkDialog(getActivity(), "ผิดพลาด", errorMessage);
+                    Utils.showOkDialog(getActivity(), "ผิดพลาด", errorMessage, null);
                 }
             });
         }
@@ -193,7 +193,7 @@ public class PondInfoFragment extends Fragment {
                                 mPondNumberTextView.getText().toString(),
                                 mPondAreaTextView.getText().toString()
                         );
-                        Utils.showOkDialog(mContext, "ข้อมูลบ่อเลี้ยง", msg);
+                        Utils.showOkDialog(mContext, "ข้อมูลบ่อเลี้ยง", msg, null);
                     }
                 });
             }

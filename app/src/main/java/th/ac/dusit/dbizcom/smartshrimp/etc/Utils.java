@@ -2,6 +2,7 @@ package th.ac.dusit.dbizcom.smartshrimp.etc;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.v7.app.AlertDialog;
@@ -20,11 +21,12 @@ import java.text.DecimalFormat;
 
 public class Utils {
 
-    public static void showOkDialog(Context context, String title, String msg) {
+    public static void showOkDialog(Context context, String title, String msg,
+                                    DialogInterface.OnClickListener listener) {
         AlertDialog alertDialog = new AlertDialog.Builder(context)
                 .setTitle(title)
                 .setMessage(msg)
-                .setPositiveButton("OK", null)
+                .setPositiveButton("OK", listener)
                 .create();
         alertDialog.show();
 

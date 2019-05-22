@@ -228,7 +228,7 @@ public class AddFeedingRecordFragment extends Fragment {
 
                         @Override
                         public void onError(String errorMessage) {
-                            Utils.showOkDialog(getActivity(), "ผิดพลาด", errorMessage);
+                            Utils.showOkDialog(getActivity(), "ผิดพลาด", errorMessage, null);
                         }
                     }
             ));
@@ -255,7 +255,7 @@ public class AddFeedingRecordFragment extends Fragment {
 
                         @Override
                         public void onError(String errorMessage) {
-                            Utils.showOkDialog(getActivity(), "ผิดพลาด", errorMessage);
+                            Utils.showOkDialog(getActivity(), "ผิดพลาด", errorMessage, null);
                         }
                     }
             ));

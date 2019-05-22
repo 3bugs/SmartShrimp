@@ -8,7 +8,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,27 +20,26 @@ import th.ac.dusit.dbizcom.smartshrimp.adapter.PondListPagerAdapter;
 import th.ac.dusit.dbizcom.smartshrimp.etc.Utils;
 import th.ac.dusit.dbizcom.smartshrimp.model.Pond;
 
-public class FeedingRecordPagerFragment extends Fragment {
+public class SummaryPagerFragment extends Fragment {
 
-    private static final String TAG = FeedingRecordPagerFragment.class.getName();
-    private static final String TITLE = "บันทึกการให้อาหารกุ้ง";
+    private static final String TAG = SummaryPagerFragment.class.getName();
+    private static final String TITLE = "สรุปผลการเลี้ยง";
 
-    private FeedingRecordPagerFragmentListener mListener;
+    private SummaryPagerFragmentListener mListener;
 
-    public FeedingRecordPagerFragment() {
+    public SummaryPagerFragment() {
         // Required empty public constructor
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_feeding_record_pager, container, false);
+        return inflater.inflate(R.layout.fragment_summary_pager, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Log.i(TAG, "onViewCreated()");
 
         if (getActivity() != null) {
             App app = (App) getActivity().getApplication();
@@ -53,7 +51,7 @@ public class FeedingRecordPagerFragment extends Fragment {
                             getChildFragmentManager(),
                             getContext(),
                             pondList,
-                            FeedingRecordFragment.class
+                            SummaryFragment.class
                     );
                     viewPager.setAdapter(adapter);
                     viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -63,10 +61,10 @@ public class FeedingRecordPagerFragment extends Fragment {
 
                         @Override
                         public void onPageSelected(int position) {
-                            FeedingRecordFragment fragment =
-                                    (FeedingRecordFragment) adapter.getRegisteredFragment(position);
+                            SummaryFragment fragment =
+                                    (SummaryFragment) adapter.getRegisteredFragment(position);
                             if (fragment != null) {
-                                fragment.setupRefreshButton();
+                                //fragment.setupRefreshButton();
                             }
                         }
 
@@ -99,11 +97,11 @@ public class FeedingRecordPagerFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof FeedingRecordPagerFragmentListener) {
-            mListener = (FeedingRecordPagerFragmentListener) context;
+        if (context instanceof SummaryPagerFragmentListener) {
+            mListener = (SummaryPagerFragmentListener) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement FeedingRecordPagerFragmentListener");
+                    + " must implement SummaryPagerFragmentListener");
         }
     }
 
@@ -122,7 +120,7 @@ public class FeedingRecordPagerFragment extends Fragment {
         }
     }
 
-    public interface FeedingRecordPagerFragmentListener {
+    public interface SummaryPagerFragmentListener {
         void setTitle(String title);
     }
 }

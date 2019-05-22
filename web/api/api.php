@@ -485,10 +485,7 @@ function doGetSummary()
 {
     global $db, $response;
 
-    $pondNumber = $db->real_escape_string($_POST['pondNumber']);
-    if (!isset($_POST['pondNumber'])) {
-        $pondNumber = 1;
-    }
+    $pondId = $db->real_escape_string($_POST['pondId']);
 
     try {
         $response[KEY_ERROR_CODE] = ERROR_CODE_SUCCESS;
@@ -505,11 +502,11 @@ function doGetSummary()
         }
         $result->close();
 
-        $sql = "SELECT * FROM pond WHERE number=$pondNumber";
+        $sql = "SELECT * FROM pond WHERE id=$pondId";
         $result = $db->query($sql);
         $row = $result->fetch_assoc();
         $pondId = (int)$row['id'];
-        $summary['pond_number'] = $pondNumber;
+        $summary['pond_number'] = (int)$row['number'];
         $summary['pond_area'] = (int)$row['area']; //ขนาดบ่อ
         $summary['shrimp_count'] = (int)$row['initial_shrimp_count']; //จำนวนกุ้งที่ปล่อย
         $summary['final_weight'] = (int)$row['final_weight']; //น้ำหนักกุ้งที่จับได้
@@ -555,12 +552,13 @@ function doUpdateSummary()
 {
     global $db, $response;
 
+    $pondId = $db->real_escape_string($_POST['pondId']);
     $finalWeight = $db->real_escape_string($_POST['finalWeight']);
     $cost = $db->real_escape_string($_POST['cost']);
     $salePrice = $db->real_escape_string($_POST['salePrice']);
 
     $sql = "UPDATE `pond` SET `final_weight`=$finalWeight, `cost`=$cost, `sale_price`=$salePrice "
-        . " WHERE `number`=1";
+        . " WHERE `id`=$pondId";
     if ($result = $db->query($sql)) {
         $response[KEY_ERROR_CODE] = ERROR_CODE_SUCCESS;
         $response[KEY_ERROR_MESSAGE] = 'บันทึกข้อมูลสำเร็จ';

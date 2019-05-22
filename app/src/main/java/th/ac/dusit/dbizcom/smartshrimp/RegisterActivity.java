@@ -146,7 +146,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                     @Override
                     public void onError(String errorMessage) { // register ไม่สำเร็จ หรือเกิดข้อผิดพลาดอื่นๆ (เช่น ไม่มีเน็ต, server ล่ม)
-                        Utils.showOkDialog(RegisterActivity.this, "ผิดพลาด", errorMessage);
+                        Utils.showOkDialog(RegisterActivity.this, "ผิดพลาด", errorMessage, null);
                         mRegisterButton.setEnabled(true);
                     }
                 }

@@ -93,13 +93,13 @@ public class FarmInfoFragment extends Fragment {
                             ((EditText) view.findViewById(R.id.farm_reg_id_edit_text)).setText(farmInfo.farmRegId);
                         } else {
                             String msg = "ยังไม่มีข้อมูลฟาร์ม กรุณาใส่ข้อมูลที่ระบบเว็บหลังบ้าน";
-                            Utils.showOkDialog(getActivity(), "Farm Information", msg);
+                            Utils.showOkDialog(getActivity(), "Farm Information", msg, null);
                         }
                     }
 
                     @Override
                     public void onError(String errorMessage) {
-                        Utils.showOkDialog(getActivity(), "ผิดพลาด", errorMessage);
+                        Utils.showOkDialog(getActivity(), "ผิดพลาด", errorMessage, null);
                     }
                 }
         ));

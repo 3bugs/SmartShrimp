@@ -203,12 +203,12 @@ public class WaterQualityFragment extends Fragment {
                 new MyRetrofitCallback.MyRetrofitCallbackListener<AddWaterQualityResponse>() {
                     @Override
                     public void onSuccess(AddWaterQualityResponse responseBody) {
-                        Utils.showOkDialog(getActivity(), "สำเร็จ", responseBody.errorMessage);
+                        Utils.showOkDialog(getActivity(), "สำเร็จ", responseBody.errorMessage, null);
                     }
 
                     @Override
                     public void onError(String errorMessage) {
-                        Utils.showOkDialog(getActivity(), "ผิดพลาด", errorMessage);
+                        Utils.showOkDialog(getActivity(), "ผิดพลาด", errorMessage, null);
                     }
                 }
         ));
@@ -265,7 +265,7 @@ public class WaterQualityFragment extends Fragment {
 
                     @Override
                     public void onError(String errorMessage) {
-                        Utils.showOkDialog(getActivity(), "ผิดพลาด", errorMessage);
+                        Utils.showOkDialog(getActivity(), "ผิดพลาด", errorMessage, null);
                     }
                 }
         ));

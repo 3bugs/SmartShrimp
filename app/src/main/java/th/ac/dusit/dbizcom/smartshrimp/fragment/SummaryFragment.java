@@ -13,6 +13,8 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+
 import java.util.Locale;
 
 import retrofit2.Call;
@@ -20,6 +22,7 @@ import retrofit2.Retrofit;
 import th.ac.dusit.dbizcom.smartshrimp.R;
 import th.ac.dusit.dbizcom.smartshrimp.etc.MyDateFormatter;
 import th.ac.dusit.dbizcom.smartshrimp.etc.Utils;
+import th.ac.dusit.dbizcom.smartshrimp.model.Pond;
 import th.ac.dusit.dbizcom.smartshrimp.model.Summary;
 import th.ac.dusit.dbizcom.smartshrimp.net.ApiClient;
 import th.ac.dusit.dbizcom.smartshrimp.net.GetSummaryResponse;
@@ -30,6 +33,9 @@ import th.ac.dusit.dbizcom.smartshrimp.net.WebServices;
 public class SummaryFragment extends Fragment {
 
     private static final String TITLE = "สรุปผลการเลี้ยง";
+    private static final String ARG_POND_JSON = "feeding_json";
+
+    private Pond mPond;
 
     private SummaryFragmentListener mListener;
 
@@ -41,6 +47,23 @@ public class SummaryFragment extends Fragment {
 
     public SummaryFragment() {
         // Required empty public constructor
+    }
+
+    public static SummaryFragment newInstance(Pond pond) {
+        SummaryFragment fragment = new SummaryFragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_POND_JSON, new Gson().toJson(pond));
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            String pondJson = getArguments().getString(ARG_POND_JSON);
+            mPond = new Gson().fromJson(pondJson, Pond.class);
+        }
     }
 
     @Override
@@ -87,7 +110,7 @@ public class SummaryFragment extends Fragment {
         Retrofit retrofit = ApiClient.getClient();
         WebServices services = retrofit.create(WebServices.class);
 
-        Call<GetSummaryResponse> call = services.getSummary(1); //todo: **************
+        Call<GetSummaryResponse> call = services.getSummary(mPond.id); //todo: **************
         call.enqueue(new MyRetrofitCallback<>(
                 getActivity(),
                 null,
@@ -172,7 +195,7 @@ public class SummaryFragment extends Fragment {
 
                     @Override
                     public void onError(String errorMessage) {
-                        Utils.showOkDialog(getActivity(), "ผิดพลาด", errorMessage);
+                        Utils.showOkDialog(getActivity(), "ผิดพลาด", errorMessage, null);
                     }
                 }
         ));
@@ -228,6 +251,7 @@ public class SummaryFragment extends Fragment {
         WebServices services = retrofit.create(WebServices.class);
 
         Call<UpdateSummaryResponse> call = services.updateSummary(
+                mPond.id,
                 Integer.parseInt(mFinalWeightEditText.getText().toString()),
                 Integer.parseInt(mCostEditText.getText().toString()),
                 Integer.parseInt(mSalePriceEditText.getText().toString())
@@ -246,7 +270,7 @@ public class SummaryFragment extends Fragment {
 
                     @Override
                     public void onError(String errorMessage) {
-                        Utils.showOkDialog(getActivity(), "ผิดพลาด", errorMessage);
+                        Utils.showOkDialog(getActivity(), "ผิดพลาด", errorMessage, null);
                     }
                 })
         );
@@ -269,13 +293,13 @@ public class SummaryFragment extends Fragment {
         mListener = null;
     }
 
-    @Override
+    /*@Override
     public void onResume() {
         super.onResume();
         if (mListener != null) {
             mListener.setTitle(TITLE);
         }
-    }
+    }*/
 
     public interface SummaryFragmentListener {
         void setTitle(String title);

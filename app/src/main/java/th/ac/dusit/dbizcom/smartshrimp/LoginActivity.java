@@ -117,14 +117,14 @@ public class LoginActivity extends AppCompatActivity {
                             // ปิดหน้า login
                             finish();
                         } else { // login ไม่สำเร็จ
-                            Utils.showOkDialog(LoginActivity.this, "เข้าสู่ระบบไม่สำเร็จ", "ชื่อผู้ใช้ หรือรหัสผ่าน ไม่ถูกต้อง");
+                            Utils.showOkDialog(LoginActivity.this, "เข้าสู่ระบบไม่สำเร็จ", "ชื่อผู้ใช้ หรือรหัสผ่าน ไม่ถูกต้อง", null);
                             mLoginButton.setEnabled(true);
                         }
                     }
 
                     @Override
                     public void onError(String errorMessage) { // เกิดข้อผิดพลาด (เช่น ไม่มีเน็ต, server ล่ม)
-                        Utils.showOkDialog(LoginActivity.this, "ผิดพลาด", errorMessage);
+                        Utils.showOkDialog(LoginActivity.this, "ผิดพลาด", errorMessage, null);
                         mLoginButton.setEnabled(true);
                     }
                 }

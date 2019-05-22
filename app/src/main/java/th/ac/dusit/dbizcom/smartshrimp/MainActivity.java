@@ -22,6 +22,7 @@ import th.ac.dusit.dbizcom.smartshrimp.fragment.FormulaSurvivalRateFragment;
 import th.ac.dusit.dbizcom.smartshrimp.fragment.PondInfoFragment;
 import th.ac.dusit.dbizcom.smartshrimp.fragment.ReportFragment;
 import th.ac.dusit.dbizcom.smartshrimp.fragment.SummaryFragment;
+import th.ac.dusit.dbizcom.smartshrimp.fragment.SummaryPagerFragment;
 import th.ac.dusit.dbizcom.smartshrimp.fragment.WaterQualityFragment;
 import th.ac.dusit.dbizcom.smartshrimp.model.Feeding;
 import th.ac.dusit.dbizcom.smartshrimp.model.Pond;
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements
         FormulaAdgFragment.FormulaAdgFragmentListener,
         FormulaSurvivalRateFragment.FormulaSurvivalRateFragmentListener,
         SummaryFragment.SummaryFragmentListener,
+        SummaryPagerFragment.SummaryPagerFragmentListener,
         ReportFragment.ReportFragmentListener,
         WaterQualityFragment.WaterQualityFragmentListener {
 
@@ -96,7 +98,7 @@ public class MainActivity extends AppCompatActivity implements
                 fragment = new FormulaMainFragment();
                 break;
             case TAG_FRAGMENT_SUMMARY:
-                fragment = new SummaryFragment();
+                fragment = new SummaryPagerFragment();
                 break;
             case TAG_FRAGMENT_REPORT:
                 fragment = new ReportFragment();

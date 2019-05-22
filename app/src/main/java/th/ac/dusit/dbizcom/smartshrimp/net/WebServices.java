@@ -62,12 +62,13 @@ public interface WebServices {
     @FormUrlEncoded
     @POST("get_summary")
     Call<GetSummaryResponse> getSummary(
-            @Field("pondNumber") int pondNumber
+            @Field("pondId") int pondId
     );
 
     @FormUrlEncoded
     @POST("update_summary")
     Call<UpdateSummaryResponse> updateSummary(
+            @Field("pondId") int pondId,
             @Field("finalWeight") int finalWeight,
             @Field("cost") int cost,
             @Field("salePrice") int salePrice
