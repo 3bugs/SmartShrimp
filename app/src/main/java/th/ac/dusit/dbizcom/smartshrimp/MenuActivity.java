@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -15,12 +16,16 @@ import android.view.View;
 import android.widget.TextView;
 
 import th.ac.dusit.dbizcom.smartshrimp.etc.MyPrefs;
+import th.ac.dusit.dbizcom.smartshrimp.fragment.MenuAboutFragment;
+import th.ac.dusit.dbizcom.smartshrimp.fragment.MenuDevelopersFragment;
 import th.ac.dusit.dbizcom.smartshrimp.fragment.MenuHomeFragment;
 import th.ac.dusit.dbizcom.smartshrimp.model.User;
 
 public class MenuActivity extends AppCompatActivity implements
         NavigationView.OnNavigationItemSelectedListener,
-        MenuHomeFragment.MenuHomeFragmentListener {
+        MenuHomeFragment.MenuHomeFragmentListener,
+        MenuDevelopersFragment.MenuDevelopersFragmentListener,
+        MenuAboutFragment.MenuAboutFragmentListener {
 
     public static final String TAG_FRAGMENT_MENU_HOME = "menu_home_fragment";
     public static final String TAG_FRAGMENT_MENU_DEVELOPER = "menu_developer_fragment";
@@ -84,6 +89,7 @@ public class MenuActivity extends AppCompatActivity implements
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setCheckedItem(R.id.nav_home);
 
         User user = MyPrefs.getUserPref(this);
         if (user != null) {
@@ -112,14 +118,26 @@ public class MenuActivity extends AppCompatActivity implements
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
 
+        Fragment fragment = null;
+        String tag = null;
+
         if (id == R.id.nav_developer) {
-            // Handle the camera action
+            fragment = new MenuDevelopersFragment();
+            tag = TAG_FRAGMENT_MENU_DEVELOPER;
         } else if (id == R.id.nav_home) {
-
+            fragment = new MenuHomeFragment();
+            tag = TAG_FRAGMENT_MENU_HOME;
         } else if (id == R.id.nav_about) {
-
+            fragment = new MenuAboutFragment();
+            tag = TAG_FRAGMENT_MENU_ABOUT;
         } else if (id == R.id.nav_logout) {
             doLogout();
+        }
+
+        if (fragment != null) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, fragment, TAG_FRAGMENT_MENU_HOME)
+                    .commit();
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);

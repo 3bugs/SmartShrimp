@@ -22,7 +22,7 @@ public class FormulaFcrFragment extends Fragment {
     private FormulaFcrFragmentListener mListener;
 
     private EditText mFeedEditText, mWeightEditText;
-    private TextView mResultTextView;
+    private TextView mResultTextView, mLevelTextView;
 
     public FormulaFcrFragment() {
         // Required empty public constructor
@@ -45,6 +45,7 @@ public class FormulaFcrFragment extends Fragment {
                     mFeedEditText.setText("");
                     mWeightEditText.setText("");
                     mResultTextView.setText("");
+                    mLevelTextView.setText("");
                     mFeedEditText.requestFocus();
                 }
             });
@@ -53,15 +54,24 @@ public class FormulaFcrFragment extends Fragment {
         mFeedEditText = view.findViewById(R.id.feed_edit_text);
         mWeightEditText = view.findViewById(R.id.weight_edit_text);
         mResultTextView = view.findViewById(R.id.result_text_view);
+        mLevelTextView = view.findViewById(R.id.level_text_view);
 
         view.findViewById(R.id.calculate_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (isFormValid()) {
+                    mLevelTextView.setText("");
+
                     double feed = Double.parseDouble(mFeedEditText.getText().toString().trim());
                     double weight = Double.parseDouble(mWeightEditText.getText().toString().trim());
                     double result = feed / weight;
                     mResultTextView.setText(String.format(Locale.getDefault(), "%.2f", result));
+
+                    if (result >= 1 && result <= 1.5) {
+                        mLevelTextView.setText("อยู่ในเกณฑ์: ดี");
+                    } else {
+                        //todo:
+                    }
                 }
             }
         });

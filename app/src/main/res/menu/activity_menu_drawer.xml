@@ -6,13 +6,13 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_developer"
-            android:icon="@drawable/ic_menu_developer"
-            android:title="ข้อมูลผู้พัฒนา"/>
-        <item
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_menu_home"
             android:title="เมนูหลัก"/>
+        <item
+            android:id="@+id/nav_developer"
+            android:icon="@drawable/ic_menu_developer"
+            android:title="ข้อมูลผู้พัฒนา"/>
         <item
             android:id="@+id/nav_about"
             android:icon="@drawable/ic_menu_about"
