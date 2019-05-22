@@ -1,7 +1,7 @@
 package th.ac.dusit.dbizcom.smartshrimp.net;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.util.Log;
 import android.view.View;
 
@@ -14,16 +14,16 @@ public class MyRetrofitCallback<T extends BaseResponse> implements Callback<T> {
     private static final String TAG = MyRetrofitCallback.class.getName();
     private static final String NETWORK_ERROR_MESSAGE = "เกิดข้อผิดพลาดในการเชื่อมต่อเครือข่าย";
 
-    private Activity mActivity;
+    private Context mContext;
     private ProgressDialog mProgressDialog;
     private View mProgressView;
     private MyRetrofitCallbackListener<T> mListener;
 
-    public MyRetrofitCallback(Activity activity,
+    public MyRetrofitCallback(Context context,
                               ProgressDialog progressDialog,
                               View progressView,
                               MyRetrofitCallbackListener<T> listener) {
-        this.mActivity = activity;
+        this.mContext = context;
         this.mProgressDialog = progressDialog;
         this.mProgressView = progressView;
         mListener = listener;

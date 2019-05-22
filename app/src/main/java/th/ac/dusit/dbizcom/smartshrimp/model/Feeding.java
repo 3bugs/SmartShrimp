@@ -35,17 +35,15 @@ public class Feeding {
         this.thirdFeed = thirdFeed;
     }
 
-    public void parseFeedDate() {
+    public Date getFeedDate() {
+        Date date = null;
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         try {
-            mFeedDate = format.parse(feedDate);
+            date = format.parse(feedDate);
         } catch (ParseException e) {
             e.printStackTrace();
         }
-    }
-
-    public Date getFeedDate() {
-        return mFeedDate;
+        return date;
     }
 
     public void calculateDayTotal() {

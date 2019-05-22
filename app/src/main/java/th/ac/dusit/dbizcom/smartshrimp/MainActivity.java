@@ -13,6 +13,7 @@ import th.ac.dusit.dbizcom.smartshrimp.etc.Utils;
 import th.ac.dusit.dbizcom.smartshrimp.fragment.AddFeedingRecordFragment;
 import th.ac.dusit.dbizcom.smartshrimp.fragment.FarmInfoFragment;
 import th.ac.dusit.dbizcom.smartshrimp.fragment.FeedingRecordFragment;
+import th.ac.dusit.dbizcom.smartshrimp.fragment.FeedingRecordPagerFragment;
 import th.ac.dusit.dbizcom.smartshrimp.fragment.FormulaAdgFragment;
 import th.ac.dusit.dbizcom.smartshrimp.fragment.FormulaFcrFragment;
 import th.ac.dusit.dbizcom.smartshrimp.fragment.FormulaMainFragment;
@@ -23,11 +24,13 @@ import th.ac.dusit.dbizcom.smartshrimp.fragment.ReportFragment;
 import th.ac.dusit.dbizcom.smartshrimp.fragment.SummaryFragment;
 import th.ac.dusit.dbizcom.smartshrimp.fragment.WaterQualityFragment;
 import th.ac.dusit.dbizcom.smartshrimp.model.Feeding;
+import th.ac.dusit.dbizcom.smartshrimp.model.Pond;
 
 public class MainActivity extends AppCompatActivity implements
         FarmInfoFragment.FarmInfoFragmentListener,
         PondInfoFragment.PondInfoFragmentListener,
         FeedingRecordFragment.FeedingRecordFragmentListener,
+        FeedingRecordPagerFragment.FeedingRecordPagerFragmentListener,
         AddFeedingRecordFragment.AddFeedingRecordFragmentListener,
         FormulaMainFragment.FormulaMainFragmentListener,
         FormulaFcrFragment.FormulaFcrFragmentListener,
@@ -42,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements
     public static final String TAG_FRAGMENT_FARM_INFO = "farm_info_fragment";
     private static final String TAG_FRAGMENT_POND_INFO = "pond_info_fragment";
     public static final String TAG_FRAGMENT_FEEDING_RECORD = "feeding_record_fragment";
+    public static final String TAG_FRAGMENT_FEEDING_RECORD_PAGER = "feeding_record_pager_fragment";
     private static final String TAG_FRAGMENT_ADD_FEEDING_RECORD = "add_feeding_record_fragment";
     public static final String TAG_FRAGMENT_WATER_QUALITY = "water_quality_fragment";
     public static final String TAG_FRAGMENT_BREED_SOURCE = "breed_source_fragment";
@@ -78,8 +82,8 @@ public class MainActivity extends AppCompatActivity implements
             case TAG_FRAGMENT_FARM_INFO:
                 fragment = new FarmInfoFragment();
                 break;
-            case TAG_FRAGMENT_FEEDING_RECORD:
-                fragment = new FeedingRecordFragment();
+            case TAG_FRAGMENT_FEEDING_RECORD_PAGER:
+                fragment = new FeedingRecordPagerFragment();
                 break;
             case TAG_FRAGMENT_WATER_QUALITY:
                 fragment = new WaterQualityFragment();
@@ -176,9 +180,9 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void onClickAddFeedingButton(int pondId) {
+    public void onClickAddFeedingButton(Pond pond) {
         loadFragment(
-                AddFeedingRecordFragment.newInstance(pondId, null),
+                AddFeedingRecordFragment.newInstance(pond, null),
                 TAG_FRAGMENT_ADD_FEEDING_RECORD,
                 true,
                 FragmentTransitionType.SLIDE
@@ -188,7 +192,7 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public void onEditFeeding(Feeding feeding) {
         loadFragment(
-                AddFeedingRecordFragment.newInstance(-1, feeding),
+                AddFeedingRecordFragment.newInstance(null, feeding),
                 TAG_FRAGMENT_ADD_FEEDING_RECORD,
                 true,
                 FragmentTransitionType.SLIDE

@@ -9,11 +9,14 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.google.gson.Gson;
 
 import java.util.List;
 import java.util.Locale;
@@ -22,8 +25,8 @@ import java.util.concurrent.TimeUnit;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import th.ac.dusit.dbizcom.smartshrimp.R;
-import th.ac.dusit.dbizcom.smartshrimp.etc.Utils;
 import th.ac.dusit.dbizcom.smartshrimp.model.Feeding;
+import th.ac.dusit.dbizcom.smartshrimp.model.Pond;
 import th.ac.dusit.dbizcom.smartshrimp.net.ApiClient;
 import th.ac.dusit.dbizcom.smartshrimp.net.GetFeedingResponse;
 import th.ac.dusit.dbizcom.smartshrimp.net.MyRetrofitCallback;
@@ -31,23 +34,46 @@ import th.ac.dusit.dbizcom.smartshrimp.net.WebServices;
 
 public class FeedingRecordFragment extends Fragment {
 
+    private static final String TAG = FeedingRecordFragment.class.getName();
     private static final String TITLE = "บันทึกการให้อาหารกุ้ง";
+    private static final String ARG_POND_JSON = "feeding_json";
     private static final int TEMP_POND_ID = 9;
 
     private List<Feeding> mFeedingList = null;
+    private Pond mPond;
 
     private FeedingRecordFragmentListener mListener;
 
     private View mProgressView;
+    private TextView mErrorMessageTextView;
     private RecyclerView mFeedingRecyclerView;
 
     public FeedingRecordFragment() {
         // Required empty public constructor
     }
 
+    public static FeedingRecordFragment newInstance(Pond pond) {
+        FeedingRecordFragment fragment = new FeedingRecordFragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_POND_JSON, new Gson().toJson(pond));
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            String pondJson = getArguments().getString(ARG_POND_JSON);
+            mPond = new Gson().fromJson(pondJson, Pond.class);
+            Log.i(TAG, "onCreate(): บ่อ " + mPond.number);
+        }
+    }
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.i(TAG, "onCreateView(): บ่อ " + mPond.number);
         return inflater.inflate(R.layout.fragment_feeding_record, container, false);
     }
 
@@ -56,41 +82,35 @@ public class FeedingRecordFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         mProgressView = view.findViewById(R.id.progress_view);
+        mErrorMessageTextView = view.findViewById(R.id.error_message_text_view);
         mFeedingRecyclerView = view.findViewById(R.id.feeding_recycler_view);
         view.findViewById(R.id.add_feeding_fab).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (mListener != null) {
-                    mListener.onClickAddFeedingButton(TEMP_POND_ID); //todo: *****
+                    mListener.onClickAddFeedingButton(mPond); //todo: *****
                 }
             }
         });
 
-        if (mListener != null) {
-            mListener.setupRefreshButton(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    doGetFeeding();
-                }
-            });
-        }
-
-        if (mFeedingList == null) {
+        /*if (mFeedingList == null) {
             doGetFeeding();
         } else {
-            setupRecyclerView();
-        }
+            showResult();
+        }*/
+        doGetFeeding();
     }
 
     public void doGetFeeding() {
         if (mProgressView != null) {
             mProgressView.setVisibility(View.VISIBLE);
         }
+        mErrorMessageTextView.setVisibility(View.GONE);
 
         Retrofit retrofit = ApiClient.getClient();
         WebServices services = retrofit.create(WebServices.class);
 
-        Call<GetFeedingResponse> call = services.getFeedingByPond(TEMP_POND_ID); //todo: *****
+        Call<GetFeedingResponse> call = services.getFeedingByPond(mPond.id); //todo: *****
         call.enqueue(new MyRetrofitCallback<>(
                 getActivity(),
                 null,
@@ -101,14 +121,13 @@ public class FeedingRecordFragment extends Fragment {
                         mFeedingList = responseBody.feedingList;
 
                         for (Feeding feeding : mFeedingList) {
-                            feeding.parseFeedDate();
                             feeding.calculateDayTotal();
                         }
                         for (Feeding feeding : mFeedingList) {
                             calculateTotalForFeeding(feeding);
                         }
 
-                        setupRecyclerView();
+                        showResult();
                     }
 
                     private void calculateTotalForFeeding(Feeding feeding) {
@@ -121,10 +140,21 @@ public class FeedingRecordFragment extends Fragment {
 
                     @Override
                     public void onError(String errorMessage) {
-                        Utils.showOkDialog(getActivity(), "ผิดพลาด", errorMessage);
+                        //Utils.showOkDialog(getActivity(), "ผิดพลาด", errorMessage);
+                        mErrorMessageTextView.setText(errorMessage);
+                        mErrorMessageTextView.setVisibility(View.VISIBLE);
                     }
                 }
         ));
+    }
+
+    private void showResult() {
+        if (mFeedingList.size() > 0) {
+            setupRecyclerView();
+        } else {
+            mErrorMessageTextView.setText("ไม่มีข้อมูล");
+            mErrorMessageTextView.setVisibility(View.VISIBLE);
+        }
     }
 
     private void setupRecyclerView() {
@@ -157,20 +187,29 @@ public class FeedingRecordFragment extends Fragment {
         mListener = null;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
+    public void setupRefreshButton() {
         if (mListener != null) {
-            mListener.setTitle(TITLE);
+            mListener.setupRefreshButton(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    doGetFeeding();
+                }
+            });
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.i(TAG, "onResume(): บ่อ " + mPond.number);
+    }
+
     public interface FeedingRecordFragmentListener {
-        void setTitle(String title);
+        //void setTitle(String title);
 
         void setupRefreshButton(View.OnClickListener listener);
 
-        void onClickAddFeedingButton(int pondId);
+        void onClickAddFeedingButton(Pond pond);
 
         void onEditFeeding(Feeding feeding);
     }

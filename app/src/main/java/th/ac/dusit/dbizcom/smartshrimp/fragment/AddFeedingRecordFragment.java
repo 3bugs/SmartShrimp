@@ -26,6 +26,7 @@ import th.ac.dusit.dbizcom.smartshrimp.R;
 import th.ac.dusit.dbizcom.smartshrimp.etc.MyDateFormatter;
 import th.ac.dusit.dbizcom.smartshrimp.etc.Utils;
 import th.ac.dusit.dbizcom.smartshrimp.model.Feeding;
+import th.ac.dusit.dbizcom.smartshrimp.model.Pond;
 import th.ac.dusit.dbizcom.smartshrimp.net.AddFeedingResponse;
 import th.ac.dusit.dbizcom.smartshrimp.net.ApiClient;
 import th.ac.dusit.dbizcom.smartshrimp.net.MyRetrofitCallback;
@@ -35,10 +36,10 @@ import th.ac.dusit.dbizcom.smartshrimp.net.WebServices;
 public class AddFeedingRecordFragment extends Fragment {
 
     private static final String TITLE = "บันทึกการให้อาหารกุ้ง";
-    private static final String ARG_POND_ID = "pond_id";
+    private static final String ARG_POND_JSON = "pond_id";
     private static final String ARG_FEEDING_JSON = "feeding_json";
 
-    private int mPondId;
+    private Pond mPond;
     private Feeding mFeeding;
     private Calendar mCalendar = Calendar.getInstance();
 
@@ -52,10 +53,10 @@ public class AddFeedingRecordFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static AddFeedingRecordFragment newInstance(int pondId, Feeding feeding) {
+    public static AddFeedingRecordFragment newInstance(Pond pond, Feeding feeding) {
         AddFeedingRecordFragment fragment = new AddFeedingRecordFragment();
         Bundle args = new Bundle();
-        args.putInt(ARG_POND_ID, pondId);
+        args.putString(ARG_POND_JSON, new Gson().toJson(pond));
         args.putString(ARG_FEEDING_JSON, new Gson().toJson(feeding));
         fragment.setArguments(args);
         return fragment;
@@ -65,7 +66,8 @@ public class AddFeedingRecordFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mPondId = getArguments().getInt(ARG_POND_ID);
+            String pondJson = getArguments().getString(ARG_POND_JSON);
+            mPond = new Gson().fromJson(pondJson, Pond.class);
             String feedingJson = getArguments().getString(ARG_FEEDING_JSON);
             mFeeding = new Gson().fromJson(feedingJson, Feeding.class);
         }
@@ -232,7 +234,7 @@ public class AddFeedingRecordFragment extends Fragment {
             ));
         } else {
             Call<AddFeedingResponse> call = services.addFeeding(
-                    mPondId,
+                    mPond.id,
                     getFormatFeedDateForMysql(),
                     firstFeed.isEmpty() ? 0 : Integer.parseInt(firstFeed),
                     secondFeed.isEmpty() ? 0 : Integer.parseInt(secondFeed),

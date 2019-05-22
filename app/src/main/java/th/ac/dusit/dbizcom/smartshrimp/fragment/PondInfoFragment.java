@@ -15,15 +15,10 @@ import android.widget.TextView;
 import java.util.List;
 import java.util.Locale;
 
-import retrofit2.Call;
-import retrofit2.Retrofit;
+import th.ac.dusit.dbizcom.smartshrimp.App;
 import th.ac.dusit.dbizcom.smartshrimp.R;
 import th.ac.dusit.dbizcom.smartshrimp.etc.Utils;
 import th.ac.dusit.dbizcom.smartshrimp.model.Pond;
-import th.ac.dusit.dbizcom.smartshrimp.net.ApiClient;
-import th.ac.dusit.dbizcom.smartshrimp.net.GetPondResponse;
-import th.ac.dusit.dbizcom.smartshrimp.net.MyRetrofitCallback;
-import th.ac.dusit.dbizcom.smartshrimp.net.WebServices;
 
 public class PondInfoFragment extends Fragment {
 
@@ -66,7 +61,29 @@ public class PondInfoFragment extends Fragment {
     private void doGetPond() {
         mProgressView.setVisibility(View.VISIBLE);
 
-        Retrofit retrofit = ApiClient.getClient();
+        if (getActivity() != null) {
+            App app = (App) getActivity().getApplication();
+            app.getPondList(new App.PondListListener() {
+                @Override
+                public void onPondListReady(List<Pond> pondList) {
+                    mProgressView.setVisibility(View.GONE);
+                    PondListAdapter adapter = new PondListAdapter(
+                            getContext(),
+                            pondList
+                    );
+                    mPondRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                    mPondRecyclerView.setAdapter(adapter);
+                }
+
+                @Override
+                public void onError(String errorMessage) {
+                    mProgressView.setVisibility(View.GONE);
+                    Utils.showOkDialog(getActivity(), "ผิดพลาด", errorMessage);
+                }
+            });
+        }
+
+        /*Retrofit retrofit = ApiClient.getClient();
         WebServices services = retrofit.create(WebServices.class);
 
         Call<GetPondResponse> call = services.getPond();
@@ -91,7 +108,7 @@ public class PondInfoFragment extends Fragment {
                         Utils.showOkDialog(getActivity(), "ผิดพลาด", errorMessage);
                     }
                 }
-        ));
+        ));*/
     }
 
     @Override
