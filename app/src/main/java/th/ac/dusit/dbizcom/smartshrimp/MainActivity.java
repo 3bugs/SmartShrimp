@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import th.ac.dusit.dbizcom.smartshrimp.etc.Utils;
 import th.ac.dusit.dbizcom.smartshrimp.fragment.AddFeedingRecordFragment;
+import th.ac.dusit.dbizcom.smartshrimp.fragment.BreedSourceFragment;
 import th.ac.dusit.dbizcom.smartshrimp.fragment.FarmInfoFragment;
 import th.ac.dusit.dbizcom.smartshrimp.fragment.FeedingRecordFragment;
 import th.ac.dusit.dbizcom.smartshrimp.fragment.FeedingRecordPagerFragment;
@@ -43,7 +44,8 @@ public class MainActivity extends AppCompatActivity implements
         SummaryPagerFragment.SummaryPagerFragmentListener,
         ReportFragment.ReportFragmentListener,
         ReportPagerFragment.ReportPagerFragmentListener,
-        WaterQualityFragment.WaterQualityFragmentListener {
+        WaterQualityFragment.WaterQualityFragmentListener,
+        BreedSourceFragment.BreedSourceFragmentListener {
 
     public static final String KEY_FRAGMENT = "fragment";
     public static final String TAG_FRAGMENT_FARM_INFO = "farm_info_fragment";
@@ -95,8 +97,7 @@ public class MainActivity extends AppCompatActivity implements
                 fragment = new WaterQualityFragment();
                 break;
             case TAG_FRAGMENT_BREED_SOURCE:
-                //fragment = new BreedSourceFragment();
-                //titleTextView.setText("แหล่งพันธุ์ลูกกุ้ง");
+                fragment = new BreedSourceFragment();
                 break;
             case TAG_FRAGMENT_FORMULA_MAIN:
                 fragment = new FormulaMainFragment();
