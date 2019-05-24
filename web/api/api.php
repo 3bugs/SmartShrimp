@@ -79,6 +79,9 @@ switch ($action) {
     case 'add_water_quality':
         doAddWaterQuality();
         break;
+    case 'get_hatchery':
+        doGetHatchery();
+        break;
     default:
         $response[KEY_ERROR_CODE] = ERROR_CODE_ERROR;
         $response[KEY_ERROR_MESSAGE] = 'No action specified or invalid action.';
@@ -655,6 +658,42 @@ function doAddWaterQuality()
     } else {
         $response[KEY_ERROR_CODE] = ERROR_CODE_ERROR;
         $response[KEY_ERROR_MESSAGE] = 'เกิดข้อผิดพลาดในการบันทึกข้อมูลคุณภาพน้ำ';
+        $errMessage = $db->error;
+        $response[KEY_ERROR_MESSAGE_MORE] = "$errMessage\nSQL: $sql";
+    }
+}
+
+function doGetHatchery()
+{
+    global $db, $response;
+
+    $sql = "SELECT * FROM `hatchery`";
+    if ($result = $db->query($sql)) {
+        $response[KEY_ERROR_CODE] = ERROR_CODE_SUCCESS;
+        $response[KEY_ERROR_MESSAGE] = 'อ่านข้อมูลแหล่งพันธุ์ลูกกุ้งสำเร็จ';
+        $response[KEY_ERROR_MESSAGE_MORE] = '';
+
+        $hatcheryList = array();
+        while ($row = $result->fetch_assoc()) {
+            $hatchery = array();
+            $hatchery['id'] = (int)$row['id'];
+            $hatchery['name'] = $row['name'];
+            $hatchery['address'] = $row['address'];
+            $hatchery['sub_district'] = $row['sub_district'];
+            $hatchery['district'] = $row['district'];
+            $hatchery['province'] = $row['province'];
+            $hatchery['postal_code'] = $row['postal_code'];
+            $hatchery['owner'] = $row['owner'];
+            $hatchery['fmd_no'] = $row['fmd_no'];
+            $hatchery['created_at'] = $row['created_at'];
+
+            array_push($hatcheryList, $hatchery);
+        }
+        $response[KEY_DATA_LIST] = $hatcheryList;
+        $result->close();
+    } else {
+        $response[KEY_ERROR_CODE] = ERROR_CODE_ERROR;
+        $response[KEY_ERROR_MESSAGE] = 'เกิดข้อผิดพลาดในการอ่านข้อมูลแหล่งพันธุ์ลูกกุ้ง';
         $errMessage = $db->error;
         $response[KEY_ERROR_MESSAGE_MORE] = "$errMessage\nSQL: $sql";
     }

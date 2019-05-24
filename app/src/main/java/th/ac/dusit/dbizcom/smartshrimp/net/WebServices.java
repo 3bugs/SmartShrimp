@@ -95,4 +95,8 @@ public interface WebServices {
             @Field("calcium") double calcium,
             @Field("magnesium") double magnesium
     );
+
+    @GET("get_hatchery")
+    Call<GetHatcheryResponse> getHatchery(
+    );
 }

@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import th.ac.dusit.dbizcom.smartshrimp.etc.Utils;
 import th.ac.dusit.dbizcom.smartshrimp.fragment.AddFeedingRecordFragment;
-import th.ac.dusit.dbizcom.smartshrimp.fragment.BreedSourceFragment;
 import th.ac.dusit.dbizcom.smartshrimp.fragment.FarmInfoFragment;
 import th.ac.dusit.dbizcom.smartshrimp.fragment.FeedingRecordFragment;
 import th.ac.dusit.dbizcom.smartshrimp.fragment.FeedingRecordPagerFragment;
@@ -20,6 +19,8 @@ import th.ac.dusit.dbizcom.smartshrimp.fragment.FormulaFcrFragment;
 import th.ac.dusit.dbizcom.smartshrimp.fragment.FormulaMainFragment;
 import th.ac.dusit.dbizcom.smartshrimp.fragment.FormulaSizeFragment;
 import th.ac.dusit.dbizcom.smartshrimp.fragment.FormulaSurvivalRateFragment;
+import th.ac.dusit.dbizcom.smartshrimp.fragment.HatcheryFragment;
+import th.ac.dusit.dbizcom.smartshrimp.fragment.HatcheryPagerFragment;
 import th.ac.dusit.dbizcom.smartshrimp.fragment.PondInfoFragment;
 import th.ac.dusit.dbizcom.smartshrimp.fragment.ReportFragment;
 import th.ac.dusit.dbizcom.smartshrimp.fragment.ReportPagerFragment;
@@ -45,7 +46,8 @@ public class MainActivity extends AppCompatActivity implements
         ReportFragment.ReportFragmentListener,
         ReportPagerFragment.ReportPagerFragmentListener,
         WaterQualityFragment.WaterQualityFragmentListener,
-        BreedSourceFragment.BreedSourceFragmentListener {
+        HatcheryFragment.HatcheryFragmentListener,
+        HatcheryPagerFragment.HatcheryPagerFragmentListener {
 
     public static final String KEY_FRAGMENT = "fragment";
     public static final String TAG_FRAGMENT_FARM_INFO = "farm_info_fragment";
@@ -54,7 +56,8 @@ public class MainActivity extends AppCompatActivity implements
     public static final String TAG_FRAGMENT_FEEDING_RECORD_PAGER = "feeding_record_pager_fragment";
     private static final String TAG_FRAGMENT_ADD_FEEDING_RECORD = "add_feeding_record_fragment";
     public static final String TAG_FRAGMENT_WATER_QUALITY = "water_quality_fragment";
-    public static final String TAG_FRAGMENT_BREED_SOURCE = "breed_source_fragment";
+    public static final String TAG_FRAGMENT_HATCHERY = "hathery_fragment";
+    public static final String TAG_FRAGMENT_HATCHERY_PAGER = "hathery_pager_fragment";
     public static final String TAG_FRAGMENT_FORMULA_MAIN = "formula_main_fragment";
     public static final String TAG_FRAGMENT_FORMULA_FCR = "formula_fcr_fragment";
     public static final String TAG_FRAGMENT_FORMULA_SIZE = "formula_size_fragment";
@@ -96,8 +99,8 @@ public class MainActivity extends AppCompatActivity implements
             case TAG_FRAGMENT_WATER_QUALITY:
                 fragment = new WaterQualityFragment();
                 break;
-            case TAG_FRAGMENT_BREED_SOURCE:
-                fragment = new BreedSourceFragment();
+            case TAG_FRAGMENT_HATCHERY_PAGER:
+                fragment = new HatcheryPagerFragment();
                 break;
             case TAG_FRAGMENT_FORMULA_MAIN:
                 fragment = new FormulaMainFragment();
