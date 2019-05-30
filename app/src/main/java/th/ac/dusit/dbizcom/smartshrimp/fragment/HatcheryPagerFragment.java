@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,13 +46,17 @@ public class HatcheryPagerFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        Log.i(TAG, "HatcheryPagerFragment.onViewCreated()");
 
         mProgressView = view.findViewById(R.id.progress_view);
 
         view.findViewById(R.id.add_hatchery_fab).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Utils.showShortToast(getActivity(), "Under construction!");
+                //Utils.showShortToast(getActivity(), "Under construction!");
+                if (mListener != null) {
+                    mListener.onClickAddHatcheryButton();
+                }
             }
         });
 
@@ -159,5 +164,7 @@ public class HatcheryPagerFragment extends Fragment {
         void setTitle(String title);
 
         void setupRefreshButton(View.OnClickListener listener);
+
+        void onClickAddHatcheryButton();
     }
 }

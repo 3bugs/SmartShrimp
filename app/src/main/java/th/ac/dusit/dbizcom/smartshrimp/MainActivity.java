@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import th.ac.dusit.dbizcom.smartshrimp.etc.Utils;
 import th.ac.dusit.dbizcom.smartshrimp.fragment.AddFeedingRecordFragment;
+import th.ac.dusit.dbizcom.smartshrimp.fragment.AddHatcheryFragment;
 import th.ac.dusit.dbizcom.smartshrimp.fragment.FarmInfoFragment;
 import th.ac.dusit.dbizcom.smartshrimp.fragment.FeedingRecordFragment;
 import th.ac.dusit.dbizcom.smartshrimp.fragment.FeedingRecordPagerFragment;
@@ -28,6 +29,7 @@ import th.ac.dusit.dbizcom.smartshrimp.fragment.SummaryFragment;
 import th.ac.dusit.dbizcom.smartshrimp.fragment.SummaryPagerFragment;
 import th.ac.dusit.dbizcom.smartshrimp.fragment.WaterQualityFragment;
 import th.ac.dusit.dbizcom.smartshrimp.model.Feeding;
+import th.ac.dusit.dbizcom.smartshrimp.model.Hatchery;
 import th.ac.dusit.dbizcom.smartshrimp.model.Pond;
 
 public class MainActivity extends AppCompatActivity implements
@@ -47,7 +49,8 @@ public class MainActivity extends AppCompatActivity implements
         ReportPagerFragment.ReportPagerFragmentListener,
         WaterQualityFragment.WaterQualityFragmentListener,
         HatcheryFragment.HatcheryFragmentListener,
-        HatcheryPagerFragment.HatcheryPagerFragmentListener {
+        HatcheryPagerFragment.HatcheryPagerFragmentListener,
+        AddHatcheryFragment.AddHatcheryFragmentListener {
 
     public static final String KEY_FRAGMENT = "fragment";
     public static final String TAG_FRAGMENT_FARM_INFO = "farm_info_fragment";
@@ -58,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements
     public static final String TAG_FRAGMENT_WATER_QUALITY = "water_quality_fragment";
     public static final String TAG_FRAGMENT_HATCHERY = "hathery_fragment";
     public static final String TAG_FRAGMENT_HATCHERY_PAGER = "hathery_pager_fragment";
+    public static final String TAG_FRAGMENT_ADD_HATCHERY = "hathery_add_pager";
     public static final String TAG_FRAGMENT_FORMULA_MAIN = "formula_main_fragment";
     public static final String TAG_FRAGMENT_FORMULA_FCR = "formula_fcr_fragment";
     public static final String TAG_FRAGMENT_FORMULA_SIZE = "formula_size_fragment";
@@ -167,6 +171,31 @@ public class MainActivity extends AppCompatActivity implements
         ImageView refreshImageView = findViewById(R.id.refresh_image_view);
         refreshImageView.setVisibility(listener != null ? View.VISIBLE : View.GONE);
         refreshImageView.setOnClickListener(listener);
+    }
+
+    @Override
+    public void onSaveHatcherySuccess() {
+        popBackStack();
+    }
+
+    @Override
+    public void onClickAddHatcheryButton() {
+        loadFragment(
+                AddHatcheryFragment.newInstance(null),
+                TAG_FRAGMENT_ADD_HATCHERY,
+                true,
+                FragmentTransitionType.SLIDE
+        );
+    }
+
+    @Override
+    public void onClickEditHatcheryButton(Hatchery hatchery) {
+        loadFragment(
+                AddHatcheryFragment.newInstance(hatchery),
+                TAG_FRAGMENT_ADD_HATCHERY,
+                true,
+                FragmentTransitionType.SLIDE
+        );
     }
 
     @Override

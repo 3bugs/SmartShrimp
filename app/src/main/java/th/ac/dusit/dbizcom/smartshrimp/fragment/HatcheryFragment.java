@@ -5,9 +5,11 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 
 import com.google.gson.Gson;
@@ -17,6 +19,7 @@ import th.ac.dusit.dbizcom.smartshrimp.model.Hatchery;
 
 public class HatcheryFragment extends Fragment {
 
+    private static final String TAG = HatcheryFragment.class.getName();
     private static final String TITLE = "แหล่งพันธุ์ลูกกุ้ง";
     private static final String ARG_HATCHERY_JSON = "hatchery_json";
 
@@ -56,6 +59,7 @@ public class HatcheryFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        Log.i(TAG, "HatcheryFragment.onViewCreated()");
 
         mProgressView = view.findViewById(R.id.progress_view);
 
@@ -63,14 +67,48 @@ public class HatcheryFragment extends Fragment {
             //mListener.setupRefreshButton(null);
         }
 
-        ((EditText) view.findViewById(R.id.hatchery_name_edit_text)).setText(mHatchery.name);
-        ((EditText) view.findViewById(R.id.address_edit_text)).setText(mHatchery.address);
-        ((EditText) view.findViewById(R.id.sub_district_edit_text)).setText(mHatchery.subDistrict);
-        ((EditText) view.findViewById(R.id.district_edit_text)).setText(mHatchery.district);
-        ((EditText) view.findViewById(R.id.province_edit_text)).setText(mHatchery.province);
-        ((EditText) view.findViewById(R.id.postal_code_edit_text)).setText(mHatchery.postalCode);
-        ((EditText) view.findViewById(R.id.owner_edit_text)).setText(mHatchery.owner);
-        ((EditText) view.findViewById(R.id.fmd_no_edit_text)).setText(mHatchery.fmdNo);
+        Button editButton = view.findViewById(R.id.edit_save_button);
+        editButton.setText("แก้ไขข้อมูล");
+        editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mListener != null) {
+                    mListener.onClickEditHatcheryButton(mHatchery);
+                }
+            }
+        });
+
+        EditText hatcheryNameEditText = view.findViewById(R.id.hatchery_name_edit_text);
+        hatcheryNameEditText.setText(mHatchery.name);
+        hatcheryNameEditText.setKeyListener(null);
+
+        EditText addressEditText = view.findViewById(R.id.address_edit_text);
+        addressEditText.setText(mHatchery.address);
+        addressEditText.setKeyListener(null);
+
+        EditText subDistrictEditText = view.findViewById(R.id.sub_district_edit_text);
+        subDistrictEditText.setText(mHatchery.subDistrict);
+        subDistrictEditText.setKeyListener(null);
+
+        EditText districtEditText = view.findViewById(R.id.district_edit_text);
+        districtEditText.setText(mHatchery.district);
+        districtEditText.setKeyListener(null);
+
+        EditText provinceEditText = view.findViewById(R.id.province_edit_text);
+        provinceEditText.setText(mHatchery.province);
+        provinceEditText.setKeyListener(null);
+
+        EditText postalCodeEditText = view.findViewById(R.id.postal_code_edit_text);
+        postalCodeEditText.setText(mHatchery.postalCode);
+        postalCodeEditText.setKeyListener(null);
+
+        EditText ownerEditText = view.findViewById(R.id.owner_edit_text);
+        ownerEditText.setText(mHatchery.owner);
+        ownerEditText.setKeyListener(null);
+
+        EditText fmdNoEditText = view.findViewById(R.id.fmd_no_edit_text);
+        fmdNoEditText.setText(mHatchery.fmdNo);
+        fmdNoEditText.setKeyListener(null);
     }
 
     @Override
@@ -102,5 +140,7 @@ public class HatcheryFragment extends Fragment {
         void setTitle(String title);
 
         void setupRefreshButton(View.OnClickListener listener);
+
+        void onClickEditHatcheryButton(Hatchery hatchery);
     }
 }

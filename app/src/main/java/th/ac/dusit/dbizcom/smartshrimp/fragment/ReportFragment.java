@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -17,6 +18,7 @@ import java.util.Locale;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import th.ac.dusit.dbizcom.smartshrimp.R;
+import th.ac.dusit.dbizcom.smartshrimp.adapter.SpinnerWithHintArrayAdapter;
 import th.ac.dusit.dbizcom.smartshrimp.etc.Utils;
 import th.ac.dusit.dbizcom.smartshrimp.model.Pond;
 import th.ac.dusit.dbizcom.smartshrimp.model.Summary;
@@ -79,6 +81,16 @@ public class ReportFragment extends Fragment {
         mErrorMessageTextView = view.findViewById(R.id.error_message_text_view);
 
         doGetSummary();
+
+        Spinner cycleSpinner = view.findViewById(R.id.cycle_spinner);
+
+        final SpinnerWithHintArrayAdapter<String> adapter = new SpinnerWithHintArrayAdapter<>(
+                getActivity(),
+                R.layout.item_cycle,
+                new String[]{"01/05/62 - ปัจจุบัน", "01/03/62 - 31/05/62", "01/01/62 - 31/03/62", "-- เลือกรอบการเลี้ยง --"}
+        );
+        adapter.setDropDownViewResource(R.layout.item_cycle_drop_down);
+        cycleSpinner.setAdapter(adapter);
     }
 
     private void doGetSummary() {
@@ -119,8 +131,8 @@ public class ReportFragment extends Fragment {
 
                             double shrimpCount = summary.shrimpCount;
                             double finalWeight = summary.finalWeight;
-                            double size = shrimpCount / finalWeight;
-                            String sizeText = Utils.formatNumber2DecimalDigitsWithComma(size)
+                            int size = (int) (shrimpCount / finalWeight);
+                            String sizeText = size //Utils.formatNumber2DecimalDigitsWithComma(size)
                                     + " ตัว/กก.";
                             mSizeTextView.setText(sizeText);
 

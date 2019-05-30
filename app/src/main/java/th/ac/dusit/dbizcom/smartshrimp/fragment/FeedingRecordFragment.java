@@ -14,6 +14,7 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -25,6 +26,7 @@ import java.util.concurrent.TimeUnit;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import th.ac.dusit.dbizcom.smartshrimp.R;
+import th.ac.dusit.dbizcom.smartshrimp.adapter.SpinnerWithHintArrayAdapter;
 import th.ac.dusit.dbizcom.smartshrimp.model.Feeding;
 import th.ac.dusit.dbizcom.smartshrimp.model.Pond;
 import th.ac.dusit.dbizcom.smartshrimp.net.ApiClient;
@@ -98,6 +100,16 @@ public class FeedingRecordFragment extends Fragment {
             showResult();
         }*/
         doGetFeeding();
+
+        Spinner cycleSpinner = view.findViewById(R.id.cycle_spinner);
+
+        final SpinnerWithHintArrayAdapter<String> adapter = new SpinnerWithHintArrayAdapter<>(
+                getActivity(),
+                R.layout.item_cycle,
+                new String[]{"01/05/62 - ปัจจุบัน", "01/03/62 - 31/05/62", "01/01/62 - 31/03/62", "-- เลือกรอบการเลี้ยง --"}
+        );
+        adapter.setDropDownViewResource(R.layout.item_cycle_drop_down);
+        cycleSpinner.setAdapter(adapter);
     }
 
     public void doGetFeeding() {

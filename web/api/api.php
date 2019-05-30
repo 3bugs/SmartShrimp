@@ -82,6 +82,12 @@ switch ($action) {
     case 'get_hatchery':
         doGetHatchery();
         break;
+    case 'add_hatchery':
+        doAddHatchery();
+        break;
+    case 'update_hatchery':
+        doUpdateHatchery();
+        break;
     default:
         $response[KEY_ERROR_CODE] = ERROR_CODE_ERROR;
         $response[KEY_ERROR_MESSAGE] = 'No action specified or invalid action.';
@@ -694,6 +700,62 @@ function doGetHatchery()
     } else {
         $response[KEY_ERROR_CODE] = ERROR_CODE_ERROR;
         $response[KEY_ERROR_MESSAGE] = 'เกิดข้อผิดพลาดในการอ่านข้อมูลแหล่งพันธุ์ลูกกุ้ง';
+        $errMessage = $db->error;
+        $response[KEY_ERROR_MESSAGE_MORE] = "$errMessage\nSQL: $sql";
+    }
+}
+
+function doAddHatchery()
+{
+    global $db, $response;
+
+    $hatcheryName = $db->real_escape_string($_POST['name']);
+    $address = $db->real_escape_string($_POST['address']);
+    $subDistrict = $db->real_escape_string($_POST['sub_district']);
+    $district = $db->real_escape_string($_POST['district']);
+    $province = $db->real_escape_string($_POST['province']);
+    $postalCode = $db->real_escape_string($_POST['postal_code']);
+    $owner = $db->real_escape_string($_POST['owner']);
+    $fmdNo = $db->real_escape_string($_POST['fmd_no']);
+
+    $sql = "INSERT INTO `hatchery` (`name`, `address`, `sub_district`, `district`, `province`, `postal_code`, `owner`, `fmd_no`) "
+        . " VALUES ('$hatcheryName', '$address', '$subDistrict', '$district', '$province', '$postalCode', '$owner', '$fmdNo') ";
+    if ($result = $db->query($sql)) {
+        $response[KEY_ERROR_CODE] = ERROR_CODE_SUCCESS;
+        $response[KEY_ERROR_MESSAGE] = 'บันทึกข้อมูลสำเร็จ';
+        $response[KEY_ERROR_MESSAGE_MORE] = '';
+    } else {
+        $response[KEY_ERROR_CODE] = ERROR_CODE_ERROR;
+        $response[KEY_ERROR_MESSAGE] = 'เกิดข้อผิดพลาดในการบันทึกข้อมูล';
+        $errMessage = $db->error;
+        $response[KEY_ERROR_MESSAGE_MORE] = "$errMessage\nSQL: $sql";
+    }
+}
+
+function doUpdateHatchery()
+{
+    global $db, $response;
+
+    $hatcheryId = $db->real_escape_string($_POST['hatchery_id']);
+    $hatcheryName = $db->real_escape_string($_POST['name']);
+    $address = $db->real_escape_string($_POST['address']);
+    $subDistrict = $db->real_escape_string($_POST['sub_district']);
+    $district = $db->real_escape_string($_POST['district']);
+    $province = $db->real_escape_string($_POST['province']);
+    $postalCode = $db->real_escape_string($_POST['postal_code']);
+    $owner = $db->real_escape_string($_POST['owner']);
+    $fmdNo = $db->real_escape_string($_POST['fmd_no']);
+
+    $sql = "UPDATE `hatchery` SET `name`='$hatcheryName', `address`='$address', `sub_district`='$subDistrict', `district`='$district', "
+        . " `province`='$province', `postal_code`='$postalCode', `owner`='$owner', `fmd_no`='$fmdNo' "
+        . " WHERE `id`=$hatcheryId";
+    if ($result = $db->query($sql)) {
+        $response[KEY_ERROR_CODE] = ERROR_CODE_SUCCESS;
+        $response[KEY_ERROR_MESSAGE] = 'บันทึกข้อมูลสำเร็จ';
+        $response[KEY_ERROR_MESSAGE_MORE] = '';
+    } else {
+        $response[KEY_ERROR_CODE] = ERROR_CODE_ERROR;
+        $response[KEY_ERROR_MESSAGE] = 'เกิดข้อผิดพลาดในการบันทึกข้อมูล';
         $errMessage = $db->error;
         $response[KEY_ERROR_MESSAGE_MORE] = "$errMessage\nSQL: $sql";
     }

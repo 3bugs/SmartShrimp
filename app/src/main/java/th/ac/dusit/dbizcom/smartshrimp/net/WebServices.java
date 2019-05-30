@@ -99,4 +99,31 @@ public interface WebServices {
     @GET("get_hatchery")
     Call<GetHatcheryResponse> getHatchery(
     );
+
+    @FormUrlEncoded
+    @POST("add_hatchery")
+    Call<AddHatcheryResponse> addHatchery(
+            @Field("name") String name,
+            @Field("address") String address,
+            @Field("sub_district") String subDistrict,
+            @Field("district") String district,
+            @Field("province") String province,
+            @Field("postal_code") String postalCode,
+            @Field("owner") String owner,
+            @Field("fmd_no") String fmdNo
+    );
+
+    @FormUrlEncoded
+    @POST("update_hatchery")
+    Call<UpdateHatcheryResponse> updateHatchery(
+            @Field("hatchery_id") int id,
+            @Field("name") String name,
+            @Field("address") String address,
+            @Field("sub_district") String subDistrict,
+            @Field("district") String district,
+            @Field("province") String province,
+            @Field("postal_code") String postalCode,
+            @Field("owner") String owner,
+            @Field("fmd_no") String fmdNo
+    );
 }

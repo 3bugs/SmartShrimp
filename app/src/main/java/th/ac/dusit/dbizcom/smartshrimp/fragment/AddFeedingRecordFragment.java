@@ -146,8 +146,6 @@ public class AddFeedingRecordFragment extends Fragment {
             public void onClick(View view) {
                 if (isFormValid()) {
                     doSaveFeedingRecord();
-                } else {
-
                 }
             }
         });
