@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="smart_shrimp@localhost">
-  <database-model serializer="dbm" rdbms="MYSQL" format-version="4.9">
+  <database-model serializer="dbm" dbms="MARIADB" family-id="MARIADB" format-version="4.17">
     <root id="1">
       <ServerVersion>10.1.9</ServerVersion>
-      <RdbmsFlavour>MariaDB</RdbmsFlavour>
       <DefaultEngine>InnoDB</DefaultEngine>
       <DefaultCasing>lower/lower</DefaultCasing>
     </root>
@@ -63,7 +62,6 @@
     </schema>
     <schema id="20" parent="1" name="smart_shrimp">
       <Current>1</Current>
-      <Visible>1</Visible>
       <Collation>utf8_general_ci</Collation>
     </schema>
     <schema id="21" parent="1" name="smm">

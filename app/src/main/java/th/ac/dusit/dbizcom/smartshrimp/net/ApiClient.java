@@ -17,10 +17,10 @@ public class ApiClient {
     private static Retrofit retrofit = null;
 
     public static Retrofit getClient() {
-        final OkHttpClient okHttpClient = new OkHttpClient.Builder()
+        /*final OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .readTimeout(10, TimeUnit.SECONDS)
                 .connectTimeout(10, TimeUnit.SECONDS)
-                .build();
+                .build();*/
 
         if (retrofit == null) {
             Gson gson = new GsonBuilder()
@@ -31,7 +31,7 @@ public class ApiClient {
                     .baseUrl(BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     //.addConverterFactory(ScalarsConverterFactory.create())
-                    .client(okHttpClient)
+                    //.client(okHttpClient)
                     .build();
         }
         return retrofit;

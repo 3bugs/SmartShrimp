@@ -10,6 +10,11 @@
                 </a>
             </li>
             <li>
+                <a href="cycle.php">
+                    <i class="fa fa-retweet"></i> <span>รอบการเลี้ยง</span>
+                </a>
+            </li>
+            <li>
                 <a href="#">
                     <i class="fa fa-bug"></i> <span>แหล่งพันธุ์ลูกกุ้ง</span>
                 </a>
