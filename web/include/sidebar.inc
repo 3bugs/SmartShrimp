@@ -15,7 +15,7 @@
                 </a>
             </li>
             <li>
-                <a href="#">
+                <a href="hatchery.php">
                     <i class="fa fa-bug"></i> <span>แหล่งพันธุ์ลูกกุ้ง</span>
                 </a>
             </li>
@@ -99,6 +99,7 @@
         // Add this code in a central place used\shared by all pages
         // like your _Layout.cshtml in ASP.NET MVC for example
         const url = (location.pathname + location.search).substr(1);
+        console.log("URL:" + url);
         $('a[href="' + url + '"]').parents('li,ul').addClass('active');
         //alert(url);
     });
