@@ -36,8 +36,8 @@ header('Pragma: no-cache');
                 ?>
                 <div style="text-align: center">
                     <div style="height: 60px"></div>
-                    <img src="images/ic_splash.png" width="300px">
-                    <div style="margin-top: -50px; color: white">
+                    <img src="images/ic_logo.png" width="350px">
+                    <div style="margin-top: 0px; color: white">
                         <h1>SMART SHRIMP</h1>
                     </div>
                 </div>
@@ -125,8 +125,8 @@ header('Pragma: no-cache');
             } else {
                 ?>
                 <div style="text-align: center">
-                    <img src="images/ic_splash.png" width="300px">
-                    <div style="font-size: 60px; text-align: center; margin-top: 0px">
+                    <img src="images/ic_logo.png" width="350px">
+                    <div style="font-size: 60px; text-align: center; margin-top: 20px">
                         ยินดีต้อนรับ <?php echo $_SESSION[KEY_SESSION_USER_USERNAME]; ?></div>
                 </div>
                 <?php

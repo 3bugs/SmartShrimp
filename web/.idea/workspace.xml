@@ -2,13 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="400ad1e9-3ace-4749-a423-ddfa7c2f1fcf" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/hatchery.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/include/foot_php.inc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/include/head_php.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/ic_logo.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/api.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/farm_info.php" beforeDir="false" afterPath="$PROJECT_DIR$/farm_info.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/sidebar.inc" beforeDir="false" afterPath="$PROJECT_DIR$/include/sidebar.inc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,11 +66,12 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="com.intellij.database.dataSource.DataSourceTemplate" value="MariaDB" />
     <property name="database.console.LAST_STATE" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/include" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/images" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -87,9 +84,9 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/images" />
       <recent name="$PROJECT_DIR$/include" />
       <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/images" />
       <recent name="C:\Users\Promlert\AndroidStudioProjects\_StudentProjects\SmartShrimp\app\web\db" />
       <recent name="C:\Users\Promlert\AndroidStudioProjects\_StudentProjects\SmartShrimp\app\web" />
     </key>
@@ -156,7 +153,8 @@
       <workItem from="1566200902567" duration="51000" />
       <workItem from="1566722366194" duration="754000" />
       <workItem from="1575260542657" duration="3295000" />
-      <workItem from="1576552639897" duration="11242000" />
+      <workItem from="1576552639897" duration="11339000" />
+      <workItem from="1579688128422" duration="486000" />
     </task>
     <servers />
   </component>
